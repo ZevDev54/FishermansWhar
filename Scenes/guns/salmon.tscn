@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfr0y8npg88sk"]
+
+[ext_resource type="Texture2D" uid="uid://dbrsrgc6afomt" path="res://Sprites/FishHandless/SalmonNoHands.png" id="1_1qqx5"]
+[ext_resource type="Script" path="res://Scenes/guns/salmon.gd" id="1_4mur2"]
+[ext_resource type="Texture2D" uid="uid://cm43uwsvl7m44" path="res://Sprites/FishHands/Salmon.png" id="2_p4vvo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqc8f"]
+radius = 7.0
+height = 28.0
+
+[node name="Salmon" type="RigidBody2D"]
+script = ExtResource("1_4mur2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_dqc8f")
+
+[node name="GFX" type="Node2D" parent="."]
+
+[node name="GFXScale" type="Node2D" parent="GFX"]
+scale = Vector2(0.1, 0.1)
+
+[node name="SalmonNoHands" type="Sprite2D" parent="GFX/GFXScale"]
+texture = ExtResource("1_1qqx5")
+
+[node name="Salmon" type="Sprite2D" parent="GFX/GFXScale"]
+visible = false
+texture = ExtResource("2_p4vvo")

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmd2tsnu13ek7"]
+[gd_scene load_steps=7 format=3 uid="uid://bmd2tsnu13ek7"]
 
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_4l2co"]
 [ext_resource type="Texture2D" uid="uid://c66t65okabata" path="res://Sprites/Fisherman/Fisherman (Team Color).png" id="1_yt7gj"]
 [ext_resource type="Texture2D" uid="uid://de72se02xuxy" path="res://Sprites/Fisherman/Fisherman.png" id="2_fx58q"]
+[ext_resource type="Texture2D" uid="uid://cm43uwsvl7m44" path="res://Sprites/FishHands/Salmon.png" id="4_g424d"]
+[ext_resource type="Script" path="res://Scenes/PlayerWeapon.gd" id="4_t7f0h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q71ts"]
 radius = 12.0
@@ -26,3 +28,17 @@ texture = ExtResource("1_yt7gj")
 [node name="Fisherman" type="Sprite2D" parent="Graphics/GraphicsScale"]
 position = Vector2(18, 28)
 texture = ExtResource("2_fx58q")
+
+[node name="Weapon" type="Node2D" parent="."]
+script = ExtResource("4_t7f0h")
+
+[node name="ActualWeapon" type="Node2D" parent="Weapon"]
+
+[node name="GFX" type="Node2D" parent="Weapon/ActualWeapon"]
+position = Vector2(17, 0)
+
+[node name="GFXScale" type="Node2D" parent="Weapon/ActualWeapon/GFX"]
+scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/ActualWeapon/GFX/GFXScale"]
+texture = ExtResource("4_g424d")

@@ -8,6 +8,8 @@ var input_velocity = Vector2.ZERO;
 
 var input;
 
+@onready var weapon = $Weapon;
+
 func init(player_num: int, device: int):
 	player_index = player_num
 	
@@ -18,13 +20,18 @@ func init(player_num: int, device: int):
 	# var device = PlayerManager.get_player_device(player)
 	input = DeviceInput.new(device)
 	
+	
 	# $Player.text = "%s" % player_num
 
+func _ready():
+	weapon.input = input;
 func _physics_process(delta):
-	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var x = input.get_axis("move_left", "move_right")
+	var y = input.get_axis("move_up", "move_down")
 
 
-	global_position += move * speed * delta;
+
+	global_position += Vector2(x,y) * speed * delta;
 
 	move_and_slide();
 	
