@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmd2tsnu13ek7"]
+
+[ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_4l2co"]
+[ext_resource type="Texture2D" uid="uid://c66t65okabata" path="res://Sprites/Fisherman/Fisherman (Team Color).png" id="1_yt7gj"]
+[ext_resource type="Texture2D" uid="uid://de72se02xuxy" path="res://Sprites/Fisherman/Fisherman.png" id="2_fx58q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q71ts"]
+radius = 12.0
+
+[node name="Fisherman" type="CharacterBody2D"]
+script = ExtResource("1_4l2co")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q71ts")
+
+[node name="Graphics" type="Node2D" parent="."]
+position = Vector2(-2, -5)
+
+[node name="GraphicsScale" type="Node2D" parent="Graphics"]
+scale = Vector2(0.1, 0.1)
+
+[node name="Fisherman(teamColor)" type="Sprite2D" parent="Graphics/GraphicsScale"]
+position = Vector2(18, 28)
+texture = ExtResource("1_yt7gj")
+
+[node name="Fisherman" type="Sprite2D" parent="Graphics/GraphicsScale"]
+position = Vector2(18, 28)
+texture = ExtResource("2_fx58q")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy1v8qv6rfib2"]
+
+[ext_resource type="PackedScene" uid="uid://bmd2tsnu13ek7" path="res://Scenes/Fisherman.tscn" id="1_15o7r"]
+[ext_resource type="Script" path="res://Scenes/player_joining.gd" id="2_f0085"]
+[ext_resource type="Script" path="res://demo/player_manager.gd" id="3_wwm17"]
+
+[node name="World" type="Node2D"]
+
+[node name="PlayerJoining" type="Node" parent="."]
+script = ExtResource("2_f0085")
+player_scene = ExtResource("1_15o7r")
+
+[node name="PlayerManager" type="Node" parent="PlayerJoining"]
+script = ExtResource("3_wwm17")
