@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
+Singletons="*res://Scripts/singletons.gd"
 
 [editor_plugins]
 
@@ -86,3 +87,14 @@ drop={
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+shoot={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":5,"axis_value":1.0,"script":null)
+]
+}
+
+[layer_names]
+
+2d_physics/layer_1="default"
+2d_physics/layer_2="guns"
+2d_physics/layer_3="damagers"

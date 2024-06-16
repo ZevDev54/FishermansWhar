@@ -43,3 +43,5 @@ input_pickable = false
 [node name="PickupCollision" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource("CircleShape2D_jotal")
 debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
+
+[node name="PlayerDamageable" type="Node2D" parent="."]

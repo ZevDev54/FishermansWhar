@@ -22,24 +22,11 @@ func _process(delta):
 func weapon_update_loop():
 	var aim_x = input.get_axis("aim_left", "aim_right")
 	var aim_y = input.get_axis("aim_up", "aim_down")
-	
-	var aim_vec = Vector2(aim_x, aim_y);
+	weapon.aim_loop(aim_x, aim_y)
 
-	if (aim_vec):
-		#Rotate weapon
-		var aim_rotation = atan2(aim_vec.y, aim_vec.x)
-		weapon.global_rotation = aim_rotation;
+	if(input.is_action_just_pressed("shoot")):
+		weapon.shoot();
 
-		#degrees = lerp(degrees, atan2(aim_vec.x, aim_vec.y), rotateSpeed * delta)
-		#weapon.global_rotation = degrees - 90;
-
-		# set weapon flipped or not
-		var aim_rotation_degrees = rad_to_deg(aim_rotation) + 180
-		# print(aim_rotation_degrees)
-		if (aim_rotation_degrees > 90&&aim_rotation_degrees < 270):
-			weapon.gfx.toggle_flipped(false)
-		else:
-			weapon.gfx.toggle_flipped(true)
 
 #pickup weapon
 func set_weapon(set):
@@ -70,4 +57,4 @@ func weapon_pickup_loop():
 
 		
 
-		
+

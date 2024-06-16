@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8lktjk7xd8cp"]
+
+[ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="1_5qfxu"]
+[ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_hgnwm"]
+[ext_resource type="Texture2D" uid="uid://biigokq5ppljg" path="res://Sprites/Bullets/BulletOutline.png" id="2_ri1xp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6c2n4"]
+radius = 4.0
+
+[node name="projectile" type="RigidBody2D"]
+collision_layer = 4
+gravity_scale = 0.0
+continuous_cd = 1
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_hgnwm")
+
+[node name="BulletCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6c2n4")
+
+[node name="GFX" type="Node2D" parent="."]
+
+[node name="GFXScale" type="Node2D" parent="GFX"]
+scale = Vector2(0.1, 0.1)
+
+[node name="fill" type="Sprite2D" parent="GFX/GFXScale"]
+texture = ExtResource("1_5qfxu")
+
+[node name="outline" type="Sprite2D" parent="GFX/GFXScale"]
+texture = ExtResource("2_ri1xp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
