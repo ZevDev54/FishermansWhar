@@ -1,4 +1,5 @@
 extends Node2D
+class_name PlayerWeapon;
 
 @export var pickup_area : Area2D;
 
@@ -24,8 +25,9 @@ func weapon_update_loop():
 	var aim_y = input.get_axis("aim_up", "aim_down")
 	weapon.aim_loop(aim_x, aim_y)
 
-	if(input.is_action_just_pressed("shoot")):
-		weapon.shoot();
+	# if(input.is_action_just_pressed("shoot")):
+	# 	weapon.shoot();
+	weapon.trigger_input = input.is_action_pressed("shoot");
 
 
 #pickup weapon
@@ -37,7 +39,8 @@ func set_weapon(set):
 #drop weapon
 func drop_weapon():
 	print("drop weapon called")
-	weapon.drop();
+	if(weapon):
+		weapon.drop();
 	weapon = null;
 
 func weapon_pickup_loop():
@@ -52,6 +55,7 @@ func weapon_pickup_loop():
 
 		for body in bodies:
 			if(body is FishWeapon):
+				drop_weapon();
 				set_weapon(body as FishWeapon)
 				print("Pickup weapon")
 

@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://j4a4x4nt27m2"]
+
+[ext_resource type="PackedScene" uid="uid://dy1v8qv6rfib2" path="res://Scenes/main.tscn" id="1_v3bfn"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v3bfn")]

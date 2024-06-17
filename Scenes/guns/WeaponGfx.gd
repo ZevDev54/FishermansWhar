@@ -1,7 +1,7 @@
 class_name WeaponGfx;
 extends Node2D
 
-@export var gfx_root : Node2D;
+@export var flip_scaler : Node2D;
 @export var hands_sprite : Sprite2D;
 @export var nohands_sprite : Sprite2D;
 
@@ -21,4 +21,4 @@ func toggle_hands(toggle):
 	nohands_sprite.visible = !toggle;
 
 func toggle_flipped(toggle):
-	gfx_root.scale.y =  (-1 if toggle else 1);
+	flip_scaler.scale.y =  (-1 if toggle else 1);

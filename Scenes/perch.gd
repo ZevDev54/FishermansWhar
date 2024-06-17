@@ -4,6 +4,8 @@ extends FishWeapon
 @export var animation : AnimationPlayer;
 var shoot_timer = 0.0;
 
+var trigger_press;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# print("is fishweapon? ",str(self is FishWeapon))	
@@ -17,11 +19,22 @@ func _process(delta):
 	if(shoot_timer > 0):
 		shoot_timer -= delta;
 	
+	process_shooting();
 
-func trigger_held():
-	if(shoot_timer <= 0):
+	trigger_press = trigger_input;
+
+	
+	
+func process_shooting():
+	if(trigger_input && !trigger_press):
 		shoot();
 		shoot_timer = shoot_rate;
+		trigger_press = true;
+
+func trigger_held():
+	 
+	if(shoot_timer <= 0 && !trigger_press):
+		pass
 
 func shoot():
 	projectile_shoot();
