@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dy1v8qv6rfib2"]
+[gd_scene load_steps=15 format=3 uid="uid://dy1v8qv6rfib2"]
 
 [ext_resource type="PackedScene" uid="uid://bmd2tsnu13ek7" path="res://Scenes/Fisherman.tscn" id="1_15o7r"]
 [ext_resource type="Script" path="res://Scenes/player_joining.gd" id="2_f0085"]
@@ -6,6 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="4_uldyd"]
 [ext_resource type="Script" path="res://Scripts/singletons.gd" id="5_34jy2"]
 [ext_resource type="Script" path="res://Scripts/ProjectileManager.gd" id="6_dekwi"]
+[ext_resource type="PackedScene" uid="uid://8vp2oxwy362n" path="res://Scenes/perch.tscn" id="7_aedjd"]
+[ext_resource type="Texture2D" uid="uid://dfjcs5ocibk1c" path="res://Sprites/levels/docks/Water.png" id="8_k35p4"]
+[ext_resource type="Texture2D" uid="uid://cnewufp64oaq2" path="res://Sprites/levels/docks/Post bottom.png" id="9_ue1g1"]
+[ext_resource type="Texture2D" uid="uid://b0rneqrery5bq" path="res://Sprites/levels/docks/DockSimplified.png" id="10_o5oq7"]
+[ext_resource type="Texture2D" uid="uid://cdt4k3h5jlr7b" path="res://Sprites/levels/docks/FishingBoat.png" id="11_iaaea"]
+[ext_resource type="Texture2D" uid="uid://dyejqlwbfkfhj" path="res://Sprites/levels/docks/Post top.png" id="12_atnrr"]
+[ext_resource type="Texture2D" uid="uid://00us50aqroe2" path="res://Sprites/levels/docks/Small Boat Highlights.png" id="13_xejb4"]
+[ext_resource type="Texture2D" uid="uid://dtxeacrg0103e" path="res://Sprites/levels/docks/Small Boat.png" id="14_k6ngi"]
 
 [node name="World" type="Node2D"]
 
@@ -16,12 +24,106 @@ player_scene = ExtResource("1_15o7r")
 [node name="PlayerManager" type="Node" parent="PlayerJoining"]
 script = ExtResource("3_wwm17")
 
-[node name="Salmon" parent="." instance=ExtResource("4_uldyd")]
-position = Vector2(490, 243)
-
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("5_34jy2")
 
 [node name="BulletsParent" type="Node2D" parent="GameManager" node_paths=PackedStringArray("projectile_parent")]
 script = ExtResource("6_dekwi")
 projectile_parent = NodePath(".")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(429, 237)
+zoom = Vector2(1.29, 1.29)
+
+[node name="Salmon" parent="." instance=ExtResource("4_uldyd")]
+position = Vector2(512, 248)
+
+[node name="Salmon2" parent="." instance=ExtResource("4_uldyd")]
+position = Vector2(125, 355)
+
+[node name="Perch" parent="." instance=ExtResource("7_aedjd")]
+position = Vector2(289, 301)
+
+[node name="Water" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(435.5, 255.5)
+scale = Vector2(4.25847, 2.51271)
+texture = ExtResource("8_k35p4")
+
+[node name="PostBottom" type="Sprite2D" parent="."]
+position = Vector2(58, 451)
+scale = Vector2(0.179244, 0.179244)
+texture = ExtResource("9_ue1g1")
+
+[node name="PostBottom2" type="Sprite2D" parent="."]
+position = Vector2(281, 458)
+scale = Vector2(0.179244, 0.179244)
+texture = ExtResource("9_ue1g1")
+
+[node name="PostBottom3" type="Sprite2D" parent="."]
+position = Vector2(373, 446)
+scale = Vector2(0.179244, 0.179244)
+texture = ExtResource("9_ue1g1")
+
+[node name="PostBottom4" type="Sprite2D" parent="."]
+position = Vector2(463, 446)
+scale = Vector2(0.179244, 0.179244)
+texture = ExtResource("9_ue1g1")
+
+[node name="PostBottom5" type="Sprite2D" parent="."]
+position = Vector2(745, 453)
+scale = Vector2(0.179244, 0.179244)
+texture = ExtResource("9_ue1g1")
+
+[node name="DockSimplified" type="Sprite2D" parent="."]
+position = Vector2(402, 313)
+texture = ExtResource("10_o5oq7")
+
+[node name="DockSimplified2" type="Sprite2D" parent="."]
+position = Vector2(641, 316)
+texture = ExtResource("10_o5oq7")
+
+[node name="DockSimplified3" type="Sprite2D" parent="."]
+position = Vector2(169, 321)
+texture = ExtResource("10_o5oq7")
+
+[node name="FishingBoat" type="Sprite2D" parent="."]
+position = Vector2(607, 69)
+scale = Vector2(0.17215, 0.17215)
+texture = ExtResource("11_iaaea")
+
+[node name="PostTop" type="Sprite2D" parent="."]
+position = Vector2(59, 420)
+scale = Vector2(0.167024, 0.167024)
+texture = ExtResource("12_atnrr")
+
+[node name="PostTop2" type="Sprite2D" parent="."]
+position = Vector2(283, 419)
+scale = Vector2(0.167024, 0.167024)
+texture = ExtResource("12_atnrr")
+
+[node name="PostTop3" type="Sprite2D" parent="."]
+position = Vector2(377, 418)
+scale = Vector2(0.167024, 0.167024)
+texture = ExtResource("12_atnrr")
+
+[node name="PostTop4" type="Sprite2D" parent="."]
+position = Vector2(463, 419)
+scale = Vector2(0.167024, 0.167024)
+texture = ExtResource("12_atnrr")
+
+[node name="PostTop5" type="Sprite2D" parent="."]
+position = Vector2(745, 418)
+scale = Vector2(0.167024, 0.167024)
+texture = ExtResource("12_atnrr")
+
+[node name="SmallBoatHighlights" type="Sprite2D" parent="."]
+modulate = Color(0.290196, 0.227451, 1, 1)
+position = Vector2(215, 501)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("13_xejb4")
+
+[node name="SmallBoat" type="Sprite2D" parent="."]
+position = Vector2(220.7, 500.1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_k6ngi")
