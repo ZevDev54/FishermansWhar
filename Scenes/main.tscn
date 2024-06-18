@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dy1v8qv6rfib2"]
+[gd_scene load_steps=18 format=3 uid="uid://dy1v8qv6rfib2"]
 
 [ext_resource type="PackedScene" uid="uid://bmd2tsnu13ek7" path="res://Scenes/Fisherman.tscn" id="1_15o7r"]
 [ext_resource type="Script" path="res://Scenes/player_joining.gd" id="2_f0085"]
@@ -14,6 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://dyejqlwbfkfhj" path="res://Sprites/levels/docks/Post top.png" id="12_atnrr"]
 [ext_resource type="Texture2D" uid="uid://00us50aqroe2" path="res://Sprites/levels/docks/Small Boat Highlights.png" id="13_xejb4"]
 [ext_resource type="Texture2D" uid="uid://dtxeacrg0103e" path="res://Sprites/levels/docks/Small Boat.png" id="14_k6ngi"]
+[ext_resource type="Texture2D" uid="uid://bu4yfsrkc31x3" path="res://Sprites/levels/general/WaterBackground.png" id="15_de8ay"]
+[ext_resource type="Texture2D" uid="uid://to18ltebx5oy" path="res://Sprites/levels/general/Crate.png" id="16_xppj7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3w1xg"]
+size = Vector2(20, 10.6054)
 
 [node name="World" type="Node2D"]
 
@@ -45,6 +50,7 @@ position = Vector2(125, 355)
 position = Vector2(289, 301)
 
 [node name="Water" type="Sprite2D" parent="."]
+visible = false
 texture_repeat = 2
 position = Vector2(435.5, 255.5)
 scale = Vector2(4.25847, 2.51271)
@@ -74,18 +80,6 @@ texture = ExtResource("9_ue1g1")
 position = Vector2(745, 453)
 scale = Vector2(0.179244, 0.179244)
 texture = ExtResource("9_ue1g1")
-
-[node name="DockSimplified" type="Sprite2D" parent="."]
-position = Vector2(402, 313)
-texture = ExtResource("10_o5oq7")
-
-[node name="DockSimplified2" type="Sprite2D" parent="."]
-position = Vector2(641, 316)
-texture = ExtResource("10_o5oq7")
-
-[node name="DockSimplified3" type="Sprite2D" parent="."]
-position = Vector2(169, 321)
-texture = ExtResource("10_o5oq7")
 
 [node name="FishingBoat" type="Sprite2D" parent="."]
 position = Vector2(607, 69)
@@ -127,3 +121,37 @@ texture = ExtResource("13_xejb4")
 position = Vector2(220.7, 500.1)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("14_k6ngi")
+
+[node name="Water2" type="TextureRect" parent="."]
+z_index = -5
+offset_left = -87.0
+offset_top = -81.0
+offset_right = 9074.0
+offset_bottom = 6010.0
+scale = Vector2(0.129357, 0.129357)
+texture = ExtResource("15_de8ay")
+stretch_mode = 1
+
+[node name="Dock2" type="TextureRect" parent="."]
+z_index = -5
+offset_left = 39.0
+offset_top = 184.0
+offset_right = 7586.0
+offset_bottom = 2858.0
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("10_o5oq7")
+stretch_mode = 1
+
+[node name="Crate" type="StaticBody2D" parent="."]
+position = Vector2(199, 309)
+scale = Vector2(2.92304, 2.92304)
+
+[node name="Sprite2D" type="Sprite2D" parent="Crate"]
+z_index = -1
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("16_xppj7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate"]
+z_index = 1
+position = Vector2(0, 1.1974)
+shape = SubResource("RectangleShape2D_3w1xg")
