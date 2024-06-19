@@ -39,8 +39,8 @@ func deal_damage(damageable):
 	# 	print("Hit something!")
 	# 	(collision as Damageable).take_damage(damage);
 
-# func _on_body_entered(body:Node):
-# 	pass # Replace with function body.
+func _on_body_entered(body:Node):
+	queue_free();
 
 
 # func _on_hit_box_area_entered(area):

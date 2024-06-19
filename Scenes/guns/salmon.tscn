@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scenes/guns/WeaponGfx.gd" id="2_11a4n"]
 [ext_resource type="Texture2D" uid="uid://cm43uwsvl7m44" path="res://Sprites/FishHands/Salmon.png" id="2_p4vvo"]
 [ext_resource type="PackedScene" uid="uid://b8lktjk7xd8cp" path="res://Scenes/projectile.tscn" id="2_vsa63"]
-[ext_resource type="AudioStream" uid="uid://dw5k4sy8sjiy0" path="res://audio/sfx/gun.wav" id="6_2kyu2"]
+[ext_resource type="AudioStream" uid="uid://dw5k4sy8sjiy0" path="res://audio/sfx/pop.wav" id="6_n512g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqc8f"]
 radius = 7.0
@@ -72,7 +72,7 @@ _data = {
 random_pitch = 1.02
 random_volume_offset_db = 0.5
 streams_count = 1
-stream_0/stream = ExtResource("6_2kyu2")
+stream_0/stream = ExtResource("6_n512g")
 stream_0/weight = 1.0
 
 [node name="Salmon" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
@@ -89,8 +89,9 @@ rigidbody = NodePath(".")
 gfx = NodePath("GFX")
 shoot_point = NodePath("ShootPosition")
 projectile = ExtResource("2_vsa63")
-projectile_speed = 500.0
+projectile_speed = 400.0
 projectile_damage = 10
+projectile_lifetime = 0.8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

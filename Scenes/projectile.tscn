@@ -73,9 +73,11 @@ shader_parameter/quality = 4
 
 [node name="projectile" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 8
 gravity_scale = 0.0
 continuous_cd = 1
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_hgnwm")
 
 [node name="BulletCollider" type="CollisionShape2D" parent="."]
@@ -99,3 +101,5 @@ texture = ExtResource("1_5qfxu")
 
 [node name="outline" type="Sprite2D" parent="GFX/GFXScale"]
 texture = ExtResource("2_ri1xp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

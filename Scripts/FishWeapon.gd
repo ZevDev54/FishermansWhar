@@ -48,15 +48,13 @@ func drop():
 func _process(delta):
 	rigidbody.freeze = (holding_parent != null)
 
-    
-	if(trigger_input):
-		trigger_held();
+	trigger_held(trigger_input);
 
 	if(!holding_parent): return
 	rigidbody.move_and_collide(rigidbody.position - holding_parent.global_position);
 	global_position = holding_parent.global_position;
 
-func trigger_held():
+func trigger_held(held):
 	push_warning("trigger held behaviour undefined, override in child class! Using default shoot function...")
 	shoot();
 

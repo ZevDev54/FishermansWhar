@@ -18,8 +18,8 @@ func _process(delta):
 		shoot_timer -= delta;
 	
 
-func trigger_held():
-	if(shoot_timer <= 0):
+func trigger_held(held):
+	if(shoot_timer <= 0 && held):
 		shoot();
 		shoot_timer = shoot_rate;
 
