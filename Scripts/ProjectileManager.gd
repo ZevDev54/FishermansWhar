@@ -4,5 +4,6 @@ class_name ProjectileManager
 @export var projectile_parent : Node2D;
 
 func _ready():
-	if(!Singletons.projectiles):
-		Singletons.projectiles =  self;
+	if(!Singletons.Projectiles):
+		Singletons.Projectiles = self;
+		print("Set projectiles parent")

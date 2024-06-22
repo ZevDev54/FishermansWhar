@@ -1,0 +1,19 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://fp33nodarx8r"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_ts21r"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y2f4u"]
+texture_region_size = Vector2i(83, 83)
+1:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+2:1/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetScenesCollectionSource_ts21r")
+sources/1 = SubResource("TileSetAtlasSource_y2f4u")

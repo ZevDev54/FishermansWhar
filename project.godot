@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="FishermansWhar"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://Scenes/GameContainer.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 Singletons="*res://Scripts/singletons.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [editor_plugins]
 

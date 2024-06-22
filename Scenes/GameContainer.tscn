@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://j4a4x4nt27m2"]
+[gd_scene load_steps=7 format=3 uid="uid://j4a4x4nt27m2"]
 
+[ext_resource type="PackedScene" uid="uid://2wffpt3c3ygt" path="res://Scenes/game_manager.tscn" id="1_l04mu"]
 [ext_resource type="PackedScene" uid="uid://dy1v8qv6rfib2" path="res://Scenes/main.tscn" id="1_v3bfn"]
+[ext_resource type="Script" path="res://Scenes/player_joining.gd" id="2_ekmqj"]
+[ext_resource type="PackedScene" uid="uid://df2qlsuxgg8m7" path="res://Scenes/player.tscn" id="3_al4fi"]
+[ext_resource type="Script" path="res://demo/player_manager.gd" id="4_80ujy"]
+[ext_resource type="Script" path="res://Scenes/RoundManager.gd" id="5_1h57y"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -17,6 +22,20 @@ offset_bottom = 40.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+audio_listener_enable_2d = true
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
+
+[node name="GameManager" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_l04mu")]
+
+[node name="PlayerJoining" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+script = ExtResource("2_ekmqj")
+player_scene = ExtResource("3_al4fi")
+
+[node name="PlayerManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager/PlayerJoining"]
+script = ExtResource("4_80ujy")
+
+[node name="RoundManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+script = ExtResource("5_1h57y")
 
 [node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v3bfn")]

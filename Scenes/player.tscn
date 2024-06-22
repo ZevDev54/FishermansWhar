@@ -1,0 +1,142 @@
+[gd_scene load_steps=16 format=3 uid="uid://df2qlsuxgg8m7"]
+
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
+[ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
+[ext_resource type="Texture2D" uid="uid://c66t65okabata" path="res://Sprites/Fisherman/Fisherman (Team Color).png" id="2_v26tj"]
+[ext_resource type="Texture2D" uid="uid://de72se02xuxy" path="res://Sprites/Fisherman/Fisherman.png" id="3_medks"]
+[ext_resource type="Script" path="res://Scenes/PlayerWeapon.gd" id="4_i4vo3"]
+[ext_resource type="Script" path="res://Scripts/PlayerDamageable.gd" id="5_n54kk"]
+[ext_resource type="AudioStream" uid="uid://ddmnph3u3mk2t" path="res://audio/sfx/hurt.wav" id="6_83ajl"]
+[ext_resource type="Script" path="res://Scenes/PlayerControls.gd" id="8_g6f7v"]
+[ext_resource type="Script" path="res://Scenes/PlayerScoring.gd" id="9_4gine"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yvgmo"]
+radius = 11.0
+height = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jotal"]
+radius = 41.1096
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yu3vy"]
+height = 46.0
+
+[sub_resource type="Animation" id="Animation_aqvt3"]
+resource_name = "player_hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Graphics:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.9), Vector2(0.95, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Graphics:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, -5), Vector2(-2, -3), Vector2(-2, -5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rvwry"]
+_data = {
+"player_hurt": SubResource("Animation_aqvt3")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_blhkg"]
+random_pitch = 1.1
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("6_83ajl")
+stream_0/weight = 1.0
+
+[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls")]
+script = ExtResource("1_pm4vy")
+movement = NodePath("Fisherman")
+controls = NodePath("PlayerControls")
+
+[node name="Fisherman" type="CharacterBody2D" parent="."]
+collision_mask = 9
+script = ExtResource("1_wx6v0")
+
+[node name="MainCollider" type="CollisionShape2D" parent="Fisherman"]
+z_index = 1
+position = Vector2(0, 12)
+shape = SubResource("CapsuleShape2D_yvgmo")
+debug_color = Color(0.500428, 0.428096, 1, 0.42)
+
+[node name="Graphics" type="Node2D" parent="Fisherman"]
+position = Vector2(-2, -5)
+
+[node name="GraphicsScale" type="Node2D" parent="Fisherman/Graphics"]
+scale = Vector2(0.1, 0.1)
+
+[node name="Fisherman(teamColor)" type="Sprite2D" parent="Fisherman/Graphics/GraphicsScale"]
+position = Vector2(18, 28)
+texture = ExtResource("2_v26tj")
+
+[node name="Fisherman" type="Sprite2D" parent="Fisherman/Graphics/GraphicsScale"]
+position = Vector2(18, 28)
+texture = ExtResource("3_medks")
+
+[node name="Weapon" type="Node2D" parent="Fisherman" node_paths=PackedStringArray("pickup_area")]
+script = ExtResource("4_i4vo3")
+pickup_area = NodePath("../PickupArea")
+
+[node name="PickupArea" type="Area2D" parent="Fisherman"]
+collision_layer = 2
+collision_mask = 2
+input_pickable = false
+
+[node name="PickupCollision" type="CollisionShape2D" parent="Fisherman/PickupArea"]
+shape = SubResource("CircleShape2D_jotal")
+debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
+
+[node name="PlayerDamageable" type="Node2D" parent="Fisherman"]
+script = ExtResource("5_n54kk")
+
+[node name="HurtBox" type="Area2D" parent="Fisherman/PlayerDamageable"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fisherman/PlayerDamageable/HurtBox"]
+shape = SubResource("CapsuleShape2D_yu3vy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fisherman/PlayerDamageable"]
+libraries = {
+"": SubResource("AnimationLibrary_rvwry")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Fisherman/PlayerDamageable"]
+stream = SubResource("AudioStreamRandomizer_blhkg")
+volume_db = 2.65
+
+[node name="PlayerControls" type="Node" parent="."]
+script = ExtResource("8_g6f7v")
+
+[node name="PlayerScoring" type="Node" parent="."]
+script = ExtResource("9_4gine")
+
+[connection signal="body_entered" from="Fisherman/PlayerDamageable/HurtBox" to="Fisherman/PlayerDamageable" method="_on_hurt_box_body_entered"]

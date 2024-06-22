@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmd2tsnu13ek7"]
+[gd_scene load_steps=13 format=3 uid="uid://ch5ebrsocgtxh"]
 
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_4l2co"]
 [ext_resource type="Texture2D" uid="uid://c66t65okabata" path="res://Sprites/Fisherman/Fisherman (Team Color).png" id="1_yt7gj"]

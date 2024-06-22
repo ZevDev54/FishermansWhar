@@ -9,7 +9,8 @@ var degrees: float = 0;
 
 var input;
 
-
+func _ready():
+	input = (owner as Player).controls.input;
 
 
 func _process(delta):
