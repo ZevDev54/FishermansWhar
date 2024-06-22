@@ -1,16 +1,20 @@
 extends Node;
 class_name Damageable;
 
-var health;
+var health : int;
 @export var max_health: int = 100;
 
 func _ready():
 	health = max_health;
 
-func take_damage(damage, team):
+func take_damage(damage, unique_player_id):
 	health -= damage;
-	print("Take damage!")
-	if (health <= 0):
+
+	var lethal = (health <= 0) # killed player?
+
+	Singletons.Scoring.credit_player_damage(unique_player_id, damage, lethal)
+	
+	if lethal:
 		die();
 	
 func die():

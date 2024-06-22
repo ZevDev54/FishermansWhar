@@ -60,7 +60,7 @@ func projectile_shoot(aim_vec_override, speed):
 	speed, #speed
 	projectile_damage, #damage
 	projectile_lifetime, #lifetime (seconds)
-	holding_team #team integer
+	holding_unique_id #team integer
 	)
 	#add projectile to parent in scene 
 	Singletons.Projectiles.projectile_parent.add_child(shot) 

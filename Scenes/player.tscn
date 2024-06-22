@@ -72,10 +72,11 @@ streams_count = 1
 stream_0/stream = ExtResource("6_83ajl")
 stream_0/weight = 1.0
 
-[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls")]
+[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls", "scoring")]
 script = ExtResource("1_pm4vy")
 movement = NodePath("Fisherman")
 controls = NodePath("PlayerControls")
+scoring = NodePath("PlayerScoring")
 
 [node name="Fisherman" type="CharacterBody2D" parent="."]
 collision_mask = 9
@@ -101,9 +102,10 @@ texture = ExtResource("2_v26tj")
 position = Vector2(18, 28)
 texture = ExtResource("3_medks")
 
-[node name="Weapon" type="Node2D" parent="Fisherman" node_paths=PackedStringArray("pickup_area")]
+[node name="Weapon" type="Node2D" parent="Fisherman" node_paths=PackedStringArray("pickup_area", "owner_player")]
 script = ExtResource("4_i4vo3")
 pickup_area = NodePath("../PickupArea")
+owner_player = NodePath("../..")
 
 [node name="PickupArea" type="Area2D" parent="Fisherman"]
 collision_layer = 2
@@ -114,8 +116,11 @@ input_pickable = false
 shape = SubResource("CircleShape2D_jotal")
 debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
 
-[node name="PlayerDamageable" type="Node2D" parent="Fisherman"]
+[node name="PlayerDamageable" type="Node2D" parent="Fisherman" node_paths=PackedStringArray("player_body", "hurt_animation", "weapon")]
 script = ExtResource("5_n54kk")
+player_body = NodePath("..")
+hurt_animation = NodePath("AnimationPlayer")
+weapon = NodePath("../Weapon")
 
 [node name="HurtBox" type="Area2D" parent="Fisherman/PlayerDamageable"]
 collision_layer = 4
@@ -133,10 +138,18 @@ libraries = {
 stream = SubResource("AudioStreamRandomizer_blhkg")
 volume_db = 2.65
 
+[node name="Label" type="Label" parent="Fisherman"]
+offset_left = -24.0
+offset_top = -50.0
+offset_right = 27.0
+offset_bottom = -27.0
+text = "score: ##"
+
 [node name="PlayerControls" type="Node" parent="."]
 script = ExtResource("8_g6f7v")
 
-[node name="PlayerScoring" type="Node" parent="."]
+[node name="PlayerScoring" type="Node" parent="." node_paths=PackedStringArray("score_display")]
 script = ExtResource("9_4gine")
+score_display = NodePath("../Fisherman/Label")
 
 [connection signal="body_entered" from="Fisherman/PlayerDamageable/HurtBox" to="Fisherman/PlayerDamageable" method="_on_hurt_box_body_entered"]

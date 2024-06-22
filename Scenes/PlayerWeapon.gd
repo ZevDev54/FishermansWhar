@@ -2,6 +2,7 @@ extends Node2D
 class_name PlayerWeapon;
 
 @export var pickup_area : Area2D;
+@export var owner_player : Player;
 
 var weapon: FishWeapon;
 
@@ -10,7 +11,7 @@ var degrees: float = 0;
 var input;
 
 func _ready():
-	input = (owner as Player).controls.input;
+	input = owner_player.controls.input;
 
 
 func _process(delta):
@@ -34,7 +35,7 @@ func weapon_update_loop():
 #pickup weapon
 func set_weapon(set):
 	weapon = set;
-	weapon.holding_parent = self;
+	weapon.set_held_by(self, owner_player.unique_player_id)
 	weapon.gfx.toggle_hands(true);
 
 #drop weapon

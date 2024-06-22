@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://llsoqoi5kfof"]
+
+[ext_resource type="Script" path="res://Scenes/SmartCamera.gd" id="1_pfgi5"]
+
+[node name="SmartCamera" type="Node"]
+script = ExtResource("1_pfgi5")
+
+[node name="Camera" type="Camera2D" parent="."]

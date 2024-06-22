@@ -1,16 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://2wffpt3c3ygt"]
+[gd_scene load_steps=3 format=3 uid="uid://2wffpt3c3ygt"]
 
 [ext_resource type="Script" path="res://Scenes/GameManager.gd" id="1_xhrgr"]
 [ext_resource type="Script" path="res://Scripts/singletons.gd" id="2_ucgig"]
-[ext_resource type="Script" path="res://Scripts/ProjectileManager.gd" id="3_tyw2s"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_xhrgr")
 
-[node name="Singletons" type="Node" parent="." node_paths=PackedStringArray("projectiles")]
+[node name="Singletons" type="Node" parent="."]
 script = ExtResource("2_ucgig")
-projectiles = NodePath("BulletsParent")
-
-[node name="BulletsParent" type="Node2D" parent="Singletons" node_paths=PackedStringArray("projectile_parent")]
-script = ExtResource("3_tyw2s")
-projectile_parent = NodePath(".")

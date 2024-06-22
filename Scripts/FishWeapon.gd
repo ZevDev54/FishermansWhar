@@ -12,7 +12,7 @@ class_name FishWeapon
 var trigger_input;
 
 var holding_parent;
-var holding_team;
+var holding_unique_id;
 var aim_vec := Vector2.ZERO;
 
 func aim_loop(set_aim_x, set_aim_y):
@@ -35,13 +35,13 @@ func aim_loop(set_aim_x, set_aim_y):
 		else:
 			gfx.toggle_flipped(true)
 
-func set_held_by(hands, team):
+func set_held_by(hands, unique_id):
 	holding_parent = hands;
-	holding_team = team;
+	holding_unique_id = unique_id;
 
 func drop():
 	holding_parent = null;
-	holding_team = -1;
+	holding_unique_id = -1;
 	gfx.toggle_hands(false);
 	print("weapon drop heard")
 

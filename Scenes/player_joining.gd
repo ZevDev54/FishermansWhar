@@ -24,6 +24,10 @@ func spawn_player(player: int):
 	# let the player know which device controls it
 	var device = player_manager.get_player_device(player)
 	player_node.init(player, device)
+
+	var player_interface = player_node as Player;
+
+	Singletons.Players.register_player(player_interface);
 	
 	# add the player to the tree
 	add_child(player_node)
@@ -32,7 +36,7 @@ func spawn_player(player: int):
 	player_node.movement.position = Vector2(randf_range(50, 400), randf_range(50, 400))
 
 func delete_player(player: int):
-	player_nodes[player].queue_free()
+	player_nodes[player].remove_player()
 	player_nodes.erase(player)
 
 func on_player_leave(player: int):
