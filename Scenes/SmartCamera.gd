@@ -62,4 +62,4 @@ func get_target_zoom():
 		print(percent)
 		return distance_to_zoom_ratio/clamp(greatest_distance, min_zoom, max_zoom)
 	else:
-		return 1.0;
+		return min_zoom;
