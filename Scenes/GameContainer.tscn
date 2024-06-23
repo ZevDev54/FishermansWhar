@@ -53,5 +53,7 @@ script = ExtResource("8_j7y3a")
 projectile_parent = NodePath(".")
 
 [node name="SmartCamera" parent="SubViewportContainer/SubViewport/GameManager" instance=ExtResource("9_2m3y3")]
+cam_zoom_speed = 3.0
+cam_pan_speed = 5.0
 
 [node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v3bfn")]

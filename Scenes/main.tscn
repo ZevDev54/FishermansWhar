@@ -15,12 +15,6 @@
 
 [node name="World" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(429, 237)
-zoom = Vector2(1.94, 1.94)
-
-[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
-
 [node name="Salmon" parent="." instance=ExtResource("4_uldyd")]
 position = Vector2(512, 248)
 
