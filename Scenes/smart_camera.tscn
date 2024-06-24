@@ -5,10 +5,11 @@
 [node name="SmartCamera" type="Node"]
 script = ExtResource("1_pfgi5")
 distance_to_zoom_ratio = 816.955
-min_zoom = 366.505
-max_zoom = 600.0
+min_zoom = 551.055
+max_zoom = 655.78
 default_zoom = 0.9
 cam_zoom_speed = 2.0
 cam_pan_speed = 3.0
 
 [node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.825, 0.825)

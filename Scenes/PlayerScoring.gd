@@ -17,7 +17,7 @@ func _process(delta):
 func count_kill(unique_id):
 	score += 1;
 	print("Player", str(unique_id), "Scored a kill!")
-	score_display.text = ("Score: "+str(score));
+	score_display.text = (str(score));
 
 func count_last_standing():
 	score += 1;

@@ -76,8 +76,9 @@ stream_0/stream = ExtResource("6_n512g")
 stream_0/weight = 1.0
 
 [node name="Salmon" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
-z_index = 3
+z_index = 6
 collision_layer = 2
+collision_mask = 137
 gravity_scale = 0.0
 freeze = true
 linear_damp_mode = 1
@@ -89,7 +90,7 @@ rigidbody = NodePath(".")
 gfx = NodePath("GFX")
 shoot_point = NodePath("ShootPosition")
 projectile = ExtResource("2_vsa63")
-projectile_speed = 400.0
+projectile_speed = 750.0
 projectile_damage = 10
 projectile_lifetime = 0.8
 
@@ -111,7 +112,7 @@ hands_sprite = NodePath("GFXScale/GFXFlipScaler/Salmon")
 nohands_sprite = NodePath("GFXScale/GFXFlipScaler/SalmonNoHands")
 
 [node name="GFXScale" type="Node2D" parent="GFX"]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.15, 0.15)
 
 [node name="GFXFlipScaler" type="Node2D" parent="GFX/GFXScale"]
 

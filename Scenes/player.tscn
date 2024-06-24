@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://df2qlsuxgg8m7"]
+[gd_scene load_steps=18 format=3 uid="uid://df2qlsuxgg8m7"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
@@ -6,19 +6,21 @@
 [ext_resource type="Texture2D" uid="uid://de72se02xuxy" path="res://Sprites/Fisherman/Fisherman.png" id="3_medks"]
 [ext_resource type="Script" path="res://Scenes/PlayerWeapon.gd" id="4_i4vo3"]
 [ext_resource type="Script" path="res://Scripts/PlayerDamageable.gd" id="5_n54kk"]
+[ext_resource type="PackedScene" uid="uid://6jl4jdia2n6g" path="res://Scenes/player_animation_body.tscn" id="5_xp8la"]
 [ext_resource type="AudioStream" uid="uid://ddmnph3u3mk2t" path="res://audio/sfx/hurt.wav" id="6_83ajl"]
 [ext_resource type="Script" path="res://Scenes/PlayerControls.gd" id="8_g6f7v"]
 [ext_resource type="Script" path="res://Scenes/PlayerScoring.gd" id="9_4gine"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yvgmo"]
-radius = 11.0
-height = 22.0
+radius = 20.0
+height = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jotal"]
-radius = 41.1096
+radius = 78.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yu3vy"]
-height = 46.0
+radius = 21.0
+height = 62.0
 
 [sub_resource type="Animation" id="Animation_aqvt3"]
 resource_name = "player_hurt"
@@ -72,19 +74,25 @@ streams_count = 1
 stream_0/stream = ExtResource("6_83ajl")
 stream_0/weight = 1.0
 
-[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls", "scoring")]
+[sub_resource type="LabelSettings" id="LabelSettings_m1oi4"]
+font_size = 12
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls", "scoring", "animation")]
 script = ExtResource("1_pm4vy")
 movement = NodePath("Fisherman")
 controls = NodePath("PlayerControls")
 scoring = NodePath("PlayerScoring")
+animation = NodePath("Fisherman/Graphics/GFXScale/PlayerAnimationBody")
 
 [node name="Fisherman" type="CharacterBody2D" parent="."]
-collision_mask = 9
+collision_mask = 137
 script = ExtResource("1_wx6v0")
 
 [node name="MainCollider" type="CollisionShape2D" parent="Fisherman"]
 z_index = 1
-position = Vector2(0, 12)
+position = Vector2(-2, -5)
 shape = SubResource("CapsuleShape2D_yvgmo")
 debug_color = Color(0.500428, 0.428096, 1, 0.42)
 
@@ -92,6 +100,7 @@ debug_color = Color(0.500428, 0.428096, 1, 0.42)
 position = Vector2(-2, -5)
 
 [node name="GraphicsScale" type="Node2D" parent="Fisherman/Graphics"]
+visible = false
 scale = Vector2(0.1, 0.1)
 
 [node name="Fisherman(teamColor)" type="Sprite2D" parent="Fisherman/Graphics/GraphicsScale"]
@@ -102,7 +111,13 @@ texture = ExtResource("2_v26tj")
 position = Vector2(18, 28)
 texture = ExtResource("3_medks")
 
+[node name="GFXScale" type="Node2D" parent="Fisherman/Graphics"]
+scale = Vector2(0.1, 0.1)
+
+[node name="PlayerAnimationBody" parent="Fisherman/Graphics/GFXScale" instance=ExtResource("5_xp8la")]
+
 [node name="Weapon" type="Node2D" parent="Fisherman" node_paths=PackedStringArray("pickup_area", "owner_player")]
+position = Vector2(-2, -12)
 script = ExtResource("4_i4vo3")
 pickup_area = NodePath("../PickupArea")
 owner_player = NodePath("../..")
@@ -113,6 +128,7 @@ collision_mask = 2
 input_pickable = false
 
 [node name="PickupCollision" type="CollisionShape2D" parent="Fisherman/PickupArea"]
+position = Vector2(-2, -9)
 shape = SubResource("CircleShape2D_jotal")
 debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
 
@@ -127,6 +143,7 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fisherman/PlayerDamageable/HurtBox"]
+position = Vector2(-2, -12)
 shape = SubResource("CapsuleShape2D_yu3vy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fisherman/PlayerDamageable"]
@@ -138,18 +155,26 @@ libraries = {
 stream = SubResource("AudioStreamRandomizer_blhkg")
 volume_db = 2.65
 
-[node name="Label" type="Label" parent="Fisherman"]
-offset_left = -24.0
-offset_top = -50.0
-offset_right = 27.0
-offset_bottom = -27.0
-text = "score: ##"
+[node name="Control" type="Control" parent="Fisherman"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 38.535
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Fisherman/Control"]
+offset_left = -9.0
+offset_top = -80.0
+offset_right = 6.0
+offset_bottom = -50.0
+text = "0"
+label_settings = SubResource("LabelSettings_m1oi4")
+horizontal_alignment = 1
 
 [node name="PlayerControls" type="Node" parent="."]
 script = ExtResource("8_g6f7v")
 
 [node name="PlayerScoring" type="Node" parent="." node_paths=PackedStringArray("score_display")]
 script = ExtResource("9_4gine")
-score_display = NodePath("../Fisherman/Label")
+score_display = NodePath("../Fisherman/Control/Label")
 
 [connection signal="body_entered" from="Fisherman/PlayerDamageable/HurtBox" to="Fisherman/PlayerDamageable" method="_on_hurt_box_body_entered"]

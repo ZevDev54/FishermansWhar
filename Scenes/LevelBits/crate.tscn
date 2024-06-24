@@ -6,7 +6,7 @@
 size = Vector2(22.2371, 23.9477)
 
 [node name="Crate" type="StaticBody2D"]
-scale = Vector2(2.92304, 2.92304)
+scale = Vector2(4.5, 4.5)
 collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

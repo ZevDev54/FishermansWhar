@@ -15,8 +15,11 @@ func _ready():
 
 
 func _process(delta):
-	if(weapon):
+	var holding = (weapon != null)
+	if(holding):
 		weapon_update_loop();
+	
+	owner_player.animation.set_hands_active(!holding);
 	
 	weapon_pickup_loop();
 		

@@ -6,6 +6,7 @@ var unique_player_id = -1;
 @export var movement : FishermanMovement;
 @export var controls : PlayerControls;
 @export var scoring : PlayerScoring;
+@export var animation : PlayerAnimationController;
 
 var player_index;
 

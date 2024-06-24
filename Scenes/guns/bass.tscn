@@ -76,8 +76,9 @@ stream_0/stream = ExtResource("6_oxjii")
 stream_0/weight = 1.0
 
 [node name="Bass" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
-z_index = 3
+z_index = 6
 collision_layer = 2
+collision_mask = 137
 gravity_scale = 0.0
 freeze = true
 linear_damp = 0.5
@@ -85,11 +86,12 @@ script = ExtResource("1_cy8xv")
 shoot_rate = 0.75
 animation = NodePath("AnimationPlayer")
 degrees_variance = 0.8
+min_speed = 800
 rigidbody = NodePath(".")
 gfx = NodePath("GFX")
 shoot_point = NodePath("ShootPosition")
 projectile = ExtResource("2_3rgog")
-projectile_speed = 600.0
+projectile_speed = 1000.0
 projectile_damage = 8
 projectile_lifetime = 0.5
 
@@ -111,7 +113,7 @@ hands_sprite = NodePath("GFXScale/GFXFlipScaler/Hands")
 nohands_sprite = NodePath("GFXScale/GFXFlipScaler/NoHands")
 
 [node name="GFXScale" type="Node2D" parent="GFX"]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.15, 0.15)
 
 [node name="GFXFlipScaler" type="Node2D" parent="GFX/GFXScale"]
 
