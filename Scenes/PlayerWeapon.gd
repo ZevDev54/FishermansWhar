@@ -4,6 +4,7 @@ class_name PlayerWeapon;
 @export var pickup_area : Area2D;
 @export var owner_player : Player;
 
+
 var weapon: FishWeapon;
 
 var degrees: float = 0;
@@ -12,6 +13,8 @@ var input;
 
 func _ready():
 	input = owner_player.controls.input;
+	weapon.aim_loop(1, 0)
+
 
 
 func _process(delta):
