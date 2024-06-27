@@ -13,7 +13,6 @@ var input;
 
 func _ready():
 	input = owner_player.controls.input;
-	weapon.aim_loop(1, 0)
 
 
 
@@ -43,6 +42,8 @@ func set_weapon(set):
 	weapon = set;
 	weapon.set_held_by(self, owner_player.unique_player_id)
 	weapon.gfx.toggle_hands(true);
+	weapon.aim_loop(1, 0)
+
 
 #drop weapon
 func drop_weapon():
