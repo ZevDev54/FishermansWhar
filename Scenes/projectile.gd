@@ -29,9 +29,11 @@ func _physics_process(delta):
 	rigidbody.move_and_collide(rigidbody.position - object.global_position);
 	# print(global_position)
 
-func deal_damage(damageable : Damageable):
-	super.deal_damage(damageable);
+func deal_damage(damageable : Damageable) -> bool:
+	var damaged = super.deal_damage(damageable);
+	if(!damaged): return false;
 	queue_free();
+	return true;
 
 
 

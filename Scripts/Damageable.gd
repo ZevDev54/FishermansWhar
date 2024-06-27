@@ -4,18 +4,15 @@ class_name Damageable;
 var health : int;
 @export var max_health: int = 100;
 
-func _ready():
+func ready():
 	health = max_health;
 
-func take_damage(damage, unique_player_id):
+func take_damage(damage, unique_player_id) -> bool:
 	health -= damage;
-
 	var lethal = (health <= 0) # killed player?
-
-	Singletons.Scoring.credit_player_damage(unique_player_id, damage, lethal)
-	
 	if lethal:
 		die();
+	return true; # bool for did do damage?
 	
 func die():
 	# print("I die!")

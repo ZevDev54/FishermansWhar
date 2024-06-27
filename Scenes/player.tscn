@@ -134,7 +134,8 @@ decel = 20.0
 
 [node name="PlayerDashing" type="Node" parent="PlayerMovementBody"]
 script = ExtResource("3_k55g8")
-dash_speed = 3000.0
+dash_speed = 300.0
+dash_length = 0.2
 
 [node name="MainCollider" type="CollisionShape2D" parent="PlayerMovementBody"]
 z_index = 1
@@ -158,9 +159,9 @@ position = Vector2(-2, -9)
 shape = SubResource("CircleShape2D_jotal")
 debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
 
-[node name="PlayerDamageable" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("player_body", "hurt_animation", "weapon")]
+[node name="PlayerDamageable" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("player", "hurt_animation", "weapon")]
 script = ExtResource("5_n54kk")
-player_body = NodePath("..")
+player = NodePath("../..")
 hurt_animation = NodePath("AnimationPlayer")
 weapon = NodePath("../Weapon")
 
