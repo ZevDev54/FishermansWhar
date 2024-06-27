@@ -65,7 +65,7 @@ func toggle_movement_override(toggle:bool):
 func override_movement(move_vec : Vector2, delta):
 	global_position += move_vec * delta;
 	move_and_slide();
-	print("augh!")
+	# print("augh!")
 
 func move_to_position(pos:Vector2):
 	global_position = pos;

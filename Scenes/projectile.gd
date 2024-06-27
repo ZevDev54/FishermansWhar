@@ -32,7 +32,7 @@ func _physics_process(delta):
 func deal_damage(damageable : Damageable) -> bool:
 	var damaged = super.deal_damage(damageable);
 	if(!damaged): return false;
-	queue_free();
+	hit_behavior();
 	return true;
 
 
@@ -40,6 +40,9 @@ func deal_damage(damageable : Damageable) -> bool:
 	# if(collision is Damageable):
 	# 	print("Hit something!")
 	# 	(collision as Damageable).take_damage(damage);
+
+func hit_behavior():
+	queue_free();
 
 func _on_body_entered(body:Node):
 	queue_free();

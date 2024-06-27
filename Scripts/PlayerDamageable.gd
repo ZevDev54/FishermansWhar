@@ -6,7 +6,7 @@ extends Damageable
 
 func ready():
 	super.ready();
-	print("rafy!");
+	# print("rafy!");
 	player = (owner as Player);
 
 func take_damage(damage, unique_player_id) -> bool:
