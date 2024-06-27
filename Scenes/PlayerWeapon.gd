@@ -63,10 +63,12 @@ func weapon_pickup_loop():
 		var bodies = pickup_area.get_overlapping_bodies();
 
 		for body in bodies:
+			if(body == weapon): continue;
 			if(body is FishWeapon):
 				drop_weapon();
 				set_weapon(body as FishWeapon)
 				print("Pickup weapon")
+				break;
 
 		
 

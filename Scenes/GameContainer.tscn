@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://j4a4x4nt27m2"]
+[gd_scene load_steps=12 format=3 uid="uid://j4a4x4nt27m2"]
 
 [ext_resource type="PackedScene" uid="uid://2wffpt3c3ygt" path="res://Scenes/game_manager.tscn" id="1_l04mu"]
 [ext_resource type="PackedScene" uid="uid://dy1v8qv6rfib2" path="res://Scenes/main.tscn" id="1_v3bfn"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/ScoreManager.gd" id="7_kgq12"]
 [ext_resource type="Script" path="res://Scripts/ProjectileManager.gd" id="8_j7y3a"]
 [ext_resource type="PackedScene" uid="uid://llsoqoi5kfof" path="res://Scenes/smart_camera.tscn" id="9_2m3y3"]
+[ext_resource type="Script" path="res://Scenes/fps_counter.gd" id="11_efxkm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -57,3 +58,14 @@ cam_zoom_speed = 3.0
 cam_pan_speed = 5.0
 
 [node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v3bfn")]
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("11_efxkm")
