@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://df2qlsuxgg8m7"]
+[gd_scene load_steps=20 format=3 uid="uid://df2qlsuxgg8m7"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
@@ -10,6 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://ddmnph3u3mk2t" path="res://audio/sfx/hurt.wav" id="6_83ajl"]
 [ext_resource type="Script" path="res://Scenes/PlayerControls.gd" id="8_g6f7v"]
 [ext_resource type="Script" path="res://Scenes/PlayerScoring.gd" id="9_4gine"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8tm3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yvgmo"]
 radius = 20.0
@@ -24,7 +26,8 @@ height = 62.0
 
 [sub_resource type="Animation" id="Animation_aqvt3"]
 resource_name = "player_hurt"
-length = 0.2
+length = 0.14
+step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -32,7 +35,7 @@ tracks/0/path = NodePath("../Graphics:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.14),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 0.9), Vector2(0.95, 1), Vector2(1, 1)]
@@ -44,7 +47,7 @@ tracks/1/path = NodePath("../Graphics:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.2),
+"times": PackedFloat32Array(0, 0.05, 0.14),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(-2, -5), Vector2(-2, -3), Vector2(-2, -5)]
@@ -61,9 +64,35 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Graphics/GFXScale/PlayerAnimationBody:material:shader_parameter/flash_modifier")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.14)
+}
+
+[sub_resource type="Animation" id="Animation_xoi8o"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Graphics/GFXScale/PlayerAnimationBody:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rvwry"]
 _data = {
+"RESET": SubResource("Animation_xoi8o"),
 "player_hurt": SubResource("Animation_aqvt3")
 }
 
@@ -87,6 +116,7 @@ scoring = NodePath("PlayerScoring")
 animation = NodePath("Fisherman/Graphics/GFXScale/PlayerAnimationBody")
 
 [node name="Fisherman" type="CharacterBody2D" parent="."]
+material = SubResource("ShaderMaterial_s8tm3")
 collision_mask = 137
 script = ExtResource("1_wx6v0")
 
@@ -115,6 +145,7 @@ texture = ExtResource("3_medks")
 scale = Vector2(0.1, 0.1)
 
 [node name="PlayerAnimationBody" parent="Fisherman/Graphics/GFXScale" instance=ExtResource("5_xp8la")]
+scale = Vector2(1, 1)
 
 [node name="Weapon" type="Node2D" parent="Fisherman" node_paths=PackedStringArray("pickup_area", "owner_player")]
 position = Vector2(-2, -12)
@@ -162,6 +193,7 @@ offset_right = 38.535
 offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="Fisherman/Control"]
+layout_mode = 0
 offset_left = -9.0
 offset_top = -80.0
 offset_right = 6.0

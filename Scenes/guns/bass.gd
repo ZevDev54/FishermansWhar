@@ -27,7 +27,7 @@ func _process(delta):
 	
 
 func trigger_held(held):
-	
+	if(!holding_parent): return;
 	if (held && !trigger_was_held && shoot_timer <= 0):
 		shoot();
 		shoot_timer = shoot_rate;

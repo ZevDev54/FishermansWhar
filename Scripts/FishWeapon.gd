@@ -55,6 +55,7 @@ func _process(delta):
 	global_position = holding_parent.global_position;
 
 func trigger_held(held):
+	
 	push_warning("trigger held behaviour undefined, override in child class! Using default shoot function...")
 	shoot();
 
