@@ -39,14 +39,17 @@ func weapon_update_loop():
 
 #pickup weapon
 func set_weapon(set):
+	drop_weapon();
 	weapon = set;
 	weapon.set_held_by(self, owner_player.unique_player_id)
 	weapon.gfx.toggle_hands(true);
 	weapon.aim_loop(1, 0) # fix bug where player shots would have no velocity.
+	
 
 
 #drop weapon
 func drop_weapon():
+	print(get_stack())
 	print("drop weapon called")
 	if(weapon):
 		weapon.drop();
@@ -63,8 +66,8 @@ func weapon_pickup_loop():
 		var bodies = pickup_area.get_overlapping_bodies();
 
 		for body in bodies:
-			if(body is FishWeapon):
-				drop_weapon();
+			var wpn = (body as FishWeapon)
+			if wpn != null && wpn != weapon:
 				set_weapon(body as FishWeapon)
 				print("Pickup weapon")
 
