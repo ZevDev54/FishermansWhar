@@ -12,7 +12,7 @@ point_count = 2
 curve = SubResource("Curve_tll4w")
 
 [sub_resource type="Curve" id="Curve_sexad"]
-_data = [Vector2(0, 0.963068), 0.0, 0.0, 0, 0, Vector2(1, 0.769176), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.769176), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_n3yoo"]
@@ -20,9 +20,10 @@ curve = SubResource("Curve_sexad")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bke68"]
 particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
 gravity = Vector3(0, 0, 0)
-scale_min = 0.1
-scale_max = 0.1
+scale_min = 0.2
+scale_max = 0.2
 scale_curve = SubResource("CurveTexture_n3yoo")
 alpha_curve = SubResource("CurveTexture_ej1tp")
 
@@ -86,11 +87,11 @@ script = ExtResource("1_hgnwm")
 scale = Vector2(0.2, 0.2)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale"]
-position = Vector2(3.05176e-05, -9.53674e-07)
-amount = 32
+amount = 128
 process_material = SubResource("ParticleProcessMaterial_bke68")
 texture = ExtResource("1_5qfxu")
-lifetime = 0.1
+lifetime = 0.3
+fixed_fps = 60
 
 [node name="fill" type="Sprite2D" parent="GFX/GFXScale"]
 material = SubResource("ShaderMaterial_55kum")

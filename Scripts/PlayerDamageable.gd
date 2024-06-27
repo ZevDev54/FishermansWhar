@@ -1,12 +1,23 @@
 extends Damageable
 
+var player : Player;
 @export var player_body : Node2D;
 @export var hurt_animation : AnimationPlayer;
 @export var weapon : PlayerWeapon;
 
-func take_damage(damage, team_int):
-	super.take_damage(damage, team_int);
-	hurt_animation.play("player_hurt");
+func _ready():
+	player = owner as Player;
+
+func take_damage(damage, unique_player_id):
+	if(unique_player_id != player.unique_player_id):
+		health -= damage;
+		var lethal = (health <= 0) # killed player?
+
+		hurt_animation.play("player_hurt");
+		Singletons.Scoring.credit_player_damage(unique_player_id, damage, lethal)
+
+		if lethal:
+			die();
 
 func die():
 	# make better system in the future!

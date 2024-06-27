@@ -7,13 +7,9 @@ var health : int;
 func _ready():
 	health = max_health;
 
-func take_damage(damage, unique_player_id):
+func take_damage(damage, unique_player_id): #OVERIDDEN BY PLAYERDAMAGEABLE!
 	health -= damage;
-
-	var lethal = (health <= 0) # killed player?
-
-	Singletons.Scoring.credit_player_damage(unique_player_id, damage, lethal)
-	
+	var lethal = (health <= 0) # killed?
 	if lethal:
 		die();
 	

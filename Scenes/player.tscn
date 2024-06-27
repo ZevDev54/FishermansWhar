@@ -122,10 +122,14 @@ controls = NodePath("PlayerControls")
 scoring = NodePath("PlayerScoring")
 animation = NodePath("PlayerMovementBody/Graphics/GFXScale/PlayerAnimationBody")
 
-[node name="PlayerMovementBody" type="CharacterBody2D" parent="."]
+[node name="PlayerMovementBody" type="RigidBody2D" parent="."]
 material = SubResource("ShaderMaterial_s8tm3")
 collision_mask = 137
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 1.0
 script = ExtResource("1_wx6v0")
+decel = 10.0
 
 [node name="PlayerDashing" type="Node" parent="PlayerMovementBody"]
 
@@ -213,6 +217,7 @@ horizontal_alignment = 1
 
 [node name="PlayerControls" type="Node" parent="."]
 script = ExtResource("8_g6f7v")
+aiming_deadzone = 0.8
 
 [node name="PlayerScoring" type="Node" parent="." node_paths=PackedStringArray("score_display")]
 script = ExtResource("9_4gine")
