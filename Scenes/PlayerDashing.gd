@@ -8,6 +8,7 @@ var dash_dir = Vector2.RIGHT;
 
 
 
+
 func _ready():
 	player = owner as Player;
 
