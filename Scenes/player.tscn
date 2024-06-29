@@ -132,10 +132,13 @@ max_speed = 250.0
 accel = 4000.0
 decel = 20.0
 
-[node name="PlayerDashing" type="Node" parent="PlayerMovementBody"]
+[node name="PlayerDashing" type="Node2D" parent="PlayerMovementBody"]
 script = ExtResource("3_k55g8")
-dash_speed = 300.0
+dash_speed = 350.0
 dash_length = 0.2
+time_to_max_charge = 0.5
+charge_min = -0.05
+charge_max = 0.25
 
 [node name="MainCollider" type="CollisionShape2D" parent="PlayerMovementBody"]
 z_index = 1
