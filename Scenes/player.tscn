@@ -117,12 +117,13 @@ shader = ExtResource("6_fdf81")
 shader_parameter/flash_color = Color(1, 0.74, 0.74, 1)
 shader_parameter/flash_modifier = 0.0
 
-[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls", "scoring", "animation")]
+[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls", "scoring", "animation", "damageable")]
 script = ExtResource("1_pm4vy")
 movement = NodePath("PlayerMovementBody")
 controls = NodePath("PlayerControls")
 scoring = NodePath("PlayerScoring")
 animation = NodePath("PlayerMovementBody/SmoothGraphics/Graphics/GFXScale/PlayerAnimationBody")
+damageable = NodePath("PlayerMovementBody/PlayerDamageable")
 
 [node name="PlayerMovementBody" type="CharacterBody2D" parent="."]
 material = SubResource("ShaderMaterial_s8tm3")
@@ -206,6 +207,7 @@ script = ExtResource("6_tixst")
 lerp_speed = 60.0
 body = NodePath("..")
 graphics = NodePath("Graphics")
+max_move_amount = 40.0
 
 [node name="Graphics" type="Node2D" parent="PlayerMovementBody/SmoothGraphics"]
 position = Vector2(-2, -5)

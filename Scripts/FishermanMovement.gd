@@ -25,6 +25,7 @@ func _ready():
 
 func _physics_process(delta):
 	if movement_overridden: return;
+	if !player.damageable.alive : return;
 
 	var move_vec = player.controls.get_move_input_vec();
 	player.animation.set_running(move_vec.length() > 0);
@@ -67,6 +68,7 @@ func toggle_movement_override(toggle:bool):
 	movement_overridden = toggle;
 
 func override_movement(move_vec : Vector2, delta):
+	if !player.damageable.alive : return;
 	global_position += move_vec * delta;
 	move_and_slide();
 	# print("augh!")

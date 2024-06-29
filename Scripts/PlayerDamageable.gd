@@ -1,15 +1,20 @@
 extends Damageable
+class_name PlayerDamageable;
 
 @export var player : Player;
 @export var hurt_animation : AnimationPlayer;
 @export var weapon : PlayerWeapon;
 
-func ready():
-	super.ready();
+var alive = true;
+
+func _ready():
+	super._ready();
 	# print("rafy!");
 	player = (owner as Player);
+	health = max_health
 
 func take_damage(damage, unique_player_id) -> bool:
+	if !alive: false;
 	if(unique_player_id == player.unique_player_id): return false;
 	
 
@@ -30,7 +35,13 @@ func take_damage(damage, unique_player_id) -> bool:
 	
 
 func die():
+	if alive:
+		alive = false;
+		weapon.drop_weapon();
+		player.animation.set_dead(!alive);
+		Singletons.Rounds.player_dead_event();
+
 	# make better system in the future!
-	player.movement.move_to_position(Vector2(500, 400));
-	health = max_health;
-	weapon.drop_weapon();
+	# player.movement.move_to_position(Vector2(500, 400));
+	# health = max_health;
+	

@@ -22,6 +22,10 @@ Singletons="*res://Scripts/singletons.gd"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
+window/size/initial_position_type=4
 window/vsync/vsync_mode=2
 
 [editor_plugins]

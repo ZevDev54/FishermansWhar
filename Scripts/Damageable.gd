@@ -4,7 +4,7 @@ class_name Damageable;
 var health : int;
 @export var max_health: int = 100;
 
-func ready():
+func _ready():
 	health = max_health;
 
 func take_damage(damage, unique_player_id) -> bool:

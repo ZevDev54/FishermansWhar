@@ -60,14 +60,16 @@ scale = Vector2(0.129357, 0.129357)
 texture = ExtResource("8_k35p4")
 stretch_mode = 1
 
-[node name="Dock2" type="TextureRect" parent="Level"]
+[node name="Dock2" type="NinePatchRect" parent="Level"]
 z_index = -5
 offset_left = 39.0
-offset_right = 8575.0
+offset_right = 8599.0
 offset_bottom = 5288.0
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("10_o5oq7")
-stretch_mode = 1
+region_rect = Rect2(7.50105, 15.025, 238.29, 221.591)
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Crate" parent="Level" instance=ExtResource("14_62lr8")]
 z_index = 1
