@@ -49,6 +49,7 @@ func deal_damage(damageable : Damageable) -> bool:
 	# 	(collision as Damageable).take_damage(damage);
 
 func hit_behavior():
+	
 	queue_free();
 
 
@@ -57,7 +58,13 @@ func hit_behavior():
 # 		(area as Damageable).take_damage(damage, team_int);
 
 
-# func _on_area_2d_area_entered(area:Area2D):
-# 	var hit_damageable = (area as Damageable) # area as HitBox
-# 	if(hit_damageable):
-# 		deal_damage(hit_damageable)
+func _on_area_2d_area_entered(area:Area2D):
+	var hurtbox = (area as HurtBox) # area as HitBox
+	print("contacted area: ",area);
+	if(hurtbox):
+		deal_damage(hurtbox.damageable);
+		print("damage!");
+
+
+func _on_body_entered(body):
+	hit_behavior();

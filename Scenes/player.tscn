@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://df2qlsuxgg8m7"]
+[gd_scene load_steps=25 format=3 uid="uid://df2qlsuxgg8m7"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://6jl4jdia2n6g" path="res://Scenes/player_animation_body.tscn" id="5_xp8la"]
 [ext_resource type="AudioStream" uid="uid://ddmnph3u3mk2t" path="res://audio/sfx/hurt.wav" id="6_83ajl"]
 [ext_resource type="Shader" path="res://Scenes/hitflash.gdshader" id="6_fdf81"]
+[ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="6_o7am5"]
 [ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="6_tixst"]
 [ext_resource type="Script" path="res://Scenes/PlayerControls.gd" id="8_g6f7v"]
 [ext_resource type="Script" path="res://Scenes/PlayerScoring.gd" id="9_4gine"]
@@ -165,14 +166,15 @@ debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
 
 [node name="PlayerDamageable" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("player", "hurt_animation", "weapon")]
 script = ExtResource("5_n54kk")
-max_health = null
 player = NodePath("../..")
 hurt_animation = NodePath("AnimationPlayer")
 weapon = NodePath("../Weapon")
 
-[node name="HurtBox" type="Area2D" parent="PlayerMovementBody/PlayerDamageable"]
+[node name="HurtBox" type="Area2D" parent="PlayerMovementBody/PlayerDamageable" node_paths=PackedStringArray("damageable")]
 collision_layer = 4
 collision_mask = 4
+script = ExtResource("6_o7am5")
+damageable = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMovementBody/PlayerDamageable/HurtBox"]
 position = Vector2(-2, -12)

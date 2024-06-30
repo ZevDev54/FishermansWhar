@@ -4,8 +4,9 @@ var damage : int;
 var lethal : bool;
 var damage_source_id;
 
-static func create_hit(dmg, lethal, player_id):
-    var instance = HitEvent.new();
-    instance.damage = dmg;
-    instance.lethal = lethal
-    instance.damage_source_id = player_id;
+static func create_hit(dmg, lethal, player_id) -> HitEvent:
+    var new_hit = HitEvent.new();
+    new_hit.damage = dmg;
+    new_hit.lethal = lethal
+    new_hit.damage_source_id = player_id;
+    return new_hit;

@@ -30,7 +30,7 @@ func show_scores(players : Array[Player], round):
 
     for pid in range(players.size()):
         label_list[pid].text = "P"+str(pid+1)+" Score: "+str(players[pid].scoring.score);
-    round_num.text = str(round);
+    round_num.text = "Round "+str(round);
 
 
     

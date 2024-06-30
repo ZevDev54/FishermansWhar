@@ -15,7 +15,7 @@ func _ready():
 
 func take_damage(damage, unique_player_id) -> HitEvent:
 	if !alive: return HitEvent.create_hit(0, false, -1);
-	if(unique_player_id == player.unique_player_id): return HitEvent.create_hit(0, false, -1);
+	if(unique_player_id == player.unique_player_id): return HitEvent.create_hit(0, false, unique_player_id);
 	
 
 	health -= damage;
@@ -30,7 +30,10 @@ func take_damage(damage, unique_player_id) -> HitEvent:
 
 	if lethal:
 		die();
-	return HitEvent.create_hit(damage, lethal, unique_player_id)
+	print("Successful hit!")
+
+	var hit = HitEvent.create_hit(damage, lethal, unique_player_id);
+	return hit;
 
 	
 
@@ -45,3 +48,7 @@ func die():
 	# player.movement.move_to_position(Vector2(500, 400));
 	# health = max_health;
 	
+func revive():
+	alive = true;
+	health = max_health;
+	player.animation.set_dead(false);
