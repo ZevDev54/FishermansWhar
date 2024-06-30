@@ -60,10 +60,10 @@ func hit_behavior():
 
 func _on_area_2d_area_entered(area:Area2D):
 	var hurtbox = (area as HurtBox) # area as HitBox
-	print("contacted area: ",area);
+	# print("contacted area: ",area);
 	if(hurtbox):
 		deal_damage(hurtbox.damageable);
-		print("damage!");
+		# print("damage!");
 
 
 func _on_body_entered(body):
