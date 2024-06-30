@@ -13,9 +13,9 @@ func _ready():
 	player = (owner as Player);
 	health = max_health
 
-func take_damage(damage, unique_player_id) -> bool:
-	if !alive: false;
-	if(unique_player_id == player.unique_player_id): return false;
+func take_damage(damage, unique_player_id) -> HitEvent:
+	if !alive: return HitEvent.create_hit(0, false, -1);
+	if(unique_player_id == player.unique_player_id): return HitEvent.create_hit(0, false, -1);
 	
 
 	health -= damage;
@@ -30,7 +30,7 @@ func take_damage(damage, unique_player_id) -> bool:
 
 	if lethal:
 		die();
-	return true;
+	return HitEvent.create_hit(damage, lethal, unique_player_id)
 
 	
 

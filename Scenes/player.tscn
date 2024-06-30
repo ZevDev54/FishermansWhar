@@ -165,6 +165,7 @@ debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
 
 [node name="PlayerDamageable" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("player", "hurt_animation", "weapon")]
 script = ExtResource("5_n54kk")
+max_health = null
 player = NodePath("../..")
 hurt_animation = NodePath("AnimationPlayer")
 weapon = NodePath("../Weapon")
@@ -207,7 +208,7 @@ script = ExtResource("6_tixst")
 lerp_speed = 60.0
 body = NodePath("..")
 graphics = NodePath("Graphics")
-max_move_amount = 40.0
+max_move_amount = 100.0
 
 [node name="Graphics" type="Node2D" parent="PlayerMovementBody/SmoothGraphics"]
 position = Vector2(-2, -5)
