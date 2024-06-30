@@ -1,4 +1,4 @@
-extends ContactDamager
+extends DamageSource
 
 var object = self;
 var rigidbody = self;
@@ -29,9 +29,18 @@ func _physics_process(delta):
 	rigidbody.move_and_collide(rigidbody.position - object.global_position);
 	# print(global_position)
 
-func deal_damage(damageable : Damageable):
-	super.deal_damage(damageable);
-	queue_free();
+func deal_damage(damageable : Damageable) -> bool:
+
+	var result : HitEvent = damageable.take_damage(damage, unique_id_source)
+
+
+
+	
+	if(result.damage): return false;
+
+
+	hit_behavior();
+	return true;
 
 
 
@@ -39,10 +48,23 @@ func deal_damage(damageable : Damageable):
 	# 	print("Hit something!")
 	# 	(collision as Damageable).take_damage(damage);
 
-func _on_body_entered(body:Node):
+func hit_behavior():
+	
 	queue_free();
 
 
 # func _on_hit_box_area_entered(area):
 # 	if(area is Damageable):
 # 		(area as Damageable).take_damage(damage, team_int);
+
+
+func _on_area_2d_area_entered(area:Area2D):
+	var hurtbox = (area as HurtBox) # area as HitBox
+	print("contacted area: ",area);
+	if(hurtbox):
+		deal_damage(hurtbox.damageable);
+		print("damage!");
+
+
+func _on_body_entered(body):
+	hit_behavior();

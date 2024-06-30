@@ -7,6 +7,7 @@ var unique_player_id = -1;
 @export var controls : PlayerControls;
 @export var scoring : PlayerScoring;
 @export var animation : PlayerAnimationController;
+@export var damageable : PlayerDamageable;
 
 var player_index;
 

@@ -5,6 +5,8 @@ class_name PlayerAnimationController;
 @export var hands : Node2D;
 var state_machine;
 
+var dead;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state_machine = animtree.get("parameters/playback")
@@ -12,6 +14,8 @@ func _ready():
 
 
 func set_running(running):
+	if dead: return;
+
 	if running:
 		state_machine.travel("player_run");
 		# print("set running!")
@@ -21,3 +25,8 @@ func set_running(running):
 
 func set_hands_active(active):
 	hands.visible = active;
+
+func set_dead(toggle):
+	dead = toggle;
+	if(dead):
+		state_machine.travel("player_dead");
