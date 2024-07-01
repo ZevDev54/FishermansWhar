@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8lktjk7xd8cp"]
+[gd_scene load_steps=13 format=3 uid="uid://cf33bvkfuax1f"]
 
-[ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="1_5qfxu"]
-[ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_hgnwm"]
-[ext_resource type="Texture2D" uid="uid://biigokq5ppljg" path="res://Sprites/Bullets/BulletOutline.png" id="2_ri1xp"]
+[ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_h06nt"]
+[ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="2_a3k6i"]
+[ext_resource type="Texture2D" uid="uid://mupmet44ysvd" path="res://Sprites/Bullets/Sardine Projectile.png" id="3_mppva"]
 
 [sub_resource type="Curve" id="Curve_tll4w"]
 _data = [Vector2(0, 0.0674716), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -68,20 +68,21 @@ shader = SubResource("Shader_qapjr")
 shader_parameter/dir = Vector2(0, 0)
 shader_parameter/quality = 4
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6c2n4"]
-radius = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e1eof"]
+radius = 7.0
+height = 34.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lpn1b"]
 radius = 8.0
 
-[node name="projectile" type="RigidBody2D" node_paths=PackedStringArray("gfx", "rigidbody")]
+[node name="SardineProjectile" type="RigidBody2D" node_paths=PackedStringArray("gfx", "rigidbody")]
 collision_layer = 4
 collision_mask = 8
 gravity_scale = 0.0
 continuous_cd = 1
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_hgnwm")
+script = ExtResource("1_h06nt")
 gfx = NodePath("GFX")
 rigidbody = NodePath(".")
 
@@ -94,24 +95,23 @@ scale = Vector2(0.2, 0.2)
 position = Vector2(3.05176e-05, -9.53674e-07)
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_bke68")
-texture = ExtResource("1_5qfxu")
+texture = ExtResource("2_a3k6i")
 lifetime = 0.1
 
 [node name="fill" type="Sprite2D" parent="GFX/GFXScale"]
 material = SubResource("ShaderMaterial_55kum")
-texture = ExtResource("1_5qfxu")
-
-[node name="outline" type="Sprite2D" parent="GFX/GFXScale"]
-texture = ExtResource("2_ri1xp")
+texture = ExtResource("3_mppva")
 
 [node name="BulletCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_6c2n4")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_e1eof")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(9, 0)
 shape = SubResource("CircleShape2D_lpn1b")
 debug_color = Color(0.974344, 0, 0.427458, 0.42)
 

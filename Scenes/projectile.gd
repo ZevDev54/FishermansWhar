@@ -1,10 +1,13 @@
 extends DamageSource
 
+@export var gfx : Node2D;
+
 var object = self;
-var rigidbody = self;
+@export var rigidbody : RigidBody2D;
 var shoot_direction = Vector2.ZERO;
 var speed = 0.0;
 var lifetime = 1.0;
+
 
 func init(set_position, set_direction, set_speed, set_damage, set_lifetime, set_unique_id):
 	rigidbody.position = set_position;
@@ -15,6 +18,7 @@ func init(set_position, set_direction, set_speed, set_damage, set_lifetime, set_
 	self.damage = set_damage;
 	self.lifetime = set_lifetime;
 	# print("Initialize!!")
+	gfx.look_at(rigidbody.position + self.shoot_direction)
 
 
 func _process(delta):
@@ -23,6 +27,7 @@ func _process(delta):
 	else:
 		queue_free()
 	pass
+
 
 func _physics_process(delta):
 	object.global_position += shoot_direction * speed * delta;
@@ -36,7 +41,7 @@ func deal_damage(damageable : Damageable) -> bool:
 
 
 	
-	if(result.damage): return false;
+	if(result.damage == 0): return false;
 
 
 	hit_behavior();

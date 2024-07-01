@@ -68,9 +68,11 @@ func toggle_movement_override(toggle:bool):
 	movement_overridden = toggle;
 
 func override_movement(move_vec : Vector2, delta):
+
 	if !player.damageable.alive : return;
 	global_position += move_vec * delta;
-	move_and_slide();
+	# velocity = move_vec;
+	move_and_slide(); # causes error!
 	# print("augh!")
 
 func move_to_position(pos:Vector2):

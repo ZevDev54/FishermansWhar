@@ -6,7 +6,7 @@ var shoot_timer = 0.0;
 
 var trigger_was_held;
 
-@export var shells_per_shot = 8;
+@export var shells_per_shot : int = 8;
 @export var degrees_variance = 15.0;
 @export var min_speed = 500;
 
@@ -18,8 +18,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	super._process(delta)
-
+	super._process(delta);
 	if(shoot_timer > 0):
 		shoot_timer -= delta;
 
@@ -35,14 +34,10 @@ func trigger_held(held):
 	trigger_was_held = held;
 
 func shoot():
-	var aim_vec_angle = atan2(aim_vec.y, aim_vec.x);
 
 	for i in range(shells_per_shot):
-		var angle_variance = randf_range(-degrees_variance/2, degrees_variance/2);
-		var new_angle = aim_vec_angle + angle_variance;
-		var resultant = Vector2(cos(new_angle), sin(new_angle)); 
-
-		projectile_shoot(resultant, randf_range(min_speed, projectile_speed));
+		var dir : Vector2 = modulate_aim(Vector2(aim_vec.x, aim_vec.y), degrees_variance);
+		projectile_shoot(dir, randf_range(min_speed, projectile_speed));
 
 
 	animation.stop(true);

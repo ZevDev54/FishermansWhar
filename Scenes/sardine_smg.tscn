@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvoqtax3kbn3h"]
+[gd_scene load_steps=11 format=3 uid="uid://clqrjeublql8t"]
 
-[ext_resource type="Script" path="res://Scenes/guns/bass.gd" id="1_cy8xv"]
-[ext_resource type="PackedScene" uid="uid://b8lktjk7xd8cp" path="res://Scenes/projectile.tscn" id="2_3rgog"]
-[ext_resource type="Script" path="res://Scenes/guns/WeaponGfx.gd" id="3_rrxkk"]
-[ext_resource type="Texture2D" uid="uid://c6g2pd54fy1sb" path="res://Sprites/FishHandless/BassNoHands.png" id="4_47jlw"]
-[ext_resource type="Texture2D" uid="uid://cjhu7853la3rp" path="res://Sprites/FishHands/Bass.png" id="5_k3b8s"]
-[ext_resource type="AudioStream" uid="uid://cmm5jxops5wi4" path="res://audio/sfx/shotgun.wav" id="6_oxjii"]
+[ext_resource type="Script" path="res://Scenes/sardine_smg.gd" id="1_qka42"]
+[ext_resource type="PackedScene" uid="uid://cf33bvkfuax1f" path="res://Scenes/sardine_projectile.tscn" id="2_d423k"]
+[ext_resource type="Script" path="res://Scenes/guns/WeaponGfx.gd" id="3_su6o2"]
+[ext_resource type="Texture2D" uid="uid://dlsdyyvycpjkr" path="res://Sprites/FishHandless/SardineCanNoHands.png" id="4_hk7nl"]
+[ext_resource type="Texture2D" uid="uid://21d0oteefa17" path="res://Sprites/FishHands/SardineCan.png" id="5_plh57"]
+[ext_resource type="AudioStream" uid="uid://dw5k4sy8sjiy0" path="res://audio/sfx/pop.wav" id="6_1wy1v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqc8f"]
 radius = 7.0
@@ -68,33 +68,31 @@ _data = {
 "shoot": SubResource("Animation_8msux")
 }
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qhkp2"]
-random_pitch = 1.02
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2jnpi"]
+random_pitch = 1.05
 random_volume_offset_db = 0.5
 streams_count = 1
-stream_0/stream = ExtResource("6_oxjii")
+stream_0/stream = ExtResource("6_1wy1v")
 stream_0/weight = 1.0
 
-[node name="Bass" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
+[node name="SardineSMG" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
 z_index = 6
 collision_layer = 2
 collision_mask = 137
 gravity_scale = 0.0
 freeze = true
 linear_damp = 0.5
-script = ExtResource("1_cy8xv")
-shoot_rate = 0.75
+script = ExtResource("1_qka42")
+shoot_rate = 0.05
 animation = NodePath("AnimationPlayer")
-shells_per_shot = null
-degrees_variance = 0.8
-min_speed = 800
+degrees_inaccuracy = 0.6
 rigidbody = NodePath(".")
 gfx = NodePath("GFX")
 shoot_point = NodePath("ShootPosition")
-projectile = ExtResource("2_3rgog")
-projectile_speed = 1000.0
-projectile_damage = 8
-projectile_lifetime = 0.5
+projectile = ExtResource("2_d423k")
+projectile_speed = 500.0
+projectile_damage = 12
+projectile_lifetime = 1.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)
@@ -108,29 +106,30 @@ libraries = {
 
 [node name="GFX" type="Node2D" parent="." node_paths=PackedStringArray("flip_scaler", "hands_sprite", "nohands_sprite")]
 position = Vector2(17, 0)
-script = ExtResource("3_rrxkk")
+script = ExtResource("3_su6o2")
 flip_scaler = NodePath("GFXScale/GFXFlipScaler")
-hands_sprite = NodePath("GFXScale/GFXFlipScaler/Hands")
-nohands_sprite = NodePath("GFXScale/GFXFlipScaler/NoHands")
+hands_sprite = NodePath("GFXScale/GFXFlipScaler/SardineCan")
+nohands_sprite = NodePath("GFXScale/GFXFlipScaler/SardineCanNoHands")
 
 [node name="GFXScale" type="Node2D" parent="GFX"]
 scale = Vector2(0.15, 0.15)
 
 [node name="GFXFlipScaler" type="Node2D" parent="GFX/GFXScale"]
 
-[node name="NoHands" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
-texture = ExtResource("4_47jlw")
+[node name="SardineCanNoHands" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
+texture = ExtResource("4_hk7nl")
 
-[node name="Hands" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
+[node name="SardineCan" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
 visible = false
-texture = ExtResource("5_k3b8s")
+texture = ExtResource("5_plh57")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(35, 0)
-stream = SubResource("AudioStreamRandomizer_qhkp2")
-volume_db = 6.012
+stream = SubResource("AudioStreamRandomizer_2jnpi")
+volume_db = 4.637
+pitch_scale = 0.9
 max_polyphony = 3
 bus = &"sfx"
 
 [node name="ShootPosition" type="Node2D" parent="."]
-position = Vector2(32, 0)
+position = Vector2(30, 1)

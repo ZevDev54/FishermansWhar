@@ -1,6 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dy1v8qv6rfib2"]
 
 [ext_resource type="PackedScene" uid="uid://8vp2oxwy362n" path="res://Scenes/guns/perch.tscn" id="2_u6gx3"]
+[ext_resource type="PackedScene" uid="uid://clqrjeublql8t" path="res://Scenes/sardine_smg.tscn" id="4_4sfye"]
 [ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="4_uldyd"]
 [ext_resource type="Texture2D" uid="uid://dfjcs5ocibk1c" path="res://Sprites/levels/docks/Water.png" id="8_k35p4"]
 [ext_resource type="Texture2D" uid="uid://cnewufp64oaq2" path="res://Sprites/levels/docks/Post bottom.png" id="9_ue1g1"]
@@ -10,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://00us50aqroe2" path="res://Sprites/levels/docks/Small Boat Highlights.png" id="13_xejb4"]
 [ext_resource type="PackedScene" uid="uid://v0kw1q8bpns1" path="res://Scenes/LevelBits/crate.tscn" id="14_62lr8"]
 [ext_resource type="Texture2D" uid="uid://dtxeacrg0103e" path="res://Sprites/levels/docks/Small Boat.png" id="14_k6ngi"]
-[ext_resource type="TileSet" uid="uid://fp33nodarx8r" path="res://Sprites/levels/tilesets/Dock.tres" id="15_4xues"]
 [ext_resource type="PackedScene" uid="uid://cvoqtax3kbn3h" path="res://Scenes/guns/bass.tscn" id="17_56837"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_top5m"]
@@ -35,6 +35,10 @@ position = Vector2(289, 301)
 
 [node name="Bass" parent="." instance=ExtResource("17_56837")]
 position = Vector2(458, 332)
+shells_per_shot = null
+
+[node name="SardineSMG" parent="." instance=ExtResource("4_4sfye")]
+position = Vector2(215, 270)
 
 [node name="Level" type="Node2D" parent="."]
 
@@ -82,10 +86,6 @@ position = Vector2(194, 144)
 [node name="Crate3" parent="Level" instance=ExtResource("14_62lr8")]
 z_index = 1
 position = Vector2(754, 455)
-
-[node name="TileMap" type="TileMap" parent="Level"]
-tile_set = ExtResource("15_4xues")
-format = 2
 
 [node name="Boat" type="Node2D" parent="Level"]
 position = Vector2(182, 770)

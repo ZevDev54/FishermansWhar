@@ -86,6 +86,7 @@ linear_damp = 10.0
 script = ExtResource("1_4mur2")
 shoot_rate = 0.125
 animation = NodePath("AnimationPlayer")
+degrees_inaccuracy = 0.2
 rigidbody = NodePath(".")
 gfx = NodePath("GFX")
 shoot_point = NodePath("ShootPosition")

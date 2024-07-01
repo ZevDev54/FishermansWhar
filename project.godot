@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 Singletons="*res://Scripts/singletons.gd"
 
+[debug]
+
+file_logging/enable_file_logging=true
+
 [display]
 
 window/size/viewport_width=1920

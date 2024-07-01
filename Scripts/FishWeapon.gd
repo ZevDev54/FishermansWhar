@@ -46,11 +46,14 @@ func drop():
 	print("weapon drop heard")
 
 func _process(delta):
-	rigidbody.freeze = (holding_parent != null)
-
 	trigger_held(trigger_input);
 
-	if(!holding_parent): return
+func _physics_process(delta):
+	rigidbody.freeze = (holding_parent != null)
+
+	
+
+	if(!rigidbody.freeze): return
 	rigidbody.move_and_collide(rigidbody.position - holding_parent.global_position);
 	global_position = holding_parent.global_position;
 
@@ -62,6 +65,16 @@ func trigger_held(held):
 func shoot():
 	push_warning("shoot behaviour undefined, override in child class!")
 	# projectile_shoot();
+
+func modulate_aim(aim_vec, degrees_variance) -> Vector2:
+	var aim_vec_angle = atan2(aim_vec.y, aim_vec.x);
+
+	var angle_variance = randf_range(-degrees_variance/2, degrees_variance/2);
+	var new_angle = aim_vec_angle + angle_variance;
+	var resultant : Vector2 = Vector2(cos(new_angle), sin(new_angle)); 
+
+	return resultant;
+
 
 # func projectile_shoot():
 # 	var shot = projectile.instantiate();
