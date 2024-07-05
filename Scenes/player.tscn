@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://df2qlsuxgg8m7"]
+[gd_scene load_steps=26 format=3 uid="uid://df2qlsuxgg8m7"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="6_tixst"]
 [ext_resource type="Script" path="res://Scenes/PlayerControls.gd" id="8_g6f7v"]
 [ext_resource type="Script" path="res://Scenes/PlayerScoring.gd" id="9_4gine"]
+[ext_resource type="Texture2D" uid="uid://81roqoc1gm7o" path="res://Sprites/PlayerScaleTest/PlayerSketch.png" id="9_cpj0b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s8tm3"]
 
@@ -25,8 +26,8 @@ height = 50.0
 radius = 78.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yu3vy"]
-radius = 21.0
-height = 62.0
+radius = 19.0
+height = 76.0
 
 [sub_resource type="Animation" id="Animation_xoi8o"]
 length = 0.001
@@ -179,6 +180,7 @@ damageable = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMovementBody/PlayerDamageable/HurtBox"]
 position = Vector2(-2, -12)
 shape = SubResource("CapsuleShape2D_yu3vy")
+debug_color = Color(0.980032, 0.632424, 1, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerMovementBody/PlayerDamageable"]
 libraries = {
@@ -215,6 +217,14 @@ max_move_amount = 100.0
 [node name="Graphics" type="Node2D" parent="PlayerMovementBody/SmoothGraphics"]
 position = Vector2(-2, -5)
 
+[node name="PlayerScaleTest" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+position = Vector2(-6, -4)
+scale = Vector2(0.5, 0.5)
+
+[node name="PlayerSketch" type="Sprite2D" parent="PlayerMovementBody/SmoothGraphics/Graphics/PlayerScaleTest"]
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("9_cpj0b")
+
 [node name="GraphicsScale" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
 visible = false
 scale = Vector2(0.1, 0.1)
@@ -228,6 +238,7 @@ position = Vector2(18, 28)
 texture = ExtResource("3_medks")
 
 [node name="GFXScale" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+visible = false
 scale = Vector2(0.1, 0.1)
 
 [node name="PlayerAnimationBody" parent="PlayerMovementBody/SmoothGraphics/Graphics/GFXScale" instance=ExtResource("5_xp8la")]
