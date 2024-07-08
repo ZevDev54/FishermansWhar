@@ -20,9 +20,13 @@ func init(player_num: int, device: int):
 	controls.player_index = player_num;
 	
 	unique_player_id = randi_range(0, 1000000); # later, change to ensure no duplicate ID edge cases.
+
+	
 	
 	# $Player.text = "%s" % player_num
 
+func _ready():
+	animation.color_player(unique_player_id);
 
 func remove_player():
 	Singletons.Players.remove_player(self);

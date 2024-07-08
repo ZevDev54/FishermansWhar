@@ -1,0 +1,483 @@
+[gd_scene load_steps=28 format=3 uid="uid://fux17lnyrrv2"]
+
+[ext_resource type="Script" path="res://Scenes/player_animation_controller.gd" id="1_p7nm4"]
+[ext_resource type="Shader" path="res://Scenes/hitflash.gdshader" id="1_pafbb"]
+[ext_resource type="Texture2D" uid="uid://yghmd5k0ce8w" path="res://Sprites/Fisherman/v3/UniformFill.png" id="1_xqfl4"]
+[ext_resource type="Texture2D" uid="uid://cqaa6d754kppy" path="res://Sprites/Fisherman/v3/Body.png" id="2_v33fx"]
+[ext_resource type="Texture2D" uid="uid://bylwp6mw4235h" path="res://Sprites/Fisherman/v3/Face.png" id="3_g7ktw"]
+[ext_resource type="Texture2D" uid="uid://bjrye24f270yg" path="res://Sprites/Fisherman/v3/Rhand.png" id="4_jidxf"]
+[ext_resource type="Texture2D" uid="uid://cdomr74qadgqc" path="res://Sprites/Fisherman/v3/Lhand.png" id="5_gemtx"]
+[ext_resource type="Texture2D" uid="uid://dkdcenl35erb3" path="res://Sprites/Fisherman/v3/Lfoot.png" id="6_u3nxr"]
+[ext_resource type="Texture2D" uid="uid://db657fx1p5hbi" path="res://Sprites/Fisherman/v3/Rfoot.png" id="7_tfohi"]
+[ext_resource type="Texture2D" uid="uid://kebjn5et6b4j" path="res://Sprites/Fisherman/v3/PlayerDropShadow.png" id="9_qdy4x"]
+[ext_resource type="AudioStream" uid="uid://bb8ng2eq3oyid" path="res://audio/sfx/Footsteps/Dock/Step1Dock.wav" id="10_0buu5"]
+[ext_resource type="AudioStream" uid="uid://01u0ka4k0vdq" path="res://audio/sfx/Footsteps/Dock/Step2Dock.wav" id="11_8gn57"]
+[ext_resource type="AudioStream" uid="uid://c3p1hqslfv0ut" path="res://audio/sfx/Footsteps/Dock/Step3Dock.wav" id="12_nkefr"]
+[ext_resource type="AudioStream" uid="uid://bcfih6d66f5wb" path="res://audio/sfx/Footsteps/Dock/Step4Dock.wav" id="13_te65s"]
+[ext_resource type="AudioStream" uid="uid://cvh7jyy551s61" path="res://audio/sfx/Footsteps/Dock/Step5Dock.wav" id="14_0bugq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4alx"]
+resource_local_to_scene = true
+shader = ExtResource("1_pafbb")
+shader_parameter/flash_color = Color(1, 0.869333, 0.84, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rlpe7"]
+animation = &"player_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rxccv"]
+animation = &"player_run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3y2gl"]
+xfade_time = 0.2
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mnhnm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r13nh"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f2i2q"]
+states/Start/position = Vector2(201, 100)
+states/player_idle/node = SubResource("AnimationNodeAnimation_rlpe7")
+states/player_idle/position = Vector2(436, 86)
+states/player_run/node = SubResource("AnimationNodeAnimation_rxccv")
+states/player_run/position = Vector2(427, 181)
+transitions = ["player_run", "player_idle", SubResource("AnimationNodeStateMachineTransition_3y2gl"), "player_idle", "player_run", SubResource("AnimationNodeStateMachineTransition_mnhnm"), "Start", "player_idle", SubResource("AnimationNodeStateMachineTransition_r13nh")]
+
+[sub_resource type="Animation" id="Animation_b47rx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX/body_foot_anchor/offset:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX/body_foot_anchor:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GFX/body_foot_anchor:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GFX/body_foot_anchor:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GFX/body_foot_anchor/offset/feet/Lfoot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, 89)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GFX/body_foot_anchor/offset/feet/Lfoot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GFX/body_foot_anchor/offset/feet/Lfoot:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GFX/body_foot_anchor/offset/feet/Rfoot:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(27, 88)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GFX/body_foot_anchor/offset/feet/Rfoot:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("GFX/body_foot_anchor/offset/feet/Rfoot:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("GFX/body_foot_anchor/offset/hands:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("GFX/body_foot_anchor/offset/hands:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_dgsu6"]
+resource_name = "player_idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX/body_foot_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX/body_foot_anchor:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_vourn"]
+resource_name = "playerv2_run"
+length = 0.25
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX/body_foot_anchor/offset:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.95, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX/body_foot_anchor:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GFX/body_foot_anchor:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GFX/body_foot_anchor:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -15), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GFX/body_foot_anchor/offset/feet/Lfoot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-12, 89), Vector2(-20, 81.5), Vector2(-20, 81.5), Vector2(-12, 89)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GFX/body_foot_anchor/offset/feet/Lfoot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.785398, 0.610865, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GFX/body_foot_anchor/offset/feet/Lfoot:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GFX/body_foot_anchor/offset/feet/Rfoot:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(27, 88), Vector2(37.8947, 81.5), Vector2(37.8947, 81.5), Vector2(27, 88)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GFX/body_foot_anchor/offset/feet/Rfoot:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.09, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.785398, -0.610865, 0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("GFX/body_foot_anchor/offset/feet/Rfoot:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("GFX/body_foot_anchor/offset/hands:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -15)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("GFX/body_foot_anchor/offset/hands:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wo0de"]
+_data = {
+"RESET": SubResource("Animation_b47rx"),
+"player_idle": SubResource("Animation_dgsu6"),
+"player_run": SubResource("Animation_vourn")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cgey3"]
+streams_count = 5
+stream_0/stream = ExtResource("10_0buu5")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("11_8gn57")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("12_nkefr")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("13_te65s")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("14_0bugq")
+stream_4/weight = 1.0
+
+[node name="PlayerAnimationBodyV2" type="Node2D" node_paths=PackedStringArray("hands", "player_colorable_sprite")]
+material = SubResource("ShaderMaterial_a4alx")
+script = ExtResource("1_p7nm4")
+hands = NodePath("GFX/body_foot_anchor/offset/hands")
+player_colorable_sprite = NodePath("GFX/body_foot_anchor/offset/main/UniformFill")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_f2i2q")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wo0de")
+}
+
+[node name="PlayerDropShadow" type="Sprite2D" parent="."]
+position = Vector2(8, -2)
+texture = ExtResource("9_qdy4x")
+
+[node name="GFX" type="Node2D" parent="."]
+use_parent_material = true
+
+[node name="body_foot_anchor" type="Node2D" parent="GFX"]
+use_parent_material = true
+
+[node name="offset" type="Node2D" parent="GFX/body_foot_anchor"]
+use_parent_material = true
+position = Vector2(0, -103)
+
+[node name="main" type="Node2D" parent="GFX/body_foot_anchor/offset"]
+use_parent_material = true
+
+[node name="UniformFill" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main"]
+position = Vector2(12, 0)
+texture = ExtResource("1_xqfl4")
+
+[node name="torso_and_head" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main"]
+use_parent_material = true
+position = Vector2(0, -1)
+texture = ExtResource("2_v33fx")
+
+[node name="Face" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main"]
+use_parent_material = true
+position = Vector2(2, 1)
+texture = ExtResource("3_g7ktw")
+
+[node name="hands" type="Node2D" parent="GFX/body_foot_anchor/offset"]
+use_parent_material = true
+
+[node name="Rhand" type="Sprite2D" parent="GFX/body_foot_anchor/offset/hands"]
+use_parent_material = true
+position = Vector2(63, 55)
+texture = ExtResource("4_jidxf")
+
+[node name="Lhand" type="Sprite2D" parent="GFX/body_foot_anchor/offset/hands"]
+use_parent_material = true
+position = Vector2(-49, 57)
+texture = ExtResource("5_gemtx")
+
+[node name="feet" type="Node2D" parent="GFX/body_foot_anchor/offset"]
+use_parent_material = true
+
+[node name="Lfoot" type="Sprite2D" parent="GFX/body_foot_anchor/offset/feet"]
+use_parent_material = true
+position = Vector2(-12, 89)
+texture = ExtResource("6_u3nxr")
+
+[node name="Rfoot" type="Sprite2D" parent="GFX/body_foot_anchor/offset/feet"]
+use_parent_material = true
+position = Vector2(27, 88)
+texture = ExtResource("7_tfohi")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_cgey3")
+volume_db = 5.0
+pitch_scale = 0.9
+max_polyphony = 3
+bus = &"sfx"

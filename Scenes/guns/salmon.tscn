@@ -132,4 +132,4 @@ max_polyphony = 3
 bus = &"sfx"
 
 [node name="ShootPosition" type="Node2D" parent="."]
-position = Vector2(34, -1)
+position = Vector2(49, 0)

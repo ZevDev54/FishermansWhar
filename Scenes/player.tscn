@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://df2qlsuxgg8m7"]
+[gd_scene load_steps=28 format=3 uid="uid://df2qlsuxgg8m7"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
@@ -15,32 +15,34 @@
 [ext_resource type="Script" path="res://Scenes/PlayerControls.gd" id="8_g6f7v"]
 [ext_resource type="Script" path="res://Scenes/PlayerScoring.gd" id="9_4gine"]
 [ext_resource type="Texture2D" uid="uid://81roqoc1gm7o" path="res://Sprites/PlayerScaleTest/PlayerSketch.png" id="9_cpj0b"]
+[ext_resource type="PackedScene" uid="uid://fux17lnyrrv2" path="res://Scenes/player_animation_body_v_2.tscn" id="14_nwwmg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s8tm3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yvgmo"]
-radius = 20.0
-height = 50.0
+radius = 14.0
+height = 42.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jotal"]
-radius = 78.0
+radius = 58.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yu3vy"]
-radius = 19.0
-height = 76.0
+radius = 15.0
+height = 60.0
 
 [sub_resource type="Animation" id="Animation_xoi8o"]
 length = 0.001
-tracks/0/type = "bezier"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../SmoothGraphics/Graphics/GFXScale/PlayerAnimationBody:material:shader_parameter/flash_modifier")
+tracks/0/path = NodePath("../SmoothGraphics/Graphics/scale/PlayerAnimationBodyV2:material:shader_parameter/flash_modifier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_aqvt3"]
@@ -83,16 +85,17 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/3/type = "bezier"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../SmoothGraphics/Graphics/GFXScale/PlayerAnimationBody:material:shader_parameter/flash_modifier")
+tracks/3/path = NodePath("../SmoothGraphics/Graphics/scale/PlayerAnimationBodyV2:material:shader_parameter/flash_modifier")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.14)
+"times": PackedFloat32Array(0, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rvwry"]
@@ -119,12 +122,18 @@ shader = ExtResource("6_fdf81")
 shader_parameter/flash_color = Color(1, 0.74, 0.74, 1)
 shader_parameter/flash_modifier = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjuem"]
+resource_local_to_scene = true
+shader = ExtResource("6_fdf81")
+shader_parameter/flash_color = Color(1, 0.869333, 0.84, 1)
+shader_parameter/flash_modifier = 0.0
+
 [node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls", "scoring", "animation", "damageable")]
 script = ExtResource("1_pm4vy")
 movement = NodePath("PlayerMovementBody")
 controls = NodePath("PlayerControls")
 scoring = NodePath("PlayerScoring")
-animation = NodePath("PlayerMovementBody/SmoothGraphics/Graphics/GFXScale/PlayerAnimationBody")
+animation = NodePath("PlayerMovementBody/SmoothGraphics/Graphics/scale/PlayerAnimationBodyV2")
 damageable = NodePath("PlayerMovementBody/PlayerDamageable")
 
 [node name="PlayerMovementBody" type="CharacterBody2D" parent="."]
@@ -145,12 +154,12 @@ charge_max = 0.25
 
 [node name="MainCollider" type="CollisionShape2D" parent="PlayerMovementBody"]
 z_index = 1
-position = Vector2(-2, -5)
+position = Vector2(-1, 4)
 shape = SubResource("CapsuleShape2D_yvgmo")
 debug_color = Color(0.500428, 0.428096, 1, 0.42)
 
 [node name="Weapon" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("pickup_area", "owner_player")]
-position = Vector2(-2, -12)
+position = Vector2(-2, 8)
 script = ExtResource("4_i4vo3")
 pickup_area = NodePath("../PickupArea")
 owner_player = NodePath("../..")
@@ -178,7 +187,7 @@ script = ExtResource("6_o7am5")
 damageable = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMovementBody/PlayerDamageable/HurtBox"]
-position = Vector2(-2, -12)
+position = Vector2(-1, -6)
 shape = SubResource("CapsuleShape2D_yu3vy")
 debug_color = Color(0.980032, 0.632424, 1, 0.42)
 
@@ -218,6 +227,7 @@ max_move_amount = 100.0
 position = Vector2(-2, -5)
 
 [node name="PlayerScaleTest" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+visible = false
 position = Vector2(-6, -4)
 scale = Vector2(0.5, 0.5)
 
@@ -243,6 +253,13 @@ scale = Vector2(0.1, 0.1)
 
 [node name="PlayerAnimationBody" parent="PlayerMovementBody/SmoothGraphics/Graphics/GFXScale" instance=ExtResource("5_xp8la")]
 material = SubResource("ShaderMaterial_bkrso")
+
+[node name="scale" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+scale = Vector2(0.333, 0.333)
+
+[node name="PlayerAnimationBodyV2" parent="PlayerMovementBody/SmoothGraphics/Graphics/scale" instance=ExtResource("14_nwwmg")]
+material = SubResource("ShaderMaterial_cjuem")
+position = Vector2(0, 84)
 
 [node name="PlayerControls" type="Node" parent="."]
 script = ExtResource("8_g6f7v")

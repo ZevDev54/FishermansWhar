@@ -189,6 +189,7 @@ round_score_display = NodePath("../../../../GUI/RoundOverCanvas")
 
 [node name="PlayerTracker" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
 script = ExtResource("6_c3l50")
+player_cols = Array[Color]([Color(0.878431, 0.784314, 0.447059, 1), Color(0.690196, 0.227451, 0.282353, 1), Color(0.360784, 0.545098, 0.576471, 1), Color(0.243137, 0.411765, 0.345098, 1)])
 
 [node name="ScoreManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
 script = ExtResource("7_kgq12")

@@ -8,6 +8,7 @@ var shoot_direction = Vector2.ZERO;
 var speed = 0.0;
 var lifetime = 1.0;
 
+@export var colorer : ProjectileColorer;
 
 func init(set_position, set_direction, set_speed, set_damage, set_lifetime, set_unique_id):
 	rigidbody.position = set_position;
@@ -19,6 +20,9 @@ func init(set_position, set_direction, set_speed, set_damage, set_lifetime, set_
 	self.lifetime = set_lifetime;
 	# print("Initialize!!")
 	gfx.look_at(rigidbody.position + self.shoot_direction)
+
+	if(colorer):
+		colorer.set_team_color(Singletons.Players.get_color_of_id(set_unique_id));
 
 
 func _process(delta):

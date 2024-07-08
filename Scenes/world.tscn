@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy1v8qv6rfib2"]
+[gd_scene load_steps=15 format=3 uid="uid://dy1v8qv6rfib2"]
 
 [ext_resource type="PackedScene" uid="uid://8vp2oxwy362n" path="res://Scenes/guns/perch.tscn" id="2_u6gx3"]
 [ext_resource type="PackedScene" uid="uid://clqrjeublql8t" path="res://Scenes/sardine_smg.tscn" id="4_4sfye"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cnewufp64oaq2" path="res://Sprites/levels/docks/Post bottom.png" id="9_ue1g1"]
 [ext_resource type="Texture2D" uid="uid://cdt4k3h5jlr7b" path="res://Sprites/levels/docks/FishingBoat.png" id="11_iaaea"]
 [ext_resource type="Texture2D" uid="uid://dyejqlwbfkfhj" path="res://Sprites/levels/docks/Post top.png" id="12_atnrr"]
-[ext_resource type="Texture2D" uid="uid://br6oq2ifyxfae" path="res://Sprites/Fisherman/v3/Fisherman-v3.png" id="13_5mm2d"]
 [ext_resource type="Texture2D" uid="uid://00us50aqroe2" path="res://Sprites/levels/docks/Small Boat Highlights.png" id="13_xejb4"]
 [ext_resource type="PackedScene" uid="uid://v0kw1q8bpns1" path="res://Scenes/LevelBits/crate.tscn" id="14_62lr8"]
 [ext_resource type="Texture2D" uid="uid://dtxeacrg0103e" path="res://Sprites/levels/docks/Small Boat.png" id="14_k6ngi"]
@@ -67,9 +66,9 @@ stretch_mode = 1
 [node name="Dock2" type="NinePatchRect" parent="Level"]
 z_index = -5
 offset_left = 39.0
-offset_right = 2193.0
-offset_bottom = 1340.0
-scale = Vector2(0.5, 0.5)
+offset_right = 3282.0
+offset_bottom = 1994.0
+scale = Vector2(0.333, 0.333)
 texture = ExtResource("7_blgy8")
 region_rect = Rect2(-0.181799, -0.686634, 510.909, 220.089)
 patch_margin_left = 32
@@ -275,8 +274,3 @@ shape = SubResource("RectangleShape2D_vsxau")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(577, -7)
 shape = SubResource("RectangleShape2D_vsxau")
-
-[node name="Fisherman-v3" type="Sprite2D" parent="."]
-position = Vector2(259, 447)
-scale = Vector2(0.333, 0.333)
-texture = ExtResource("13_5mm2d")
