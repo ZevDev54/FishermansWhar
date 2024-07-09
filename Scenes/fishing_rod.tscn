@@ -1,0 +1,181 @@
+[gd_scene load_steps=11 format=3 uid="uid://camcrc6s3uibu"]
+
+[ext_resource type="Script" path="res://Scenes/fishing_rod.gd" id="1_4mrlr"]
+[ext_resource type="Texture2D" uid="uid://b8o0lpmysc4aw" path="res://Sprites/FishingRod/Rod.png" id="1_syo2h"]
+[ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="2_bwead"]
+[ext_resource type="Texture2D" uid="uid://oa7tt181ryc5" path="res://Sprites/FishingRod/Bob.png" id="2_hrge6"]
+[ext_resource type="Texture2D" uid="uid://cprp18tk8khxr" path="res://Sprites/FishingRod/BobWater.png" id="3_sqev0"]
+[ext_resource type="Script" path="res://Scenes/FishingLine.gd" id="4_48a08"]
+
+[sub_resource type="Animation" id="Animation_3xd0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BobWater:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 37)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BobWater:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BobSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BobSprite:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jk1i0"]
+resource_name = "bob_idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BobWater:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.7, 2.5, 3.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 37), Vector2(0, 42), Vector2(0, 34), Vector2(0, 41), Vector2(0, 44)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BobWater:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BobSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.8, 3.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5), Vector2(0, 0), Vector2(0, 8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BobSprite:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tge52"]
+_data = {
+"RESET": SubResource("Animation_3xd0h"),
+"bob_idle": SubResource("Animation_jk1i0")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8om5b"]
+radius = 57.0351
+
+[node name="FishingRod" type="Node2D" node_paths=PackedStringArray("fish_spawn_point")]
+script = ExtResource("1_4mrlr")
+catch_fish = ExtResource("2_bwead")
+fish_spawn_point = NodePath("FishSpawnPoint")
+
+[node name="GFX_scale" type="Node2D" parent="."]
+scale = Vector2(0.25, 0.25)
+
+[node name="RodSprite" type="Sprite2D" parent="GFX_scale"]
+position = Vector2(153, -117)
+texture = ExtResource("1_syo2h")
+
+[node name="LineAttachRod" type="Node2D" parent="GFX_scale/RodSprite"]
+position = Vector2(223, -135)
+
+[node name="Bob" type="Node2D" parent="GFX_scale"]
+position = Vector2(590, 10)
+
+[node name="BobSprite" type="Sprite2D" parent="GFX_scale/Bob"]
+texture = ExtResource("2_hrge6")
+
+[node name="LineAttachmentPoint" type="Node2D" parent="GFX_scale/Bob/BobSprite"]
+position = Vector2(-1, -27.8302)
+
+[node name="BobWater" type="Sprite2D" parent="GFX_scale/Bob"]
+position = Vector2(0, 37)
+texture = ExtResource("3_sqev0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX_scale/Bob"]
+libraries = {
+"": SubResource("AnimationLibrary_tge52")
+}
+autoplay = "bob_idle"
+
+[node name="FishingLine" type="Line2D" parent="." node_paths=PackedStringArray("attach_point1", "attach_point2")]
+z_index = -1
+position = Vector2(94, -63)
+points = PackedVector2Array(0, 0, 53.25, 58.5424)
+closed = true
+width = 2.0
+default_color = Color(0.890196, 0.811765, 0.705882, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("4_48a08")
+attach_point1 = NodePath("../GFX_scale/RodSprite/LineAttachRod")
+attach_point2 = NodePath("../GFX_scale/Bob/BobSprite/LineAttachmentPoint")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-32, -31)
+shape = SubResource("CircleShape2D_8om5b")
+debug_color = Color(0, 0.636047, 0.409755, 0.42)
+
+[node name="FishSpawnPoint" type="Node2D" parent="."]
+position = Vector2(-28, -3)

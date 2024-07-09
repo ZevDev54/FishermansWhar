@@ -2,6 +2,8 @@ extends Node2D
 class_name PlayerWeapon;
 
 @export var pickup_area : Area2D;
+@export var owner_player : Player;
+
 
 var weapon: FishWeapon;
 
@@ -9,12 +11,17 @@ var degrees: float = 0;
 
 var input;
 
+func _ready():
+	input = owner_player.controls.input;
 
 
 
 func _process(delta):
-	if(weapon):
+	var holding = (weapon != null)
+	if(holding):
 		weapon_update_loop();
+	
+	owner_player.animation.set_hands_active(!holding);
 	
 	weapon_pickup_loop();
 		
@@ -33,8 +40,10 @@ func weapon_update_loop():
 #pickup weapon
 func set_weapon(set):
 	weapon = set;
-	weapon.holding_parent = self;
+	weapon.set_held_by(self, owner_player.unique_player_id)
 	weapon.gfx.toggle_hands(true);
+	weapon.aim_loop(1, 0)
+
 
 #drop weapon
 func drop_weapon():
@@ -54,10 +63,12 @@ func weapon_pickup_loop():
 		var bodies = pickup_area.get_overlapping_bodies();
 
 		for body in bodies:
+			if(body == weapon): continue;
 			if(body is FishWeapon):
 				drop_weapon();
 				set_weapon(body as FishWeapon)
 				print("Pickup weapon")
+				break;
 
 		
 

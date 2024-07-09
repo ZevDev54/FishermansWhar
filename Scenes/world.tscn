@@ -1,0 +1,226 @@
+[gd_scene load_steps=18 format=3 uid="uid://dy1v8qv6rfib2"]
+
+[ext_resource type="PackedScene" uid="uid://8vp2oxwy362n" path="res://Scenes/guns/perch.tscn" id="2_u6gx3"]
+[ext_resource type="PackedScene" uid="uid://clqrjeublql8t" path="res://Scenes/sardine_smg.tscn" id="4_4sfye"]
+[ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="4_uldyd"]
+[ext_resource type="Texture2D" uid="uid://dfjcs5ocibk1c" path="res://Sprites/levels/NewDocks/Water.png" id="5_uhwbv"]
+[ext_resource type="Shader" path="res://Scenes/ShiftingWaves.gdshader" id="7_s58v6"]
+[ext_resource type="Texture2D" uid="uid://dp8jn7on44tdd" path="res://Sprites/levels/NewDocks/DarkDockTilingDetailed.png" id="8_5whq7"]
+[ext_resource type="Texture2D" uid="uid://db14ygt765hf8" path="res://Sprites/levels/NewDocks/DockTilingShadowed.png" id="9_tdwa3"]
+[ext_resource type="Texture2D" uid="uid://cdt4k3h5jlr7b" path="res://Sprites/levels/docks/FishingBoat.png" id="11_iaaea"]
+[ext_resource type="PackedScene" uid="uid://xroyufy4ajit" path="res://Scenes/post.tscn" id="13_6hxse"]
+[ext_resource type="Texture2D" uid="uid://00us50aqroe2" path="res://Sprites/levels/docks/Small Boat Highlights.png" id="13_xejb4"]
+[ext_resource type="PackedScene" uid="uid://v0kw1q8bpns1" path="res://Scenes/LevelBits/crate.tscn" id="14_62lr8"]
+[ext_resource type="Texture2D" uid="uid://dtxeacrg0103e" path="res://Sprites/levels/docks/Small Boat.png" id="14_k6ngi"]
+[ext_resource type="PackedScene" uid="uid://camcrc6s3uibu" path="res://Scenes/fishing_rod.tscn" id="14_p12ux"]
+[ext_resource type="PackedScene" uid="uid://cvoqtax3kbn3h" path="res://Scenes/guns/bass.tscn" id="17_56837"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aber6"]
+shader = ExtResource("7_s58v6")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top5m"]
+size = Vector2(28, 700)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsxau"]
+size = Vector2(1115, 20)
+
+[node name="World" type="Node2D"]
+
+[node name="FishContainer" type="Node2D" parent="."]
+visible = false
+
+[node name="Salmon" parent="FishContainer" instance=ExtResource("4_uldyd")]
+z_index = 5
+position = Vector2(512, 248)
+
+[node name="Salmon2" parent="FishContainer" instance=ExtResource("4_uldyd")]
+z_index = 5
+position = Vector2(125, 355)
+
+[node name="Perch" parent="FishContainer" instance=ExtResource("2_u6gx3")]
+z_index = 5
+position = Vector2(289, 301)
+
+[node name="Bass" parent="FishContainer" instance=ExtResource("17_56837")]
+position = Vector2(458, 332)
+shells_per_shot = 8
+
+[node name="SardineSMG" parent="FishContainer" instance=ExtResource("4_4sfye")]
+position = Vector2(215, 270)
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Water" type="Sprite2D" parent="Level"]
+visible = false
+texture_repeat = 2
+position = Vector2(435.5, 255.5)
+scale = Vector2(4.25847, 2.51271)
+texture = ExtResource("5_uhwbv")
+
+[node name="FishingBoat" type="Sprite2D" parent="Level"]
+z_index = -4
+position = Vector2(710, -164)
+scale = Vector2(0.275937, 0.275937)
+texture = ExtResource("11_iaaea")
+
+[node name="Water2" type="TextureRect" parent="Level"]
+z_index = -10
+material = SubResource("ShaderMaterial_aber6")
+offset_left = -948.0
+offset_top = -713.0
+offset_right = 23681.0
+offset_bottom = 17887.0
+scale = Vector2(0.129357, 0.129357)
+texture = ExtResource("5_uhwbv")
+stretch_mode = 1
+
+[node name="Dock2" type="NinePatchRect" parent="Level"]
+visible = false
+z_index = -5
+offset_left = 39.0
+offset_right = 3282.0
+offset_bottom = 1994.0
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("8_5whq7")
+region_rect = Rect2(-0.181799, -0.686634, 510.909, 220.089)
+patch_margin_left = 32
+patch_margin_top = 7
+patch_margin_right = 72
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Dock3" type="NinePatchRect" parent="Level"]
+z_index = -5
+offset_left = 7.0
+offset_top = -36.0
+offset_right = 3418.0
+offset_bottom = 2219.0
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("9_tdwa3")
+region_rect = Rect2(0, 1, 730.82, 452.28)
+patch_margin_left = 149
+patch_margin_top = 97
+patch_margin_right = 162
+patch_margin_bottom = 148
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Crate" parent="Level" instance=ExtResource("14_62lr8")]
+z_index = 1
+position = Vector2(916, 191)
+
+[node name="Crate2" parent="Level" instance=ExtResource("14_62lr8")]
+z_index = 1
+position = Vector2(194, 144)
+
+[node name="Crate3" parent="Level" instance=ExtResource("14_62lr8")]
+z_index = 1
+position = Vector2(754, 455)
+
+[node name="Boat" type="Node2D" parent="Level"]
+z_index = -4
+position = Vector2(182, 770)
+scale = Vector2(1.2327, 1.2327)
+
+[node name="SmallBoatHighlights" type="Sprite2D" parent="Level/Boat"]
+modulate = Color(0.290196, 0.227451, 1, 1)
+position = Vector2(-7, 1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("13_xejb4")
+
+[node name="SmallBoat" type="Sprite2D" parent="Level/Boat"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_k6ngi")
+
+[node name="Posts" type="Node2D" parent="Level"]
+scale = Vector2(0.333, 0.333)
+
+[node name="Post" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(6.00601, 0)
+
+[node name="Post2" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(576.577, 6.00601)
+
+[node name="Post3" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(1354.35, -6.00601)
+
+[node name="Post4" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(2111.11, -12.012)
+
+[node name="Post5" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(3000, 3.003)
+
+[node name="Post6" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(3012.01, -474.474)
+
+[node name="Post7" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(3015.01, -951.952)
+
+[node name="Post8" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(3030.03, -1456.46)
+
+[node name="Post9" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(3012.01, -1867.87)
+
+[node name="Post10" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(2345.35, -1864.86)
+
+[node name="Post11" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(1573.57, -1870.87)
+
+[node name="Post12" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(777.778, -1870.87)
+
+[node name="Post13" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(36.0361, -1897.9)
+
+[node name="Post14" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(12.012, -1375.38)
+
+[node name="Post15" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(9.53674e-07, -888.889)
+
+[node name="Post16" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+position = Vector2(3.003, -453.453)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(27, 331)
+shape = SubResource("RectangleShape2D_top5m")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1121, 331)
+shape = SubResource("RectangleShape2D_top5m")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576.5, 672)
+shape = SubResource("RectangleShape2D_vsxau")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(577, -7)
+shape = SubResource("RectangleShape2D_vsxau")
+
+[node name="FishingRod" parent="." instance=ExtResource("14_p12ux")]
+position = Vector2(1069, 565)
+
+[node name="Bob" parent="FishingRod/GFX_scale" index="1"]
+position = Vector2(984.985, 234.234)
+
+[node name="FishingLine" parent="FishingRod" index="1"]
+points = PackedVector2Array(0, 0, 151.996, 114.601)
+
+[node name="FishingRod2" parent="." instance=ExtResource("14_p12ux")]
+position = Vector2(1058, 244)
+
+[node name="Bob" parent="FishingRod2/GFX_scale" index="1"]
+position = Vector2(984.985, 234.234)
+
+[node name="FishingLine" parent="FishingRod2" index="1"]
+points = PackedVector2Array(0, 0, 151.996, 114.601)
+
+[editable path="FishingRod"]
+[editable path="FishingRod2"]

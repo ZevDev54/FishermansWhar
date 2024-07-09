@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://2wffpt3c3ygt"]
+
+[ext_resource type="Script" path="res://Scenes/GameManager.gd" id="1_xhrgr"]
+[ext_resource type="Script" path="res://Scripts/singletons.gd" id="2_ucgig"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_xhrgr")
+
+[node name="Singletons" type="Node" parent="."]
+script = ExtResource("2_ucgig")

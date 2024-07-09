@@ -1,37 +1,85 @@
 extends CharacterBody2D
+class_name FishermanMovement;
 
-signal leave
 
-@export var player_index = 0;
+var player : Player;
+
 var input_velocity = Vector2.ZERO;
-@export var speed = 200;
+@export var max_speed = 200.0;
+@export var accel = 2000.0;
+@export var decel = 10.0;
+var vel : Vector2 = Vector2.ZERO;
 
-var input;
+var special_vel := Vector2.ZERO;
+var special_vel_drag = 0.98;
+
+var movement_overridden := false;
+var move_multiplier := 0.0; # multiplies all movement, acts as an interface for other nodes to cripple/speed up player.
 
 @onready var weapon = $Weapon;
 
-func init(player_num: int, device: int):
-	player_index = player_num
-	
-	# in my project, I got the device integer by accessing the singleton autoload PlayerManager
-	# but for simplicity, it's not an autoload in this demo.
-	# but I recommend making it a singleton so you can access the player data from anywhere.
-	# that would look like the following line, instead of the device function parameter above.
-	# var device = PlayerManager.get_player_device(player)
-	input = DeviceInput.new(device)
-	
-	
-	# $Player.text = "%s" % player_num
-
 func _ready():
-	weapon.input = input;
+	player = owner as Player
+
+
+
 func _physics_process(delta):
-	var x = input.get_axis("move_left", "move_right")
-	var y = input.get_axis("move_up", "move_down")
+	if movement_overridden: return;
+	if !player.damageable.alive : return;
+
+	var move_vec = player.controls.get_move_input_vec();
+	player.animation.set_running(move_vec.length() > 0);
+
+	# print(move_multiplier)
+
+	var raw_movement : Vector2 = move_vec.normalized() * accel * move_multiplier * delta;
+
+	# if((vel + raw_movement).length() < max_speed):
+	# 	vel += raw_movement;
+
+	vel += raw_movement;
+	if(vel.length() > max_speed * move_multiplier):
+		vel = vel.normalized() * max_speed * move_multiplier # Clamp velocity so it is less than max speed
+		
+	if(move_vec.length() == 0):
+		vel = vel.lerp(Vector2.ZERO, decel  * delta)
+
+	
 
 
 
-	global_position += Vector2(x,y) * speed * delta;
+
+
+
+	velocity = vel + special_vel; # Set velocity, integrate special velocity from dash, recoil.
+
+	special_vel *= special_vel_drag; # Drag special vec.
+
+	# global_position += vel * delta
 
 	move_and_slide();
-	
+
+
+# func special_impulse(force:Vector2):
+# 	special_vel += force;
+
+func set_movement_multiplier(multiplier):
+	move_multiplier = multiplier;
+
+func toggle_movement_override(toggle:bool):
+	movement_overridden = toggle;
+
+func override_movement(move_vec : Vector2, delta):
+
+	if !player.damageable.alive : return;
+	global_position += move_vec * delta;
+	# velocity = move_vec;
+	move_and_slide(); # causes error!
+	# print("augh!")
+
+func move_to_position(pos:Vector2):
+
+	global_position = pos;
+	print("instant movement!");
+	velocity = Vector2.ZERO;
+	move_and_slide();

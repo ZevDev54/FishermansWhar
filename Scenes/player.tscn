@@ -1,0 +1,280 @@
+[gd_scene load_steps=29 format=3 uid="uid://df2qlsuxgg8m7"]
+
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
+[ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
+[ext_resource type="Texture2D" uid="uid://c66t65okabata" path="res://Sprites/Fisherman/Fisherman (Team Color).png" id="2_v26tj"]
+[ext_resource type="Script" path="res://Scenes/PlayerDashing.gd" id="3_k55g8"]
+[ext_resource type="Texture2D" uid="uid://de72se02xuxy" path="res://Sprites/Fisherman/Fisherman.png" id="3_medks"]
+[ext_resource type="Script" path="res://Scenes/PlayerWeapon.gd" id="4_i4vo3"]
+[ext_resource type="Script" path="res://Scenes/PlayerInteractions.gd" id="5_1wn33"]
+[ext_resource type="Script" path="res://Scripts/PlayerDamageable.gd" id="5_n54kk"]
+[ext_resource type="PackedScene" uid="uid://6jl4jdia2n6g" path="res://Scenes/player_animation_body.tscn" id="5_xp8la"]
+[ext_resource type="AudioStream" uid="uid://ddmnph3u3mk2t" path="res://audio/sfx/hurt.wav" id="6_83ajl"]
+[ext_resource type="Shader" path="res://Scenes/hitflash.gdshader" id="6_fdf81"]
+[ext_resource type="Script" path="res://Scenes/HurtBox.gd" id="6_o7am5"]
+[ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="6_tixst"]
+[ext_resource type="Script" path="res://Scenes/PlayerControls.gd" id="8_g6f7v"]
+[ext_resource type="Script" path="res://Scenes/PlayerScoring.gd" id="9_4gine"]
+[ext_resource type="Texture2D" uid="uid://81roqoc1gm7o" path="res://Sprites/PlayerScaleTest/PlayerSketch.png" id="9_cpj0b"]
+[ext_resource type="PackedScene" uid="uid://fux17lnyrrv2" path="res://Scenes/player_animation_body_v_2.tscn" id="14_nwwmg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8tm3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yvgmo"]
+radius = 14.0
+height = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jotal"]
+radius = 58.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixdqm"]
+radius = 49.6488
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yu3vy"]
+radius = 15.0
+height = 60.0
+
+[sub_resource type="Animation" id="Animation_xoi8o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../SmoothGraphics/Graphics/scale/PlayerAnimationBodyV2:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_aqvt3"]
+resource_name = "player_hurt"
+length = 0.14
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../SmoothGraphics/Graphics:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.14),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.9), Vector2(0.95, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SmoothGraphics/Graphics:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.14),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, -5), Vector2(-2, -3), Vector2(-2, -5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../SmoothGraphics/Graphics/scale/PlayerAnimationBodyV2:material:shader_parameter/flash_modifier")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.04, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rvwry"]
+_data = {
+"RESET": SubResource("Animation_xoi8o"),
+"player_hurt": SubResource("Animation_aqvt3")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_blhkg"]
+random_pitch = 1.1
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("6_83ajl")
+stream_0/weight = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bkrso"]
+resource_local_to_scene = true
+shader = ExtResource("6_fdf81")
+shader_parameter/flash_color = Color(1, 0.74, 0.74, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjuem"]
+resource_local_to_scene = true
+shader = ExtResource("6_fdf81")
+shader_parameter/flash_color = Color(1, 0.869333, 0.84, 1)
+shader_parameter/flash_modifier = 0.0
+
+[node name="Player" type="Node" node_paths=PackedStringArray("movement", "controls", "scoring", "animation", "damageable")]
+script = ExtResource("1_pm4vy")
+movement = NodePath("PlayerMovementBody")
+controls = NodePath("PlayerControls")
+scoring = NodePath("PlayerScoring")
+animation = NodePath("PlayerMovementBody/SmoothGraphics/Graphics/scale/PlayerAnimationBodyV2")
+damageable = NodePath("PlayerMovementBody/PlayerDamageable")
+
+[node name="PlayerMovementBody" type="CharacterBody2D" parent="."]
+material = SubResource("ShaderMaterial_s8tm3")
+collision_mask = 137
+script = ExtResource("1_wx6v0")
+max_speed = 250.0
+accel = 4000.0
+decel = 20.0
+
+[node name="PlayerDashing" type="Node2D" parent="PlayerMovementBody"]
+position = Vector2(-3.78, 0)
+script = ExtResource("3_k55g8")
+dash_speed = 600.0
+dash_length = 0.2
+time_to_max_charge = 0.2
+charge_min = -0.05
+charge_max = 0.25
+min_player_charging_speed = 0.2
+
+[node name="MainCollider" type="CollisionShape2D" parent="PlayerMovementBody"]
+z_index = 1
+position = Vector2(-1, 4)
+shape = SubResource("CapsuleShape2D_yvgmo")
+debug_color = Color(0.500428, 0.428096, 1, 0.42)
+
+[node name="Weapon" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("pickup_area", "owner_player")]
+position = Vector2(-2, 8)
+script = ExtResource("4_i4vo3")
+pickup_area = NodePath("../PickupArea")
+owner_player = NodePath("../..")
+
+[node name="PickupArea" type="Area2D" parent="PlayerMovementBody"]
+collision_layer = 2
+collision_mask = 2
+input_pickable = false
+
+[node name="PickupCollision" type="CollisionShape2D" parent="PlayerMovementBody/PickupArea"]
+shape = SubResource("CircleShape2D_jotal")
+debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
+
+[node name="InteractionArea" type="Area2D" parent="PlayerMovementBody"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("5_1wn33")
+
+[node name="InteractionCollision" type="CollisionShape2D" parent="PlayerMovementBody/InteractionArea"]
+shape = SubResource("CircleShape2D_ixdqm")
+debug_color = Color(0, 0.648313, 0.184887, 0.42)
+
+[node name="PlayerDamageable" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("player", "hurt_animation", "weapon")]
+script = ExtResource("5_n54kk")
+player = NodePath("../..")
+hurt_animation = NodePath("AnimationPlayer")
+weapon = NodePath("../Weapon")
+
+[node name="HurtBox" type="Area2D" parent="PlayerMovementBody/PlayerDamageable" node_paths=PackedStringArray("damageable")]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("6_o7am5")
+damageable = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerMovementBody/PlayerDamageable/HurtBox"]
+position = Vector2(-1, -6)
+shape = SubResource("CapsuleShape2D_yu3vy")
+debug_color = Color(0.980032, 0.632424, 1, 0.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerMovementBody/PlayerDamageable"]
+libraries = {
+"": SubResource("AnimationLibrary_rvwry")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="PlayerMovementBody/PlayerDamageable"]
+stream = SubResource("AudioStreamRandomizer_blhkg")
+volume_db = 2.65
+
+[node name="SmoothGraphics" type="Node" parent="PlayerMovementBody" node_paths=PackedStringArray("body", "graphics")]
+script = ExtResource("6_tixst")
+lerp_speed = 60.0
+body = NodePath("..")
+graphics = NodePath("Graphics")
+max_move_amount = 100.0
+
+[node name="Graphics" type="Node2D" parent="PlayerMovementBody/SmoothGraphics"]
+z_index = 5
+position = Vector2(-2, -5)
+
+[node name="PlayerScaleTest" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+visible = false
+position = Vector2(-6, -4)
+scale = Vector2(0.5, 0.5)
+
+[node name="PlayerSketch" type="Sprite2D" parent="PlayerMovementBody/SmoothGraphics/Graphics/PlayerScaleTest"]
+scale = Vector2(0.667, 0.667)
+texture = ExtResource("9_cpj0b")
+
+[node name="GraphicsScale" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+visible = false
+scale = Vector2(0.1, 0.1)
+
+[node name="Fisherman(teamColor)" type="Sprite2D" parent="PlayerMovementBody/SmoothGraphics/Graphics/GraphicsScale"]
+position = Vector2(18, 28)
+texture = ExtResource("2_v26tj")
+
+[node name="Fisherman" type="Sprite2D" parent="PlayerMovementBody/SmoothGraphics/Graphics/GraphicsScale"]
+position = Vector2(18, 28)
+texture = ExtResource("3_medks")
+
+[node name="GFXScale" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+visible = false
+scale = Vector2(0.1, 0.1)
+
+[node name="PlayerAnimationBody" parent="PlayerMovementBody/SmoothGraphics/Graphics/GFXScale" instance=ExtResource("5_xp8la")]
+visible = false
+material = SubResource("ShaderMaterial_bkrso")
+
+[node name="scale" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
+scale = Vector2(0.333, 0.333)
+
+[node name="PlayerAnimationBodyV2" parent="PlayerMovementBody/SmoothGraphics/Graphics/scale" instance=ExtResource("14_nwwmg")]
+material = SubResource("ShaderMaterial_cjuem")
+position = Vector2(0, 84)
+
+[node name="PlayerControls" type="Node" parent="."]
+script = ExtResource("8_g6f7v")
+
+[node name="PlayerScoring" type="Node" parent="." node_paths=PackedStringArray("score_display")]
+script = ExtResource("9_4gine")
+score_display = NodePath("")
+
+[connection signal="body_entered" from="PlayerMovementBody/PlayerDamageable/HurtBox" to="PlayerMovementBody/PlayerDamageable" method="_on_hurt_box_body_entered"]

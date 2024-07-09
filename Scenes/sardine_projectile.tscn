@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=3 uid="uid://cf33bvkfuax1f"]
+
+[ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_h06nt"]
+[ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="2_a3k6i"]
+[ext_resource type="PackedScene" uid="uid://7rg4wsra1m3o" path="res://Scenes/hit_fx.tscn" id="2_v1d1w"]
+[ext_resource type="Texture2D" uid="uid://mupmet44ysvd" path="res://Sprites/Bullets/Sardine Projectile.png" id="3_mppva"]
+
+[sub_resource type="Curve" id="Curve_tll4w"]
+_data = [Vector2(0, 0.0674716), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ej1tp"]
+curve = SubResource("Curve_tll4w")
+
+[sub_resource type="Curve" id="Curve_sexad"]
+_data = [Vector2(0, 0.963068), 0.0, 0.0, 0, 0, Vector2(1, 0.769176), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n3yoo"]
+curve = SubResource("Curve_sexad")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bke68"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_n3yoo")
+alpha_curve = SubResource("CurveTexture_ej1tp")
+
+[sub_resource type="Shader" id="Shader_qapjr"]
+code = "shader_type canvas_item;
+uniform vec2 dir = vec2(0,0);
+uniform int quality = 4;
+
+void vertex(){
+	vec2 blurSize = abs(dir) * 2.0;
+	VERTEX *= blurSize + 1.0;
+	UV = (UV - 0.5) * (blurSize + 1.0) + 0.5;
+}
+
+float insideUnitSquare(vec2 v) {
+    vec2 s = step(vec2(0.0), v) - step(vec2(1.0), v);
+    return s.x * s.y;   
+}
+
+void fragment(){
+	float inSquare = insideUnitSquare(UV);
+	float numSamples = inSquare;
+	COLOR = texture(TEXTURE, UV) * inSquare;
+	vec2 stepSize = dir/(float(quality));
+	vec2 uv;
+	for(int i = 1; i <= quality; i++){
+		uv = UV + stepSize * float(i);
+		inSquare = insideUnitSquare(uv);
+		numSamples += inSquare;
+		COLOR += texture(TEXTURE, uv) * inSquare;
+		
+		uv = UV - stepSize * float(i);
+		inSquare = insideUnitSquare(uv);
+		numSamples += inSquare;
+		COLOR += texture(TEXTURE, uv) * inSquare;
+	}
+	COLOR.rgb /= numSamples;
+	COLOR.a /= float(quality)*2.0 + 1.0;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_55kum"]
+shader = SubResource("Shader_qapjr")
+shader_parameter/dir = Vector2(0, 0)
+shader_parameter/quality = 4
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e1eof"]
+radius = 7.0
+height = 34.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lpn1b"]
+radius = 8.0
+
+[node name="SardineProjectile" type="RigidBody2D" node_paths=PackedStringArray("gfx", "rigidbody")]
+collision_layer = 4
+collision_mask = 8
+gravity_scale = 0.0
+continuous_cd = 1
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_h06nt")
+gfx = NodePath("GFX")
+rigidbody = NodePath(".")
+hit_fx = ExtResource("2_v1d1w")
+
+[node name="GFX" type="Node2D" parent="."]
+
+[node name="GFXScale" type="Node2D" parent="GFX"]
+scale = Vector2(0.2, 0.2)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale"]
+position = Vector2(3.05176e-05, -9.53674e-07)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_bke68")
+texture = ExtResource("2_a3k6i")
+lifetime = 0.1
+
+[node name="fill" type="Sprite2D" parent="GFX/GFXScale"]
+material = SubResource("ShaderMaterial_55kum")
+texture = ExtResource("3_mppva")
+
+[node name="BulletCollider" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_e1eof")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(9, 0)
+shape = SubResource("CircleShape2D_lpn1b")
+debug_color = Color(0.974344, 0, 0.427458, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_area_2d_area_entered"]

@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8lktjk7xd8cp"]
+[gd_scene load_steps=20 format=3 uid="uid://b8lktjk7xd8cp"]
 
 [ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="1_5qfxu"]
 [ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_hgnwm"]
-[ext_resource type="Texture2D" uid="uid://biigokq5ppljg" path="res://Sprites/Bullets/BulletOutline.png" id="2_ri1xp"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6c2n4"]
-radius = 4.0
+[ext_resource type="PackedScene" uid="uid://7rg4wsra1m3o" path="res://Scenes/hit_fx.tscn" id="2_dolfq"]
+[ext_resource type="Shader" path="res://Scenes/ColorBlend.gdshader" id="3_km8gh"]
+[ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="3_mk621"]
+[ext_resource type="Texture2D" uid="uid://dc3xpce11yskp" path="res://Sprites/Bullets/ColoredBullet/BulletFill.png" id="4_h0wwq"]
+[ext_resource type="Texture2D" uid="uid://c5wxk0f6yxr5k" path="res://Sprites/Bullets/ColoredBullet/BulletOutline.png" id="5_87xg0"]
 
 [sub_resource type="Curve" id="Curve_tll4w"]
 _data = [Vector2(0, 0.0674716), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -29,73 +30,151 @@ scale_max = 0.1
 scale_curve = SubResource("CurveTexture_n3yoo")
 alpha_curve = SubResource("CurveTexture_ej1tp")
 
-[sub_resource type="Shader" id="Shader_qapjr"]
-code = "shader_type canvas_item;
-uniform vec2 dir = vec2(0,0);
-uniform int quality = 4;
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7dn0d"]
+shader = ExtResource("3_km8gh")
+shader_parameter/color1 = Color(100, 100, 100, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
+shader_parameter/blend = 0.0
 
-void vertex(){
-	vec2 blurSize = abs(dir) * 2.0;
-	VERTEX *= blurSize + 1.0;
-	UV = (UV - 0.5) * (blurSize + 1.0) + 0.5;
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hye3s"]
+shader = ExtResource("3_km8gh")
+shader_parameter/color1 = Color(0, 0, 0, 1)
+shader_parameter/color2 = Color(1, 0.898039, 0, 1)
+shader_parameter/blend = 0.0
+
+[sub_resource type="Animation" id="Animation_p3sos"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fill:material:shader_parameter/blend")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("outline:material:shader_parameter/blend")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
-float insideUnitSquare(vec2 v) {
-    vec2 s = step(vec2(0.0), v) - step(vec2(1.0), v);
-    return s.x * s.y;   
+[sub_resource type="Animation" id="Animation_wkgql"]
+resource_name = "bullet_flashing"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fill:material:shader_parameter/blend")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("outline:material:shader_parameter/blend")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
 }
 
-void fragment(){
-	float inSquare = insideUnitSquare(UV);
-	float numSamples = inSquare;
-	COLOR = texture(TEXTURE, UV) * inSquare;
-	vec2 stepSize = dir/(float(quality));
-	vec2 uv;
-	for(int i = 1; i <= quality; i++){
-		uv = UV + stepSize * float(i);
-		inSquare = insideUnitSquare(uv);
-		numSamples += inSquare;
-		COLOR += texture(TEXTURE, uv) * inSquare;
-		
-		uv = UV - stepSize * float(i);
-		inSquare = insideUnitSquare(uv);
-		numSamples += inSquare;
-		COLOR += texture(TEXTURE, uv) * inSquare;
-	}
-	COLOR.rgb /= numSamples;
-	COLOR.a /= float(quality)*2.0 + 1.0;
-}"
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yfgbt"]
+_data = {
+"RESET": SubResource("Animation_p3sos"),
+"bullet_flashing": SubResource("Animation_wkgql")
+}
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_55kum"]
-shader = SubResource("Shader_qapjr")
-shader_parameter/dir = Vector2(0, 0)
-shader_parameter/quality = 4
+[sub_resource type="CircleShape2D" id="CircleShape2D_6c2n4"]
+radius = 8.0
 
-[node name="projectile" type="RigidBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lpn1b"]
+radius = 8.0
+
+[node name="projectile" type="RigidBody2D" node_paths=PackedStringArray("gfx", "rigidbody", "colorer")]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 8
 gravity_scale = 0.0
 continuous_cd = 1
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_hgnwm")
-
-[node name="BulletCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_6c2n4")
+gfx = NodePath("GFX")
+rigidbody = NodePath(".")
+colorer = NodePath("GFX/GFXScale/Node/ProjectileColorer")
+hit_fx = ExtResource("2_dolfq")
 
 [node name="GFX" type="Node2D" parent="."]
 
 [node name="GFXScale" type="Node2D" parent="GFX"]
-scale = Vector2(0.1, 0.1)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale"]
+visible = false
 position = Vector2(3.05176e-05, -9.53674e-07)
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_bke68")
 texture = ExtResource("1_5qfxu")
 lifetime = 0.1
 
-[node name="fill" type="Sprite2D" parent="GFX/GFXScale"]
-material = SubResource("ShaderMaterial_55kum")
-texture = ExtResource("1_5qfxu")
+[node name="Node" type="Node" parent="GFX/GFXScale" node_paths=PackedStringArray("body", "graphics")]
+script = ExtResource("3_mk621")
+lerp_speed = 60.0
+body = NodePath("../../..")
+graphics = NodePath("ProjectileColorer")
+max_move_amount = 60.0
 
-[node name="outline" type="Sprite2D" parent="GFX/GFXScale"]
-texture = ExtResource("2_ri1xp")
+[node name="ProjectileColorer" type="Node2D" parent="GFX/GFXScale/Node"]
+z_index = 6
+scale = Vector2(0.2, 0.2)
+
+[node name="fill" type="Sprite2D" parent="GFX/GFXScale/Node/ProjectileColorer"]
+material = SubResource("ShaderMaterial_7dn0d")
+position = Vector2(0, 1.25)
+scale = Vector2(1, 1.07143)
+texture = ExtResource("4_h0wwq")
+
+[node name="outline" type="Sprite2D" parent="GFX/GFXScale/Node/ProjectileColorer"]
+material = SubResource("ShaderMaterial_hye3s")
+texture = ExtResource("5_87xg0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX/GFXScale/Node/ProjectileColorer"]
+libraries = {
+"": SubResource("AnimationLibrary_yfgbt")
+}
+autoplay = "bullet_flashing"
+
+[node name="BulletCollider" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_6c2n4")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+visible = false
+shape = SubResource("CircleShape2D_lpn1b")
+debug_color = Color(0.974344, 0, 0.427458, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_area_2d_area_entered"]

@@ -1,0 +1,222 @@
+[gd_scene load_steps=13 format=3 uid="uid://8vp2oxwy362n"]
+
+[ext_resource type="Script" path="res://Scenes/guns/perch.gd" id="1_7i7nd"]
+[ext_resource type="PackedScene" uid="uid://b8lktjk7xd8cp" path="res://Scenes/projectile.tscn" id="2_qk5p3"]
+[ext_resource type="Script" path="res://Scenes/guns/WeaponGfx.gd" id="3_mpk8i"]
+[ext_resource type="Texture2D" uid="uid://cd2khbeed5a8k" path="res://Sprites/FishHandless/PerchNoHands.png" id="4_6i52u"]
+[ext_resource type="Texture2D" uid="uid://b210dfryynkyr" path="res://Sprites/FishHands/Perch.png" id="5_pj6nd"]
+[ext_resource type="AudioStream" uid="uid://dw5k4sy8sjiy0" path="res://audio/sfx/pop.wav" id="6_odsfr"]
+[ext_resource type="Texture2D" uid="uid://dfq7hp0vjcx81" path="res://Sprites/Bullets/MuzzleFlash.png" id="7_vk66i"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqc8f"]
+radius = 7.0
+height = 28.0
+
+[sub_resource type="Animation" id="Animation_v4u2y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShootPosition/MuzzleFlashScale/FlashSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShootPosition/MuzzleFlashScale:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShootPosition/MuzzleFlashScale:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.63947, 0.525508)]
+}
+
+[sub_resource type="Animation" id="Animation_8msux"]
+resource_name = "shoot"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.95), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(17, 0), Vector2(12, 0), Vector2(17, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GFX:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(-5, 0), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ShootPosition/MuzzleFlashScale/FlashSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ShootPosition/MuzzleFlashScale:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6, 1), Vector2(-9, 1), Vector2(4, 1), Vector2(2, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ShootPosition/MuzzleFlashScale:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.23604, 0.740746), Vector2(1.23605, 0.588442), Vector2(0.502212, 0.410468)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a43up"]
+_data = {
+"RESET": SubResource("Animation_v4u2y"),
+"shoot": SubResource("Animation_8msux")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2jnpi"]
+random_pitch = 1.05
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("6_odsfr")
+stream_0/weight = 1.0
+
+[node name="Perch" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
+z_index = 6
+collision_layer = 2
+collision_mask = 137
+gravity_scale = 0.0
+freeze = true
+linear_damp = 0.5
+script = ExtResource("1_7i7nd")
+shoot_rate = 0.15
+animation = NodePath("AnimationPlayer")
+rigidbody = NodePath(".")
+gfx = NodePath("GFX")
+shoot_point = NodePath("ShootPosition")
+projectile = ExtResource("2_qk5p3")
+projectile_speed = 900.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(17, 0)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_dqc8f")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a43up")
+}
+
+[node name="GFX" type="Node2D" parent="." node_paths=PackedStringArray("flip_scaler", "hands_sprite", "nohands_sprite")]
+position = Vector2(17, 0)
+script = ExtResource("3_mpk8i")
+flip_scaler = NodePath("GFXScale/GFXFlipScaler")
+hands_sprite = NodePath("GFXScale/GFXFlipScaler/Salmon")
+nohands_sprite = NodePath("GFXScale/GFXFlipScaler/SalmonNoHands")
+
+[node name="GFXScale" type="Node2D" parent="GFX"]
+scale = Vector2(0.15, 0.15)
+
+[node name="GFXFlipScaler" type="Node2D" parent="GFX/GFXScale"]
+
+[node name="SalmonNoHands" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
+texture = ExtResource("4_6i52u")
+
+[node name="Salmon" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
+visible = false
+texture = ExtResource("5_pj6nd")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(35, 0)
+stream = SubResource("AudioStreamRandomizer_2jnpi")
+volume_db = 4.637
+pitch_scale = 0.62
+max_polyphony = 3
+bus = &"sfx"
+
+[node name="ShootPosition" type="Node2D" parent="."]
+position = Vector2(33, 1)
+
+[node name="MuzzleFlashScale" type="Node2D" parent="ShootPosition"]
+z_index = -1
+position = Vector2(6, 0)
+scale = Vector2(0.63947, 0.525508)
+
+[node name="FlashSprite" type="Sprite2D" parent="ShootPosition/MuzzleFlashScale"]
+visible = false
+modulate = Color(1, 0.9155, 0.61, 1)
+position = Vector2(12, 1)
+scale = Vector2(0.276175, 0.276175)
+texture = ExtResource("7_vk66i")

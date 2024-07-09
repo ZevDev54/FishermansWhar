@@ -1,6 +1,164 @@
-[gd_scene load_steps=2 format=3 uid="uid://j4a4x4nt27m2"]
+[gd_scene load_steps=23 format=3 uid="uid://j4a4x4nt27m2"]
 
-[ext_resource type="PackedScene" uid="uid://dy1v8qv6rfib2" path="res://Scenes/main.tscn" id="1_v3bfn"]
+[ext_resource type="PackedScene" uid="uid://2wffpt3c3ygt" path="res://Scenes/game_manager.tscn" id="1_l04mu"]
+[ext_resource type="PackedScene" uid="uid://dy1v8qv6rfib2" path="res://Scenes/world.tscn" id="1_v3bfn"]
+[ext_resource type="Script" path="res://Scenes/player_joining.gd" id="2_ekmqj"]
+[ext_resource type="PackedScene" uid="uid://df2qlsuxgg8m7" path="res://Scenes/player.tscn" id="3_al4fi"]
+[ext_resource type="Script" path="res://demo/player_manager.gd" id="4_80ujy"]
+[ext_resource type="Script" path="res://Scenes/RoundManager.gd" id="5_1h57y"]
+[ext_resource type="Script" path="res://Scenes/PlayerTracker.gd" id="6_c3l50"]
+[ext_resource type="Script" path="res://Scripts/RoundScoreDisplay.gd" id="6_fvqie"]
+[ext_resource type="Script" path="res://Scripts/ScoreManager.gd" id="7_kgq12"]
+[ext_resource type="Script" path="res://Scenes/GunManager.gd" id="8_3xf31"]
+[ext_resource type="Script" path="res://Scripts/ProjectileManager.gd" id="8_j7y3a"]
+[ext_resource type="PackedScene" uid="uid://llsoqoi5kfof" path="res://Scenes/smart_camera.tscn" id="9_2m3y3"]
+[ext_resource type="Script" path="res://Scenes/fps_counter.gd" id="11_efxkm"]
+
+[sub_resource type="Environment" id="Environment_6nbnb"]
+glow_enabled = true
+glow_bloom = 1.0
+
+[sub_resource type="SystemFont" id="SystemFont_hs18x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ukd1w"]
+line_spacing = 2.915
+font = SubResource("SystemFont_hs18x")
+
+[sub_resource type="Animation" id="Animation_plo50"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0705882, 0.0705882, 0.0705882, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RoundDetails:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RoundDetails:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_oj606"]
+resource_name = "round_over_intro"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0705882, 0.0705882, 0.0705882, 0), Color(0.0705882, 0.0705882, 0.0705882, 0.560784)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RoundDetails:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RoundDetails:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_d78nl"]
+resource_name = "round_over_outro"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0705882, 0.0705882, 0.0705882, 0.560784), Color(0.0705882, 0.0705882, 0.0705882, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RoundDetails:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RoundDetails:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blrk0"]
+_data = {
+"RESET": SubResource("Animation_plo50"),
+"round_over_intro": SubResource("Animation_oj606"),
+"round_over_outro": SubResource("Animation_d78nl")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_5guri"]
+font_size = 48
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.211765)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bk4tr"]
+font_size = 32
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.188235)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -12,11 +170,157 @@ grow_vertical = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+audio_listener_enable_2d = true
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
+[node name="GameManager" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_l04mu")]
+
+[node name="PlayerJoining" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+script = ExtResource("2_ekmqj")
+player_scene = ExtResource("3_al4fi")
+
+[node name="PlayerManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager/PlayerJoining"]
+script = ExtResource("4_80ujy")
+
+[node name="RoundManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("round_score_display")]
+script = ExtResource("5_1h57y")
+round_score_display = NodePath("../../../../GUI/RoundOverCanvas")
+
+[node name="PlayerTracker" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+script = ExtResource("6_c3l50")
+player_cols = Array[Color]([Color(0.878431, 0.784314, 0.447059, 1), Color(0.690196, 0.227451, 0.282353, 1), Color(0.360784, 0.545098, 0.576471, 1), Color(0.243137, 0.411765, 0.345098, 1)])
+
+[node name="ScoreManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+script = ExtResource("7_kgq12")
+
+[node name="GunsParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("gun_parent")]
+script = ExtResource("8_3xf31")
+gun_parent = NodePath(".")
+
+[node name="BulletsParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("projectile_parent")]
+script = ExtResource("8_j7y3a")
+projectile_parent = NodePath(".")
+
+[node name="SmartCamera" parent="SubViewportContainer/SubViewport/GameManager" instance=ExtResource("9_2m3y3")]
+default_zoom = 1.0
+cam_zoom_speed = 1.0
+cam_pan_speed = 5.0
+
 [node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v3bfn")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_6nbnb")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPS" type="Label" parent="GUI"]
+layout_mode = 1
+offset_right = 49.0
+offset_bottom = 23.0
+text = "144"
+label_settings = SubResource("LabelSettings_ukd1w")
+script = ExtResource("11_efxkm")
+
+[node name="RoundOverCanvas" type="Control" parent="GUI" node_paths=PackedStringArray("scores_intro_animation", "label_list", "round_num")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_fvqie")
+scores_intro_animation = NodePath("AnimationPlayer")
+label_list = [NodePath("RoundDetails/VBoxContainer/p1"), NodePath("RoundDetails/VBoxContainer/p2"), NodePath("RoundDetails/VBoxContainer/p3"), NodePath("RoundDetails/VBoxContainer/p4")]
+round_num = NodePath("RoundDetails/RoundNum")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/RoundOverCanvas"]
+root_node = NodePath("../Fade")
+libraries = {
+"": SubResource("AnimationLibrary_blrk0")
+}
+
+[node name="Fade" type="ColorRect" parent="GUI/RoundOverCanvas"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0705882, 0.0705882, 0.0705882, 0)
+
+[node name="RoundDetails" type="Control" parent="GUI/RoundOverCanvas"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -113.0
+offset_right = 342.0
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RoundNum" type="Label" parent="GUI/RoundOverCanvas/RoundDetails"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_right = 38.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Round ##"
+label_settings = SubResource("LabelSettings_5guri")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/RoundOverCanvas/RoundDetails"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -52.0
+offset_right = 20.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="p1" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+layout_mode = 2
+text = "p1"
+label_settings = SubResource("LabelSettings_bk4tr")
+horizontal_alignment = 1
+
+[node name="p2" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+layout_mode = 2
+text = "p2"
+label_settings = SubResource("LabelSettings_bk4tr")
+horizontal_alignment = 1
+
+[node name="p3" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+layout_mode = 2
+text = "p3"
+label_settings = SubResource("LabelSettings_bk4tr")
+horizontal_alignment = 1
+
+[node name="p4" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+layout_mode = 2
+text = "p4"
+label_settings = SubResource("LabelSettings_bk4tr")
+horizontal_alignment = 1
