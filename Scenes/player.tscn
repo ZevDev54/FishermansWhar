@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://df2qlsuxgg8m7"]
+[gd_scene load_steps=29 format=3 uid="uid://df2qlsuxgg8m7"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/PlayerDashing.gd" id="3_k55g8"]
 [ext_resource type="Texture2D" uid="uid://de72se02xuxy" path="res://Sprites/Fisherman/Fisherman.png" id="3_medks"]
 [ext_resource type="Script" path="res://Scenes/PlayerWeapon.gd" id="4_i4vo3"]
+[ext_resource type="Script" path="res://Scenes/PlayerInteractions.gd" id="5_1wn33"]
 [ext_resource type="Script" path="res://Scripts/PlayerDamageable.gd" id="5_n54kk"]
 [ext_resource type="PackedScene" uid="uid://6jl4jdia2n6g" path="res://Scenes/player_animation_body.tscn" id="5_xp8la"]
 [ext_resource type="AudioStream" uid="uid://ddmnph3u3mk2t" path="res://audio/sfx/hurt.wav" id="6_83ajl"]
@@ -25,6 +26,9 @@ height = 42.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jotal"]
 radius = 58.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixdqm"]
+radius = 49.6488
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yu3vy"]
 radius = 15.0
@@ -75,7 +79,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -92,10 +96,24 @@ tracks/3/path = NodePath("../SmoothGraphics/Graphics/scale/PlayerAnimationBodyV2
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.14),
+"times": PackedFloat32Array(0.04, 0.14),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rvwry"]
@@ -110,11 +128,6 @@ random_volume_offset_db = 0.5
 streams_count = 1
 stream_0/stream = ExtResource("6_83ajl")
 stream_0/weight = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_m1oi4"]
-font_size = 12
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bkrso"]
 resource_local_to_scene = true
@@ -145,12 +158,14 @@ accel = 4000.0
 decel = 20.0
 
 [node name="PlayerDashing" type="Node2D" parent="PlayerMovementBody"]
+position = Vector2(-3.78, 0)
 script = ExtResource("3_k55g8")
-dash_speed = 350.0
+dash_speed = 600.0
 dash_length = 0.2
-time_to_max_charge = 0.5
+time_to_max_charge = 0.2
 charge_min = -0.05
 charge_max = 0.25
+min_player_charging_speed = 0.2
 
 [node name="MainCollider" type="CollisionShape2D" parent="PlayerMovementBody"]
 z_index = 1
@@ -170,9 +185,17 @@ collision_mask = 2
 input_pickable = false
 
 [node name="PickupCollision" type="CollisionShape2D" parent="PlayerMovementBody/PickupArea"]
-position = Vector2(-2, -9)
 shape = SubResource("CircleShape2D_jotal")
 debug_color = Color(0.956855, 7.70092e-07, 0.532949, 0.121569)
+
+[node name="InteractionArea" type="Area2D" parent="PlayerMovementBody"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("5_1wn33")
+
+[node name="InteractionCollision" type="CollisionShape2D" parent="PlayerMovementBody/InteractionArea"]
+shape = SubResource("CircleShape2D_ixdqm")
+debug_color = Color(0, 0.648313, 0.184887, 0.42)
 
 [node name="PlayerDamageable" type="Node2D" parent="PlayerMovementBody" node_paths=PackedStringArray("player", "hurt_animation", "weapon")]
 script = ExtResource("5_n54kk")
@@ -200,22 +223,6 @@ libraries = {
 stream = SubResource("AudioStreamRandomizer_blhkg")
 volume_db = 2.65
 
-[node name="Control" type="Control" parent="PlayerMovementBody"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 38.535
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="PlayerMovementBody/Control"]
-layout_mode = 0
-offset_left = -9.0
-offset_top = -80.0
-offset_right = 6.0
-offset_bottom = -50.0
-text = "0"
-label_settings = SubResource("LabelSettings_m1oi4")
-horizontal_alignment = 1
-
 [node name="SmoothGraphics" type="Node" parent="PlayerMovementBody" node_paths=PackedStringArray("body", "graphics")]
 script = ExtResource("6_tixst")
 lerp_speed = 60.0
@@ -224,6 +231,7 @@ graphics = NodePath("Graphics")
 max_move_amount = 100.0
 
 [node name="Graphics" type="Node2D" parent="PlayerMovementBody/SmoothGraphics"]
+z_index = 5
 position = Vector2(-2, -5)
 
 [node name="PlayerScaleTest" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
@@ -252,6 +260,7 @@ visible = false
 scale = Vector2(0.1, 0.1)
 
 [node name="PlayerAnimationBody" parent="PlayerMovementBody/SmoothGraphics/Graphics/GFXScale" instance=ExtResource("5_xp8la")]
+visible = false
 material = SubResource("ShaderMaterial_bkrso")
 
 [node name="scale" type="Node2D" parent="PlayerMovementBody/SmoothGraphics/Graphics"]
@@ -266,6 +275,6 @@ script = ExtResource("8_g6f7v")
 
 [node name="PlayerScoring" type="Node" parent="." node_paths=PackedStringArray("score_display")]
 script = ExtResource("9_4gine")
-score_display = NodePath("../PlayerMovementBody/Control/Label")
+score_display = NodePath("")
 
 [connection signal="body_entered" from="PlayerMovementBody/PlayerDamageable/HurtBox" to="PlayerMovementBody/PlayerDamageable" method="_on_hurt_box_body_entered"]

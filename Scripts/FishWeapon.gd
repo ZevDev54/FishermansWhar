@@ -75,6 +75,9 @@ func modulate_aim(aim_vec, degrees_variance) -> Vector2:
 
 	return resultant;
 
+func set_pos_immediate(pos : Vector2):
+	global_position = pos;
+	rigidbody.move_and_collide(rigidbody.position - global_position);
 
 # func projectile_shoot():
 # 	var shot = projectile.instantiate();
@@ -88,4 +91,4 @@ func modulate_aim(aim_vec, degrees_variance) -> Vector2:
 # 	holding_team #team integer
 # 	)
 # 	#add projectile to parent in scene 
-# 	Singletons.projectiles.projectile_parent.add_child(shot) 
+# 	Singletons.Projectiles.add_projectile_child(shot)

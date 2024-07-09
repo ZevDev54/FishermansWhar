@@ -26,25 +26,26 @@ func _process(delta):
 	if dash_held:
 		charge_timer += delta;
 		var move_slowdown = clampf( 1-(charge_timer / time_to_max_charge),  min_player_charging_speed, 1)
+		# var move_slowdown = 0.3;
 		player.movement.set_movement_multiplier(move_slowdown)
+		# print("dash held")
+	elif dash_timer <= 0:
+		player.movement.toggle_movement_override(false); 
+		player.movement.set_movement_multiplier(1.0)
+		# print("dash not held")
 
-	if dash_held && !player.controls.input.is_action_pressed("dash"):
+	if dash_held && !player.controls.input.is_action_pressed("dash"): # dash release instant
 		activate_dash(clampf(charge_timer / time_to_max_charge, 0.0, 1.0));
+
+	if dash_timer > 0:
+		dash_loop(delta);
 
 	dash_held = player.controls.input.is_action_pressed("dash");
 
-
-
+	
 
 
 		
-		
-
-	if dash_timer >= 0:
-		dash_loop(delta);
-	else:
-		player.movement.toggle_movement_override(false); 
-		player.movement.set_movement_multiplier(1.0)
 
 
 

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://xroyufy4ajit"]
+
+[ext_resource type="Texture2D" uid="uid://na8caa0e4qgw" path="res://Sprites/levels/NewDocks/PostBottom.png" id="1_h74pu"]
+[ext_resource type="Texture2D" uid="uid://5o5bqmm0p1d8" path="res://Sprites/levels/NewDocks/PostTop.png" id="2_2xvj4"]
+
+[node name="Post" type="Node2D"]
+
+[node name="PostBottom" type="Sprite2D" parent="."]
+z_index = -6
+position = Vector2(219.219, 2030.03)
+scale = Vector2(0.882091, 0.882091)
+texture = ExtResource("1_h74pu")
+
+[node name="PostTop" type="Sprite2D" parent="."]
+z_index = -4
+position = Vector2(216.216, 1927.93)
+texture = ExtResource("2_2xvj4")

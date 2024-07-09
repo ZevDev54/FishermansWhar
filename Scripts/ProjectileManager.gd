@@ -7,3 +7,6 @@ func _ready():
 	if(!Singletons.Projectiles):
 		Singletons.Projectiles = self;
 		print("Set projectiles parent")
+
+func add_projectile_child(node : Node2D):
+	projectile_parent.add_child(node);

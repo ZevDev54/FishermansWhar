@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://fux17lnyrrv2"]
+[gd_scene load_steps=35 format=3 uid="uid://fux17lnyrrv2"]
 
 [ext_resource type="Script" path="res://Scenes/player_animation_controller.gd" id="1_p7nm4"]
 [ext_resource type="Shader" path="res://Scenes/hitflash.gdshader" id="1_pafbb"]
@@ -22,8 +22,14 @@ shader = ExtResource("1_pafbb")
 shader_parameter/flash_color = Color(1, 0.869333, 0.84, 1)
 shader_parameter/flash_modifier = 0.0
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f47f3"]
+animation = &"player_dead"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rlpe7"]
 animation = &"player_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uftqj"]
+animation = &"player_knocked"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rxccv"]
 animation = &"player_run"
@@ -37,13 +43,25 @@ switch_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r13nh"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s1j12"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_64j1a"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5yjyn"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f2i2q"]
-states/Start/position = Vector2(201, 100)
+states/Start/position = Vector2(203, 100)
+states/player_dead/node = SubResource("AnimationNodeAnimation_f47f3")
+states/player_dead/position = Vector2(766, 139)
 states/player_idle/node = SubResource("AnimationNodeAnimation_rlpe7")
 states/player_idle/position = Vector2(436, 86)
+states/player_knocked/node = SubResource("AnimationNodeAnimation_uftqj")
+states/player_knocked/position = Vector2(611, 148)
 states/player_run/node = SubResource("AnimationNodeAnimation_rxccv")
 states/player_run/position = Vector2(427, 181)
-transitions = ["player_run", "player_idle", SubResource("AnimationNodeStateMachineTransition_3y2gl"), "player_idle", "player_run", SubResource("AnimationNodeStateMachineTransition_mnhnm"), "Start", "player_idle", SubResource("AnimationNodeStateMachineTransition_r13nh")]
+transitions = ["player_run", "player_idle", SubResource("AnimationNodeStateMachineTransition_3y2gl"), "player_idle", "player_run", SubResource("AnimationNodeStateMachineTransition_mnhnm"), "Start", "player_idle", SubResource("AnimationNodeStateMachineTransition_r13nh"), "player_idle", "player_knocked", SubResource("AnimationNodeStateMachineTransition_s1j12"), "player_run", "player_knocked", SubResource("AnimationNodeStateMachineTransition_64j1a"), "player_knocked", "player_dead", SubResource("AnimationNodeStateMachineTransition_5yjyn")]
 
 [sub_resource type="Animation" id="Animation_b47rx"]
 length = 0.001
@@ -192,6 +210,45 @@ tracks/11/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_jie6o"]
+resource_name = "player_dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX/body_foot_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX/body_foot_anchor:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GFX/body_foot_anchor:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_dgsu6"]
 resource_name = "player_idle"
 length = 0.6
@@ -219,6 +276,35 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_plobf"]
+resource_name = "player_knocked"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX/body_foot_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, -39), Vector2(2, -44), Vector2(7, -37), Vector2(0, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX/body_foot_anchor:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.57079]
 }
 
 [sub_resource type="Animation" id="Animation_vourn"]
@@ -386,7 +472,9 @@ tracks/12/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wo0de"]
 _data = {
 "RESET": SubResource("Animation_b47rx"),
+"player_dead": SubResource("Animation_jie6o"),
 "player_idle": SubResource("Animation_dgsu6"),
+"player_knocked": SubResource("Animation_plobf"),
 "player_run": SubResource("Animation_vourn")
 }
 
@@ -477,7 +565,7 @@ texture = ExtResource("7_tfohi")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_cgey3")
-volume_db = 5.0
-pitch_scale = 0.9
+volume_db = -1.971
+pitch_scale = 0.5
 max_polyphony = 3
 bus = &"sfx"

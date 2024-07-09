@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://b8lktjk7xd8cp"]
+[gd_scene load_steps=20 format=3 uid="uid://b8lktjk7xd8cp"]
 
 [ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="1_5qfxu"]
 [ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_hgnwm"]
+[ext_resource type="PackedScene" uid="uid://7rg4wsra1m3o" path="res://Scenes/hit_fx.tscn" id="2_dolfq"]
 [ext_resource type="Shader" path="res://Scenes/ColorBlend.gdshader" id="3_km8gh"]
 [ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="3_mk621"]
 [ext_resource type="Texture2D" uid="uid://dc3xpce11yskp" path="res://Sprites/Bullets/ColoredBullet/BulletFill.png" id="4_h0wwq"]
@@ -31,15 +32,42 @@ alpha_curve = SubResource("CurveTexture_ej1tp")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7dn0d"]
 shader = ExtResource("3_km8gh")
-shader_parameter/color1 = Color(1, 1, 1, 1)
-shader_parameter/color2 = Color(1, 0, 0, 1)
+shader_parameter/color1 = Color(100, 100, 100, 1)
+shader_parameter/color2 = Color(1, 1, 1, 1)
 shader_parameter/blend = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hye3s"]
 shader = ExtResource("3_km8gh")
-shader_parameter/color1 = Color(1, 1, 1, 1)
-shader_parameter/color2 = Color(1, 0, 0, 1)
+shader_parameter/color1 = Color(0, 0, 0, 1)
+shader_parameter/color2 = Color(1, 0.898039, 0, 1)
 shader_parameter/blend = 0.0
+
+[sub_resource type="Animation" id="Animation_p3sos"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fill:material:shader_parameter/blend")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("outline:material:shader_parameter/blend")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_wkgql"]
 resource_name = "bullet_flashing"
@@ -71,33 +99,6 @@ tracks/1/keys = {
 "values": [0.0, 1.0]
 }
 
-[sub_resource type="Animation" id="Animation_p3sos"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("fill:material:shader_parameter/blend")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("outline:material:shader_parameter/blend")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yfgbt"]
 _data = {
 "RESET": SubResource("Animation_p3sos"),
@@ -121,11 +122,11 @@ script = ExtResource("1_hgnwm")
 gfx = NodePath("GFX")
 rigidbody = NodePath(".")
 colorer = NodePath("GFX/GFXScale/Node/ProjectileColorer")
+hit_fx = ExtResource("2_dolfq")
 
 [node name="GFX" type="Node2D" parent="."]
 
 [node name="GFXScale" type="Node2D" parent="GFX"]
-scale = Vector2(0.333, 0.333)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale"]
 visible = false
@@ -143,6 +144,7 @@ graphics = NodePath("ProjectileColorer")
 max_move_amount = 60.0
 
 [node name="ProjectileColorer" type="Node2D" parent="GFX/GFXScale/Node"]
+z_index = 6
 scale = Vector2(0.2, 0.2)
 
 [node name="fill" type="Sprite2D" parent="GFX/GFXScale/Node/ProjectileColorer"]
@@ -153,7 +155,6 @@ texture = ExtResource("4_h0wwq")
 
 [node name="outline" type="Sprite2D" parent="GFX/GFXScale/Node/ProjectileColorer"]
 material = SubResource("ShaderMaterial_hye3s")
-scale = Vector2(1, 1)
 texture = ExtResource("5_87xg0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GFX/GFXScale/Node/ProjectileColorer"]

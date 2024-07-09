@@ -48,4 +48,4 @@ func projectile_shoot():
 	holding_unique_id #team integer
 	)
 	#add projectile to parent in scene 
-	Singletons.Projectiles.projectile_parent.add_child(shot) 
+	Singletons.Projectiles.add_projectile_child(shot) 

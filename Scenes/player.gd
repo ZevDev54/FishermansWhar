@@ -9,6 +9,7 @@ var unique_player_id = -1;
 @export var animation : PlayerAnimationController;
 @export var damageable : PlayerDamageable;
 
+
 var player_index;
 
 signal leave;
@@ -20,7 +21,6 @@ func init(player_num: int, device: int):
 	controls.player_index = player_num;
 	
 	unique_player_id = randi_range(0, 1000000); # later, change to ensure no duplicate ID edge cases.
-
 	
 	
 	# $Player.text = "%s" % player_num

@@ -10,6 +10,8 @@ var lifetime = 1.0;
 
 @export var colorer : ProjectileColorer;
 
+@export var hit_fx : PackedScene;
+
 func init(set_position, set_direction, set_speed, set_damage, set_lifetime, set_unique_id):
 	rigidbody.position = set_position;
 	# move_and_collide(global_position);
@@ -29,7 +31,7 @@ func _process(delta):
 	if(lifetime > 0):
 		lifetime -= delta;
 	else:
-		queue_free()
+		hit_behavior()
 	pass
 
 
@@ -58,8 +60,14 @@ func deal_damage(damageable : Damageable) -> bool:
 	# 	(collision as Damageable).take_damage(damage);
 
 func hit_behavior():
-	
+	var hit_fx_instance = hit_fx.instantiate()
+	hit_fx_instance.global_position = rigidbody.position;
+	print("haha"+str(hit_fx_instance));
+	Singletons.Projectiles.add_projectile_child(hit_fx_instance)
 	queue_free();
+
+
+
 
 
 # func _on_hit_box_area_entered(area):
