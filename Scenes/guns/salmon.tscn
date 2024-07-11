@@ -188,14 +188,14 @@ linear_damp = 10.0
 script = ExtResource("1_4mur2")
 shoot_rate = 0.125
 animation = NodePath("AnimationPlayer")
-degrees_inaccuracy = 0.2
+degrees_inaccuracy = 0.15
 rigidbody = NodePath(".")
 gfx = NodePath("GFX")
 shoot_point = NodePath("ShootPosition")
 projectile = ExtResource("2_vsa63")
 projectile_speed = 900.0
 projectile_damage = 9
-projectile_lifetime = 0.8
+projectile_lifetime = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

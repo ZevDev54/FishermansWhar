@@ -172,7 +172,7 @@ shoot_point = NodePath("ShootPosition")
 projectile = ExtResource("2_3rgog")
 projectile_speed = 1000.0
 projectile_damage = 8
-projectile_lifetime = 0.5
+projectile_lifetime = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

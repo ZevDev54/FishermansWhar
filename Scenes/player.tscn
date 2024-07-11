@@ -273,8 +273,7 @@ position = Vector2(0, 84)
 [node name="PlayerControls" type="Node" parent="."]
 script = ExtResource("8_g6f7v")
 
-[node name="PlayerScoring" type="Node" parent="." node_paths=PackedStringArray("score_display")]
+[node name="PlayerScoring" type="Node" parent="."]
 script = ExtResource("9_4gine")
-score_display = NodePath("")
 
 [connection signal="body_entered" from="PlayerMovementBody/PlayerDamageable/HurtBox" to="PlayerMovementBody/PlayerDamageable" method="_on_hurt_box_body_entered"]

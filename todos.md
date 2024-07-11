@@ -5,9 +5,10 @@
 **Dashing**
 
 * [X] rework player controller
-* [ ] charge up dash
+* [X] charge up dash
 * [ ] dash FX
 * [ ] charging FX
+* [ ] Forced to dash
 
 **Blocking**
 
@@ -22,6 +23,7 @@
 * [ ] Fishing rod gfx
 * [ ] Fishing system: how is what you fish up determined?
 * [ ] Animations
+* [ ] Interact to pull up fish
 
 **Raycast weapons??**
 

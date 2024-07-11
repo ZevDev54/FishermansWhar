@@ -27,26 +27,21 @@ size = Vector2(1115, 20)
 [node name="World" type="Node2D"]
 
 [node name="FishContainer" type="Node2D" parent="."]
-visible = false
 
 [node name="Salmon" parent="FishContainer" instance=ExtResource("4_uldyd")]
 z_index = 5
 position = Vector2(512, 248)
 
-[node name="Salmon2" parent="FishContainer" instance=ExtResource("4_uldyd")]
-z_index = 5
-position = Vector2(125, 355)
-
 [node name="Perch" parent="FishContainer" instance=ExtResource("2_u6gx3")]
 z_index = 5
-position = Vector2(289, 301)
+position = Vector2(202, 472)
 
 [node name="Bass" parent="FishContainer" instance=ExtResource("17_56837")]
-position = Vector2(458, 332)
+position = Vector2(840, 564)
 shells_per_shot = 8
 
 [node name="SardineSMG" parent="FishContainer" instance=ExtResource("4_4sfye")]
-position = Vector2(215, 270)
+position = Vector2(706, 160)
 
 [node name="Level" type="Node2D" parent="."]
 
