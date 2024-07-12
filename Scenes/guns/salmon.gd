@@ -32,6 +32,7 @@ func shoot():
 	projectile_shoot();
 	animation.stop(true);
 	animation.play("shoot");
+	gun_rumble();
 
 
 func projectile_shoot():

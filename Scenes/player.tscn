@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_pm4vy"]
 [ext_resource type="Script" path="res://Scripts/FishermanMovement.gd" id="1_wx6v0"]
 [ext_resource type="Texture2D" uid="uid://c66t65okabata" path="res://Sprites/Fisherman/Fisherman (Team Color).png" id="2_v26tj"]
-[ext_resource type="Script" path="res://Scenes/PlayerDashing.gd" id="3_k55g8"]
 [ext_resource type="Texture2D" uid="uid://de72se02xuxy" path="res://Sprites/Fisherman/Fisherman.png" id="3_medks"]
+[ext_resource type="Script" path="res://Scripts/DashingV2.gd" id="3_vnw46"]
 [ext_resource type="Script" path="res://Scenes/PlayerWeapon.gd" id="4_i4vo3"]
 [ext_resource type="Script" path="res://Scenes/PlayerInteractions.gd" id="5_1wn33"]
 [ext_resource type="Script" path="res://Scripts/PlayerDamageable.gd" id="5_n54kk"]
@@ -159,13 +159,10 @@ decel = 20.0
 
 [node name="PlayerDashing" type="Node2D" parent="PlayerMovementBody"]
 position = Vector2(-3.78, 0)
-script = ExtResource("3_k55g8")
-dash_speed = 600.0
-dash_length = 0.2
-time_to_max_charge = 0.2
-charge_min = -0.05
-charge_max = 0.25
-min_player_charging_speed = 0.2
+script = ExtResource("3_vnw46")
+dash_charge_length = 0.3
+dash_distance = 1000.0
+dash_time_length = 0.2
 
 [node name="MainCollider" type="CollisionShape2D" parent="PlayerMovementBody"]
 z_index = 1

@@ -14,12 +14,13 @@ var special_vel := Vector2.ZERO;
 var special_vel_drag = 0.98;
 
 var movement_overridden := false;
-var move_multiplier := 0.0; # multiplies all movement, acts as an interface for other nodes to cripple/speed up player.
+var move_multiplier := 1.0; # multiplies all movement, acts as an interface for other nodes to cripple/speed up player.
 
 @onready var weapon = $Weapon;
 
 func _ready():
 	player = owner as Player
+	move_multiplier = 1.0;
 
 
 

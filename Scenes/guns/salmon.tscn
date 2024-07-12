@@ -196,6 +196,7 @@ projectile = ExtResource("2_vsa63")
 projectile_speed = 900.0
 projectile_damage = 9
 projectile_lifetime = 0.5
+rumble_info = Vector2(0.05, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

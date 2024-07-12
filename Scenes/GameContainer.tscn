@@ -14,9 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://llsoqoi5kfof" path="res://Scenes/smart_camera.tscn" id="9_2m3y3"]
 [ext_resource type="Script" path="res://Scenes/fps_counter.gd" id="11_efxkm"]
 
-[sub_resource type="Environment" id="Environment_6nbnb"]
+[sub_resource type="Environment" id="Environment_fae8b"]
+background_mode = 3
 glow_enabled = true
-glow_bloom = 1.0
+adjustment_enabled = true
+adjustment_saturation = 1.05
 
 [sub_resource type="SystemFont" id="SystemFont_hs18x"]
 
@@ -215,7 +217,7 @@ cam_pan_speed = 5.0
 [node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v3bfn")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
-environment = SubResource("Environment_6nbnb")
+environment = SubResource("Environment_fae8b")
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 1

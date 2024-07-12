@@ -9,6 +9,7 @@ class_name PlayerAnimationController;
 var state_machine;
 
 var dead;
+var anticipating_dash : bool;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,6 +22,7 @@ func color_player(id):
 
 func set_running(running):
 	if dead: return;
+	if anticipating_dash:  return;
 
 	if running:
 		state_machine.travel("player_run");
@@ -36,3 +38,12 @@ func set_dead(toggle):
 	dead = toggle;
 	if(dead):
 		state_machine.travel("player_dead");
+
+func dash():
+	state_machine.travel("player_dash");
+
+func set_anticipating_dash(toggle : bool):
+	anticipating_dash = toggle;
+
+	if(anticipating_dash):
+		state_machine.travel("player_dash_anticipate");

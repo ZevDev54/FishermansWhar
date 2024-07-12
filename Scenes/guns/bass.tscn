@@ -163,7 +163,6 @@ linear_damp = 0.5
 script = ExtResource("1_cy8xv")
 shoot_rate = 0.6
 animation = NodePath("AnimationPlayer")
-shells_per_shot = null
 degrees_variance = 0.8
 min_speed = 800
 rigidbody = NodePath(".")
@@ -173,6 +172,7 @@ projectile = ExtResource("2_3rgog")
 projectile_speed = 1000.0
 projectile_damage = 8
 projectile_lifetime = 0.2
+rumble_info = Vector2(0.25, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

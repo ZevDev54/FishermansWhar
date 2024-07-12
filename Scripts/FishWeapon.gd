@@ -9,11 +9,21 @@ class_name FishWeapon
 @export var projectile_damage = 20;
 @export var projectile_lifetime := 2.0;
 
+@export var rumble_info : Vector2 = Vector2(0.1, 0.5); # x: time, y: intensity
+
 var trigger_input;
+
 
 var holding_parent;
 var holding_unique_id;
 var aim_vec := Vector2.ZERO;
+
+func get_holding_controls():
+	var player : Player = Singletons.Players.get_player_from_id(holding_unique_id);
+	return player.controls;
+
+func gun_rumble():
+	get_holding_controls().rumble(rumble_info.x, rumble_info.y)
 
 func aim_loop(set_aim_x, set_aim_y):
 	var temp_aim = Vector2(set_aim_x, set_aim_y);

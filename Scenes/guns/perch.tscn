@@ -168,6 +168,7 @@ gfx = NodePath("GFX")
 shoot_point = NodePath("ShootPosition")
 projectile = ExtResource("2_qk5p3")
 projectile_speed = 900.0
+rumble_info = Vector2(0.075, 0.9)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

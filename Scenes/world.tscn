@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://dy1v8qv6rfib2"]
 
 [ext_resource type="PackedScene" uid="uid://8vp2oxwy362n" path="res://Scenes/guns/perch.tscn" id="2_u6gx3"]
-[ext_resource type="PackedScene" uid="uid://clqrjeublql8t" path="res://Scenes/sardine_smg.tscn" id="4_4sfye"]
+[ext_resource type="PackedScene" uid="uid://clqrjeublql8t" path="res://Scenes/guns/sardine_smg.tscn" id="4_4sfye"]
 [ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="4_uldyd"]
 [ext_resource type="Texture2D" uid="uid://dfjcs5ocibk1c" path="res://Sprites/levels/NewDocks/Water.png" id="5_uhwbv"]
 [ext_resource type="Shader" path="res://Scenes/ShiftingWaves.gdshader" id="7_s58v6"]
