@@ -1,61 +1,168 @@
-[gd_scene load_steps=11 format=3 uid="uid://camcrc6s3uibu"]
+[gd_scene load_steps=30 format=3 uid="uid://camcrc6s3uibu"]
 
 [ext_resource type="Script" path="res://Scenes/fishing_rod.gd" id="1_4mrlr"]
 [ext_resource type="Texture2D" uid="uid://b8o0lpmysc4aw" path="res://Sprites/FishingRod/Rod.png" id="1_syo2h"]
 [ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="2_bwead"]
 [ext_resource type="Texture2D" uid="uid://oa7tt181ryc5" path="res://Sprites/FishingRod/Bob.png" id="2_hrge6"]
+[ext_resource type="Resource" uid="uid://bf7larxdhrda0" path="res://CustomResources/FishDistributions/DocksDistribution.tres" id="3_76h3p"]
 [ext_resource type="Texture2D" uid="uid://cprp18tk8khxr" path="res://Sprites/FishingRod/BobWater.png" id="3_sqev0"]
 [ext_resource type="Script" path="res://Scenes/FishingLine.gd" id="4_48a08"]
+[ext_resource type="Shader" path="res://Scenes/hitflash.gdshader" id="4_v2kiu"]
+[ext_resource type="Texture2D" uid="uid://calek3qpokklo" path="res://Sprites/FishingRod/Splashes/Splash.png" id="7_kf28c"]
+[ext_resource type="Texture2D" uid="uid://ccdolm4ip0ryl" path="res://Sprites/FishingRod/Splashes/WaterDrop1.png" id="8_wm3mt"]
+[ext_resource type="Texture2D" uid="uid://brthjwejyqcdb" path="res://Sprites/FishingRod/Splashes/WaterDrop2.png" id="9_yoajw"]
+[ext_resource type="Texture2D" uid="uid://dn2wf55jfldep" path="res://Sprites/FishingRod/Splashes/WaterDrop3.png" id="10_1eb2s"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lbtov"]
+animation = &"bob_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_01ggv"]
+animation = &"fish_caught"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_76u5k"]
+animation = &"fish_on_hook"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mljks"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tad7l"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_br63w"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_18685"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wt3vp"]
+states/bob_idle/node = SubResource("AnimationNodeAnimation_lbtov")
+states/bob_idle/position = Vector2(427, 56)
+states/fish_caught/node = SubResource("AnimationNodeAnimation_01ggv")
+states/fish_caught/position = Vector2(596, 125)
+states/fish_on_hook/node = SubResource("AnimationNodeAnimation_76u5k")
+states/fish_on_hook/position = Vector2(427, 145)
+transitions = ["fish_on_hook", "fish_caught", SubResource("AnimationNodeStateMachineTransition_mljks"), "Start", "bob_idle", SubResource("AnimationNodeStateMachineTransition_tad7l"), "bob_idle", "fish_on_hook", SubResource("AnimationNodeStateMachineTransition_br63w"), "fish_caught", "bob_idle", SubResource("AnimationNodeStateMachineTransition_18685")]
 
 [sub_resource type="Animation" id="Animation_3xd0h"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BobWater:position")
+tracks/0/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 37)]
+"values": [Vector2(-4, 16)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BobWater:rotation")
+tracks/1/path = NodePath("GFX_scale/FishLineEnd/Bob:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BobSprite:position")
+tracks/2/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BobSprite:rotation")
+tracks/3/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle/MainSplashSprite:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GFX_scale/RodOrigin/RodSprite:material:shader_parameter/flash_modifier")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GFX_scale/RodOrigin:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GFX_scale/FishLineEnd/Splash:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GFX_scale/FishLineEnd/Bob/BobSprite:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("GFX_scale/FishLineEnd/Bob/BobWater:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 37)]
 }
 
 [sub_resource type="Animation" id="Animation_jk1i0"]
@@ -65,19 +172,84 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BobWater:position")
+tracks/0/path = NodePath("GFX_scale/FishLineEnd/Splash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7, 1.7, 2.5, 3.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 37), Vector2(0, 42), Vector2(0, 34), Vector2(0, 41), Vector2(0, 44)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BobWater:rotation")
+tracks/1/path = NodePath("GFX_scale/FishLineEnd/Bob/BobSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.31054, 2, 2.9, 3.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, -3.03141), Vector2(0, 8), Vector2(-3.99997, 8), Vector2(-8, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GFX_scale/FishLineEnd/Bob/BobWater:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 37), Vector2(0, 32), Vector2(0, 44)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GFX_scale/RodOrigin/RodSprite:material:shader_parameter/flash_modifier")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GFX_scale/FishLineEnd/Bob:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pf1pk"]
+resource_name = "fish_caught"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -89,33 +261,115 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BobSprite:position")
+tracks/2/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1, 1.8, 3.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 5), Vector2(0, 0), Vector2(0, 8)]
+"values": [Vector2(0.36, 0.199996), Vector2(0.52002, 2.28), Vector2(0.52, 1.88), Vector2(0.666835, 1.49143), Vector2(1.44498, 0.432078), Vector2(0.95, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BobSprite:rotation")
+tracks/3/path = NodePath("GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle/MainSplashSprite:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.75, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GFX_scale/FishLineEnd/Splash:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_agq8g"]
+resource_name = "fish_on_hook"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX_scale/FishLineEnd/Bob:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.7, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(196, 32), Vector2(-84, -104), Vector2(-248, 48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX_scale/RodOrigin/RodSprite:material:shader_parameter/flash_modifier")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.4, 0.0, 0.4, 0.0, 0.4, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GFX_scale/RodOrigin:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.95, 1), Vector2(1, 1), Vector2(0.95, 1), Vector2(1, 1), Vector2(0.95, 1), Vector2(1, 1), Vector2(0.95, 1), Vector2(1, 1), Vector2(0.95, 1), Vector2(1, 1), Vector2(0.95, 1), Vector2(1, 1), Vector2(0.95, 1), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tge52"]
 _data = {
 "RESET": SubResource("Animation_3xd0h"),
-"bob_idle": SubResource("Animation_jk1i0")
+"bob_idle": SubResource("Animation_jk1i0"),
+"fish_caught": SubResource("Animation_pf1pk"),
+"fish_on_hook": SubResource("Animation_agq8g")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_evkun"]
+resource_local_to_scene = true
+shader = ExtResource("4_v2kiu")
+shader_parameter/flash_color = Color(1, 0.827451, 0.435294, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2g4x"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+angular_velocity_min = -181.95
+angular_velocity_max = 143.64
+gravity = Vector3(0, 98, 0)
+scale_min = 0.25
+scale_max = 0.5
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_w3n3x"]
+resource_local_to_scene = true
+frames = 3
+pause = true
+frame_0/texture = ExtResource("8_wm3mt")
+frame_1/texture = ExtResource("9_yoajw")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("10_1eb2s")
+frame_2/duration = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8om5b"]
 radius = 57.0351
@@ -124,40 +378,72 @@ radius = 57.0351
 script = ExtResource("1_4mrlr")
 catch_fish = ExtResource("2_bwead")
 fish_spawn_point = NodePath("FishSpawnPoint")
+fish_table = ExtResource("3_76h3p")
+min_fish_bite_time = 10.0
+max_fish_bite_time = 15.0
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_wt3vp")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tge52")
+}
+playback_default_blend_time = 0.5
 
 [node name="GFX_scale" type="Node2D" parent="."]
 scale = Vector2(0.25, 0.25)
 
-[node name="RodSprite" type="Sprite2D" parent="GFX_scale"]
-position = Vector2(153, -117)
+[node name="RodOrigin" type="Node2D" parent="GFX_scale"]
+position = Vector2(0, 24)
+
+[node name="RodSprite" type="Sprite2D" parent="GFX_scale/RodOrigin"]
+material = SubResource("ShaderMaterial_evkun")
+position = Vector2(152, -140)
 texture = ExtResource("1_syo2h")
 
-[node name="LineAttachRod" type="Node2D" parent="GFX_scale/RodSprite"]
+[node name="LineAttachRod" type="Node2D" parent="GFX_scale/RodOrigin/RodSprite"]
 position = Vector2(223, -135)
 
-[node name="Bob" type="Node2D" parent="GFX_scale"]
-position = Vector2(590, 10)
+[node name="FishLineEnd" type="Node2D" parent="GFX_scale"]
+position = Vector2(984, 124)
 
-[node name="BobSprite" type="Sprite2D" parent="GFX_scale/Bob"]
+[node name="Bob" type="Node2D" parent="GFX_scale/FishLineEnd"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX_scale/FishLineEnd/Bob"]
+visible = false
+position = Vector2(-20.0001, 24)
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_i2g4x")
+texture = SubResource("AnimatedTexture_w3n3x")
+
+[node name="BobSprite" type="Sprite2D" parent="GFX_scale/FishLineEnd/Bob"]
 texture = ExtResource("2_hrge6")
 
-[node name="LineAttachmentPoint" type="Node2D" parent="GFX_scale/Bob/BobSprite"]
+[node name="LineAttachmentPoint" type="Node2D" parent="GFX_scale/FishLineEnd/Bob/BobSprite"]
 position = Vector2(-1, -27.8302)
 
-[node name="BobWater" type="Sprite2D" parent="GFX_scale/Bob"]
+[node name="BobWater" type="Sprite2D" parent="GFX_scale/FishLineEnd/Bob"]
 position = Vector2(0, 37)
 texture = ExtResource("3_sqev0")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX_scale/Bob"]
-libraries = {
-"": SubResource("AnimationLibrary_tge52")
-}
-autoplay = "bob_idle"
+[node name="Splash" type="Node2D" parent="GFX_scale/FishLineEnd"]
+visible = false
+
+[node name="MainSplashScaleHandle" type="Node2D" parent="GFX_scale/FishLineEnd/Splash"]
+position = Vector2(-4, 16)
+
+[node name="MainSplashSprite" type="Sprite2D" parent="GFX_scale/FishLineEnd/Splash/MainSplashScaleHandle"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-4, -64)
+scale = Vector2(1.78876, 2.13275)
+texture = ExtResource("7_kf28c")
 
 [node name="FishingLine" type="Line2D" parent="." node_paths=PackedStringArray("attach_point1", "attach_point2")]
 z_index = -1
-position = Vector2(94, -63)
-points = PackedVector2Array(0, 0, 53.25, 58.5424)
+position = Vector2(93.75, -62.75)
+points = PackedVector2Array(0, 0, 152, 87.9456)
 closed = true
 width = 2.0
 default_color = Color(0.890196, 0.811765, 0.705882, 1)
@@ -165,8 +451,8 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("4_48a08")
-attach_point1 = NodePath("../GFX_scale/RodSprite/LineAttachRod")
-attach_point2 = NodePath("../GFX_scale/Bob/BobSprite/LineAttachmentPoint")
+attach_point1 = NodePath("../GFX_scale/RodOrigin/RodSprite/LineAttachRod")
+attach_point2 = NodePath("../GFX_scale/FishLineEnd/Bob/BobSprite/LineAttachmentPoint")
 
 [node name="InteractionArea" type="Area2D" parent="."]
 collision_layer = 16

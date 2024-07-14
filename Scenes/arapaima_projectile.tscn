@@ -1,0 +1,258 @@
+[gd_scene load_steps=30 format=3 uid="uid://0ehk8qer6v1o"]
+
+[ext_resource type="Script" path="res://Scenes/TrackingProjectile.gd" id="1_0v26v"]
+[ext_resource type="PackedScene" uid="uid://7rg4wsra1m3o" path="res://Scenes/hit_fx.tscn" id="2_eb4ai"]
+[ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="2_facvu"]
+[ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="3_ig256"]
+[ext_resource type="Texture2D" uid="uid://buymndvyoj20x" path="res://Sprites/Bullets/TrackingBullet/BulletInside.png" id="4_7oh42"]
+[ext_resource type="Shader" path="res://Scenes/ColorBlend.gdshader" id="5_c4lfc"]
+[ext_resource type="Texture2D" uid="uid://p52txae10tj2" path="res://Sprites/Bullets/TrackingBullet/BulletOutline.png" id="6_odkca"]
+[ext_resource type="Texture2D" uid="uid://dep76h83p1adu" path="res://Sprites/Bullets/TrackingBullet/TrailCloud2.png" id="7_djo87"]
+
+[sub_resource type="Curve" id="Curve_tll4w"]
+_data = [Vector2(0, 0.0674716), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ej1tp"]
+curve = SubResource("Curve_tll4w")
+
+[sub_resource type="Curve" id="Curve_sexad"]
+_data = [Vector2(0, 0.963068), 0.0, 0.0, 0, 0, Vector2(1, 0.769176), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n3yoo"]
+curve = SubResource("Curve_sexad")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bke68"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_n3yoo")
+alpha_curve = SubResource("CurveTexture_ej1tp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hye3s"]
+shader = ExtResource("5_c4lfc")
+shader_parameter/color1 = Color(0, 0, 0, 1)
+shader_parameter/color2 = Color(1, 0.301961, 0, 1)
+shader_parameter/blend = 0.0
+
+[sub_resource type="Animation" id="Animation_p3sos"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fill:material:shader_parameter/blend")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("outline:material:shader_parameter/blend")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wkgql"]
+resource_name = "bullet_flashing"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fill:material:shader_parameter/blend")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("outline:material:shader_parameter/blend")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_6ub1m"]
+resource_name = "SwayingBullet"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 4
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0872665, 0.0, -0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yfgbt"]
+_data = {
+"RESET": SubResource("Animation_p3sos"),
+"SwayingBullet": SubResource("Animation_6ub1m"),
+"bullet_flashing": SubResource("Animation_wkgql")
+}
+
+[sub_resource type="Curve" id="Curve_o87un"]
+_data = [Vector2(0.633065, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c4bvb"]
+curve = SubResource("Curve_o87un")
+
+[sub_resource type="Gradient" id="Gradient_y0ii6"]
+offsets = PackedFloat32Array(0.0227273, 0.118182, 0.990909)
+colors = PackedColorArray(1, 0.431373, 0, 1, 1, 0.560784, 0, 1, 1, 0.898667, 0.81, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_elvj5"]
+gradient = SubResource("Gradient_y0ii6")
+
+[sub_resource type="Curve" id="Curve_aeokq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.637363), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8wy1f"]
+curve = SubResource("Curve_aeokq")
+
+[sub_resource type="Curve" id="Curve_ufyut"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mhuhq"]
+curve = SubResource("Curve_ufyut")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jdent"]
+particle_flag_disable_z = true
+angle_min = -57.5
+angle_max = 396.5
+spread = 10.0
+initial_velocity_min = -50.0
+initial_velocity_max = -30.0
+gravity = Vector3(0, 0, 0)
+damping_min = 1.0
+damping_max = 1.0
+scale_min = 0.3
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_8wy1f")
+color_ramp = SubResource("GradientTexture1D_elvj5")
+alpha_curve = SubResource("CurveTexture_c4bvb")
+turbulence_enabled = true
+turbulence_noise_speed = Vector3(1, 1, 0)
+turbulence_influence_over_life = SubResource("CurveTexture_mhuhq")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6c2n4"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lpn1b"]
+radius = 8.0
+
+[node name="ArapaimaProjectile" type="RigidBody2D" node_paths=PackedStringArray("gfx", "rigidbody")]
+collision_layer = 4
+collision_mask = 8
+gravity_scale = 0.0
+continuous_cd = 1
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_0v26v")
+gfx = NodePath("GFX/GFXScale/Node/FlatRotation")
+rigidbody = NodePath(".")
+hit_fx = ExtResource("2_eb4ai")
+
+[node name="GFX" type="Node2D" parent="."]
+
+[node name="GFXScale" type="Node2D" parent="GFX"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale"]
+visible = false
+position = Vector2(3.05176e-05, -9.53674e-07)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_bke68")
+texture = ExtResource("2_facvu")
+lifetime = 0.1
+
+[node name="Node" type="Node" parent="GFX/GFXScale" node_paths=PackedStringArray("body", "graphics")]
+script = ExtResource("3_ig256")
+lerp_speed = 60.0
+body = NodePath("../../..")
+graphics = NodePath("FlatRotation")
+max_move_amount = 60.0
+
+[node name="FlatRotation" type="Node2D" parent="GFX/GFXScale/Node"]
+
+[node name="ProjectileColorer" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation"]
+z_index = 6
+scale = Vector2(0.2, 0.2)
+
+[node name="fill" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/ProjectileColorer"]
+position = Vector2(0, 1.25)
+scale = Vector2(1, 1.07143)
+texture = ExtResource("4_7oh42")
+
+[node name="outline" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/ProjectileColorer"]
+material = SubResource("ShaderMaterial_hye3s")
+texture = ExtResource("6_odkca")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX/GFXScale/Node/FlatRotation/ProjectileColorer"]
+libraries = {
+"": SubResource("AnimationLibrary_yfgbt")
+}
+autoplay = "bullet_flashing"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale/Node/FlatRotation"]
+position = Vector2(-8, 0)
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_jdent")
+texture = ExtResource("7_djo87")
+
+[node name="BulletCollider" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_6c2n4")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+visible = false
+shape = SubResource("CircleShape2D_lpn1b")
+debug_color = Color(0.974344, 0, 0.427458, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_area_2d_area_entered"]

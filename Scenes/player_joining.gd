@@ -1,8 +1,9 @@
 extends Node
 
 @export var player_scene : PackedScene;
-
+@export var player_parent : Node2D;
 @onready var player_manager = $PlayerManager;
+
 
 
 # map from player integer to the player node
@@ -30,7 +31,7 @@ func spawn_player(player: int):
 	Singletons.Players.register_player(player_interface);
 	
 	# add the player to the tree
-	add_child(player_node)
+	player_parent.add_child(player_node)
 	
 	# random spawn position
 	player_node.movement.position = Vector2(randf_range(50, 400), randf_range(50, 400))

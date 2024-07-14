@@ -183,12 +183,16 @@ render_target_update_mode = 4
 
 [node name="GameManager" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_l04mu")]
 
-[node name="PlayerJoining" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+[node name="PlayerJoining" type="Node" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("player_parent")]
 script = ExtResource("2_ekmqj")
 player_scene = ExtResource("3_al4fi")
+player_parent = NodePath("PlayerManager/PlayerParent")
 
 [node name="PlayerManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager/PlayerJoining"]
 script = ExtResource("4_80ujy")
+
+[node name="PlayerParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager/PlayerJoining/PlayerManager"]
+z_index = 1
 
 [node name="RoundManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("round_score_display")]
 script = ExtResource("5_1h57y")

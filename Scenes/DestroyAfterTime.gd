@@ -1,11 +1,9 @@
 extends Node2D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+@export var destroy_time := 3.0;
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	destroy_time -= delta;
+	if destroy_time <= 0:
+		queue_free()

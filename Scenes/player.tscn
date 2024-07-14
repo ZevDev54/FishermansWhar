@@ -158,9 +158,9 @@ accel = 4000.0
 decel = 20.0
 
 [node name="PlayerDashing" type="Node2D" parent="PlayerMovementBody"]
+z_index = 3
 position = Vector2(-3.78, 0)
 script = ExtResource("3_vnw46")
-dash_charge_length = 0.3
 dash_distance = 1000.0
 dash_time_length = 0.2
 

@@ -27,6 +27,7 @@ size = Vector2(1115, 20)
 [node name="World" type="Node2D"]
 
 [node name="FishContainer" type="Node2D" parent="."]
+visible = false
 
 [node name="Salmon" parent="FishContainer" instance=ExtResource("4_uldyd")]
 z_index = 5
@@ -38,7 +39,6 @@ position = Vector2(202, 472)
 
 [node name="Bass" parent="FishContainer" instance=ExtResource("17_56837")]
 position = Vector2(840, 564)
-shells_per_shot = 8
 
 [node name="SardineSMG" parent="FishContainer" instance=ExtResource("4_4sfye")]
 position = Vector2(706, 160)
@@ -200,22 +200,7 @@ position = Vector2(577, -7)
 shape = SubResource("RectangleShape2D_vsxau")
 
 [node name="FishingRod" parent="." instance=ExtResource("14_p12ux")]
-position = Vector2(1069, 565)
-
-[node name="Bob" parent="FishingRod/GFX_scale" index="1"]
-position = Vector2(984.985, 234.234)
-
-[node name="FishingLine" parent="FishingRod" index="1"]
-points = PackedVector2Array(0, 0, 151.996, 114.601)
+position = Vector2(1060, 562)
 
 [node name="FishingRod2" parent="." instance=ExtResource("14_p12ux")]
-position = Vector2(1058, 244)
-
-[node name="Bob" parent="FishingRod2/GFX_scale" index="1"]
-position = Vector2(984.985, 234.234)
-
-[node name="FishingLine" parent="FishingRod2" index="1"]
-points = PackedVector2Array(0, 0, 151.996, 114.601)
-
-[editable path="FishingRod"]
-[editable path="FishingRod2"]
+position = Vector2(1072, 210)

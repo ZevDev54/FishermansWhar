@@ -18,9 +18,7 @@ var dash_timer := 0.0;
 
 var dash_overheld;
 
-@onready var debug_sprite : Node2D = $debug;
 
-@export var dash_animation : AnimationPlayer;
 
 func _ready():
 	player = owner as Player;

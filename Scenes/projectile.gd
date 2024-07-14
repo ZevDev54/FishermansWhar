@@ -1,4 +1,5 @@
 extends DamageSource
+class_name Projectile 
 
 @export var gfx : Node2D;
 
@@ -21,7 +22,8 @@ func init(set_position, set_direction, set_speed, set_damage, set_lifetime, set_
 	self.damage = set_damage;
 	self.lifetime = set_lifetime;
 	# print("Initialize!!")
-	gfx.look_at(rigidbody.position + self.shoot_direction)
+	rigidbody.move_and_collide(rigidbody.position);
+	
 
 	if(colorer):
 		colorer.set_team_color(Singletons.Players.get_color_of_id(set_unique_id));
@@ -38,6 +40,7 @@ func _process(delta):
 func _physics_process(delta):
 	object.global_position += shoot_direction * speed * delta;
 	rigidbody.move_and_collide(rigidbody.position - object.global_position);
+	gfx.look_at(rigidbody.position + self.shoot_direction * 50)
 	# print(global_position)
 
 func deal_damage(damageable : Damageable) -> bool:
@@ -62,7 +65,6 @@ func deal_damage(damageable : Damageable) -> bool:
 func hit_behavior():
 	var hit_fx_instance = hit_fx.instantiate()
 	hit_fx_instance.global_position = rigidbody.position;
-	print("haha"+str(hit_fx_instance));
 	Singletons.Projectiles.add_projectile_child(hit_fx_instance)
 	queue_free();
 

@@ -1,0 +1,245 @@
+[gd_scene load_steps=13 format=3 uid="uid://cxu7wqccchb4t"]
+
+[ext_resource type="Script" path="res://Scenes/guns/arapaima.gd" id="1_47qy6"]
+[ext_resource type="PackedScene" uid="uid://0ehk8qer6v1o" path="res://Scenes/arapaima_projectile.tscn" id="2_q034v"]
+[ext_resource type="Script" path="res://Scenes/guns/WeaponGfx.gd" id="3_044l3"]
+[ext_resource type="Texture2D" uid="uid://b5txgku6su1px" path="res://Sprites/FishHandless/ArapaimaNoHands.png" id="4_b3mmp"]
+[ext_resource type="Texture2D" uid="uid://bt4oxvj5l8hsy" path="res://Sprites/FishHands/Arapaima.png" id="5_uh052"]
+[ext_resource type="AudioStream" uid="uid://dw5k4sy8sjiy0" path="res://audio/sfx/pop.wav" id="6_66ult"]
+[ext_resource type="Texture2D" uid="uid://dfq7hp0vjcx81" path="res://Sprites/Bullets/MuzzleFlash.png" id="7_duuuj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqc8f"]
+radius = 7.0
+height = 48.0
+
+[sub_resource type="Animation" id="Animation_4gha7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShootPosition/MuzzleFlashScale:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShootPosition/MuzzleFlashScale:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShootPosition/MuzzleFlashScale:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShootPosition/MuzzleFlashScale/FlashSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8msux"]
+resource_name = "shoot"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GFX:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.95), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GFX:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(17, 0), Vector2(12, 0), Vector2(17, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GFX:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(-5, 0), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ShootPosition/MuzzleFlashScale:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2.38419e-07, 0), Vector2(-17, 0), Vector2(-5, 0), Vector2(-5, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ShootPosition/MuzzleFlashScale:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ShootPosition/MuzzleFlashScale:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.66143, 0.821324), Vector2(1.99667, 0.588943), Vector2(1, 0.4), Vector2(-0.143006, 0.406554)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ShootPosition/MuzzleFlashScale/FlashSprite:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a43up"]
+_data = {
+"RESET": SubResource("Animation_4gha7"),
+"shoot": SubResource("Animation_8msux")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qhkp2"]
+random_pitch = 1.02
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("6_66ult")
+stream_0/weight = 1.0
+
+[node name="Arapaima" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
+z_index = 6
+collision_layer = 2
+collision_mask = 138
+gravity_scale = 0.0
+freeze = true
+linear_damp_mode = 1
+linear_damp = 10.0
+script = ExtResource("1_47qy6")
+shoot_rate = 0.6
+animation = NodePath("AnimationPlayer")
+rigidbody = NodePath(".")
+gfx = NodePath("GFX")
+shoot_point = NodePath("ShootPosition")
+projectile = ExtResource("2_q034v")
+projectile_speed = 300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(17, 0)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_dqc8f")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a43up")
+}
+
+[node name="GFX" type="Node2D" parent="." node_paths=PackedStringArray("flip_scaler", "hands_sprite", "nohands_sprite")]
+position = Vector2(17, 0)
+script = ExtResource("3_044l3")
+flip_scaler = NodePath("GFXScale/GFXFlipScaler")
+hands_sprite = NodePath("GFXScale/GFXFlipScaler/Arapaima")
+nohands_sprite = NodePath("GFXScale/GFXFlipScaler/ArapaimaNoHands")
+
+[node name="GFXScale" type="Node2D" parent="GFX"]
+scale = Vector2(0.15, 0.15)
+
+[node name="GFXFlipScaler" type="Node2D" parent="GFX/GFXScale"]
+
+[node name="ArapaimaNoHands" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
+texture = ExtResource("4_b3mmp")
+
+[node name="Arapaima" type="Sprite2D" parent="GFX/GFXScale/GFXFlipScaler"]
+visible = false
+texture = ExtResource("5_uh052")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(35, 0)
+stream = SubResource("AudioStreamRandomizer_qhkp2")
+volume_db = 4.637
+max_polyphony = 3
+bus = &"sfx"
+
+[node name="ShootPosition" type="Node2D" parent="."]
+position = Vector2(51, 2)
+
+[node name="MuzzleFlashScale" type="Node2D" parent="ShootPosition"]
+z_index = -1
+position = Vector2(-1, 0)
+
+[node name="FlashSprite" type="Sprite2D" parent="ShootPosition/MuzzleFlashScale"]
+visible = false
+modulate = Color(1, 0.9155, 0.61, 1)
+position = Vector2(12, 1)
+scale = Vector2(0.276175, 0.276175)
+texture = ExtResource("7_duuuj")

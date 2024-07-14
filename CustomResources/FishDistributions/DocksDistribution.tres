@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="FishDistribution" load_steps=13 format=3 uid="uid://bf7larxdhrda0"]
+
+[ext_resource type="PackedScene" uid="uid://cvoqtax3kbn3h" path="res://Scenes/guns/bass.tscn" id="1_6v5j7"]
+[ext_resource type="Script" path="res://Scripts/FishDistributionTable.gd" id="1_f126a"]
+[ext_resource type="Script" path="res://Scripts/FishRarityField.gd" id="2_7stqt"]
+[ext_resource type="PackedScene" uid="uid://8vp2oxwy362n" path="res://Scenes/guns/perch.tscn" id="3_nhcvq"]
+[ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="4_uki4d"]
+[ext_resource type="PackedScene" uid="uid://clqrjeublql8t" path="res://Scenes/guns/sardine_smg.tscn" id="5_437h7"]
+[ext_resource type="PackedScene" uid="uid://cxu7wqccchb4t" path="res://Scenes/guns/arapaima.tscn" id="6_maoiv"]
+
+[sub_resource type="Resource" id="Resource_e80vl"]
+script = ExtResource("2_7stqt")
+fish_scene = ExtResource("1_6v5j7")
+random_weight = 1.0
+
+[sub_resource type="Resource" id="Resource_ir6bg"]
+script = ExtResource("2_7stqt")
+fish_scene = ExtResource("3_nhcvq")
+random_weight = 1.2
+
+[sub_resource type="Resource" id="Resource_feyyf"]
+script = ExtResource("2_7stqt")
+fish_scene = ExtResource("4_uki4d")
+random_weight = 1.0
+
+[sub_resource type="Resource" id="Resource_mhtdd"]
+script = ExtResource("2_7stqt")
+fish_scene = ExtResource("5_437h7")
+random_weight = 1.0
+
+[sub_resource type="Resource" id="Resource_8lvbm"]
+script = ExtResource("2_7stqt")
+fish_scene = ExtResource("6_maoiv")
+random_weight = 3.0
+
+[resource]
+script = ExtResource("1_f126a")
+fish_listings = Array[ExtResource("2_7stqt")]([SubResource("Resource_e80vl"), SubResource("Resource_ir6bg"), SubResource("Resource_feyyf"), SubResource("Resource_mhtdd"), SubResource("Resource_8lvbm")])
