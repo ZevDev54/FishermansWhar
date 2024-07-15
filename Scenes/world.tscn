@@ -1,8 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://dy1v8qv6rfib2"]
+[gd_scene load_steps=15 format=3 uid="uid://dy1v8qv6rfib2"]
 
-[ext_resource type="PackedScene" uid="uid://8vp2oxwy362n" path="res://Scenes/guns/perch.tscn" id="2_u6gx3"]
-[ext_resource type="PackedScene" uid="uid://clqrjeublql8t" path="res://Scenes/guns/sardine_smg.tscn" id="4_4sfye"]
-[ext_resource type="PackedScene" uid="uid://cfr0y8npg88sk" path="res://Scenes/guns/salmon.tscn" id="4_uldyd"]
+[ext_resource type="PackedScene" uid="uid://cxu7wqccchb4t" path="res://Scenes/guns/arapaima.tscn" id="1_f7i63"]
 [ext_resource type="Texture2D" uid="uid://dfjcs5ocibk1c" path="res://Sprites/levels/NewDocks/Water.png" id="5_uhwbv"]
 [ext_resource type="Shader" path="res://Scenes/ShiftingWaves.gdshader" id="7_s58v6"]
 [ext_resource type="Texture2D" uid="uid://dp8jn7on44tdd" path="res://Sprites/levels/NewDocks/DarkDockTilingDetailed.png" id="8_5whq7"]
@@ -13,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://v0kw1q8bpns1" path="res://Scenes/LevelBits/crate.tscn" id="14_62lr8"]
 [ext_resource type="Texture2D" uid="uid://dtxeacrg0103e" path="res://Sprites/levels/docks/Small Boat.png" id="14_k6ngi"]
 [ext_resource type="PackedScene" uid="uid://camcrc6s3uibu" path="res://Scenes/fishing_rod.tscn" id="14_p12ux"]
-[ext_resource type="PackedScene" uid="uid://cvoqtax3kbn3h" path="res://Scenes/guns/bass.tscn" id="17_56837"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aber6"]
 shader = ExtResource("7_s58v6")
@@ -27,21 +24,9 @@ size = Vector2(1115, 20)
 [node name="World" type="Node2D"]
 
 [node name="FishContainer" type="Node2D" parent="."]
-visible = false
 
-[node name="Salmon" parent="FishContainer" instance=ExtResource("4_uldyd")]
-z_index = 5
-position = Vector2(512, 248)
-
-[node name="Perch" parent="FishContainer" instance=ExtResource("2_u6gx3")]
-z_index = 5
-position = Vector2(202, 472)
-
-[node name="Bass" parent="FishContainer" instance=ExtResource("17_56837")]
-position = Vector2(840, 564)
-
-[node name="SardineSMG" parent="FishContainer" instance=ExtResource("4_4sfye")]
-position = Vector2(706, 160)
+[node name="Arapaima" parent="FishContainer" instance=ExtResource("1_f7i63")]
+position = Vector2(333, 190)
 
 [node name="Level" type="Node2D" parent="."]
 

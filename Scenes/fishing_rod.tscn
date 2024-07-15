@@ -443,7 +443,7 @@ texture = ExtResource("7_kf28c")
 [node name="FishingLine" type="Line2D" parent="." node_paths=PackedStringArray("attach_point1", "attach_point2")]
 z_index = -1
 position = Vector2(93.75, -62.75)
-points = PackedVector2Array(0, 0, 152, 87.9456)
+points = PackedVector2Array(0, 0, 152, 85.275)
 closed = true
 width = 2.0
 default_color = Color(0.890196, 0.811765, 0.705882, 1)

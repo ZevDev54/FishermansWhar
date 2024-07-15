@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=3 uid="uid://0ehk8qer6v1o"]
 
 [ext_resource type="Script" path="res://Scenes/TrackingProjectile.gd" id="1_0v26v"]
-[ext_resource type="PackedScene" uid="uid://7rg4wsra1m3o" path="res://Scenes/hit_fx.tscn" id="2_eb4ai"]
 [ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="2_facvu"]
+[ext_resource type="PackedScene" uid="uid://br7nspcnwu6y4" path="res://Scenes/explosion.tscn" id="2_gjxvm"]
 [ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="3_ig256"]
 [ext_resource type="Texture2D" uid="uid://buymndvyoj20x" path="res://Sprites/Bullets/TrackingBullet/BulletInside.png" id="4_7oh42"]
 [ext_resource type="Shader" path="res://Scenes/ColorBlend.gdshader" id="5_c4lfc"]
@@ -76,6 +76,23 @@ tracks/2/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_6ub1m"]
+resource_name = "SwayingBullet"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 4
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0872665, 0.0, -0.0872665]
+}
+
 [sub_resource type="Animation" id="Animation_wkgql"]
 resource_name = "bullet_flashing"
 length = 0.2
@@ -105,22 +122,17 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0, 1.0]
 }
-
-[sub_resource type="Animation" id="Animation_6ub1m"]
-resource_name = "SwayingBullet"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:rotation")
-tracks/0/interp = 4
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.0872665, 0.0, -0.0872665]
+"values": [0.0, 0.0349066, -0.0349066]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yfgbt"]
@@ -134,28 +146,28 @@ _data = {
 _data = [Vector2(0.633065, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_c4bvb"]
+[sub_resource type="CurveTexture" id="CurveTexture_kgjvw"]
 curve = SubResource("Curve_o87un")
 
 [sub_resource type="Gradient" id="Gradient_y0ii6"]
 offsets = PackedFloat32Array(0.0227273, 0.118182, 0.990909)
 colors = PackedColorArray(1, 0.431373, 0, 1, 1, 0.560784, 0, 1, 1, 0.898667, 0.81, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_elvj5"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dkgmm"]
 gradient = SubResource("Gradient_y0ii6")
 
 [sub_resource type="Curve" id="Curve_aeokq"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.637363), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_8wy1f"]
+[sub_resource type="CurveTexture" id="CurveTexture_ajs3w"]
 curve = SubResource("Curve_aeokq")
 
 [sub_resource type="Curve" id="Curve_ufyut"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_mhuhq"]
+[sub_resource type="CurveTexture" id="CurveTexture_8vkd5"]
 curve = SubResource("Curve_ufyut")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jdent"]
@@ -170,12 +182,12 @@ damping_min = 1.0
 damping_max = 1.0
 scale_min = 0.3
 scale_max = 0.4
-scale_curve = SubResource("CurveTexture_8wy1f")
-color_ramp = SubResource("GradientTexture1D_elvj5")
-alpha_curve = SubResource("CurveTexture_c4bvb")
+scale_curve = SubResource("CurveTexture_ajs3w")
+color_ramp = SubResource("GradientTexture1D_dkgmm")
+alpha_curve = SubResource("CurveTexture_kgjvw")
 turbulence_enabled = true
 turbulence_noise_speed = Vector3(1, 1, 0)
-turbulence_influence_over_life = SubResource("CurveTexture_mhuhq")
+turbulence_influence_over_life = SubResource("CurveTexture_8vkd5")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6c2n4"]
 radius = 8.0
@@ -193,7 +205,7 @@ contact_monitor = true
 script = ExtResource("1_0v26v")
 gfx = NodePath("GFX/GFXScale/Node/FlatRotation")
 rigidbody = NodePath(".")
-hit_fx = ExtResource("2_eb4ai")
+hit_fx = ExtResource("2_gjxvm")
 
 [node name="GFX" type="Node2D" parent="."]
 
@@ -215,28 +227,32 @@ graphics = NodePath("FlatRotation")
 max_move_amount = 60.0
 
 [node name="FlatRotation" type="Node2D" parent="GFX/GFXScale/Node"]
+rotation = 0.0316053
 
-[node name="ProjectileColorer" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation"]
+[node name="Rotationhandle" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation"]
+
+[node name="ProjectileColorer" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle"]
 z_index = 6
 scale = Vector2(0.2, 0.2)
 
-[node name="fill" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/ProjectileColorer"]
+[node name="fill" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer"]
 position = Vector2(0, 1.25)
 scale = Vector2(1, 1.07143)
 texture = ExtResource("4_7oh42")
 
-[node name="outline" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/ProjectileColorer"]
+[node name="outline" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer"]
 material = SubResource("ShaderMaterial_hye3s")
 texture = ExtResource("6_odkca")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX/GFXScale/Node/FlatRotation/ProjectileColorer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer"]
 libraries = {
 "": SubResource("AnimationLibrary_yfgbt")
 }
 autoplay = "bullet_flashing"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale/Node/FlatRotation"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle"]
 position = Vector2(-8, 0)
+scale = Vector2(1, 1)
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_jdent")
 texture = ExtResource("7_djo87")

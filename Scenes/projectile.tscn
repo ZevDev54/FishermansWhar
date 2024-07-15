@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://b8lktjk7xd8cp"]
 
 [ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="1_5qfxu"]
-[ext_resource type="Script" path="res://Scenes/TrackingProjectile.gd" id="1_ls7ot"]
+[ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_lw6b6"]
 [ext_resource type="PackedScene" uid="uid://7rg4wsra1m3o" path="res://Scenes/hit_fx.tscn" id="2_sntox"]
 [ext_resource type="Shader" path="res://Scenes/ColorBlend.gdshader" id="3_km8gh"]
 [ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="3_mk621"]
@@ -118,8 +118,8 @@ gravity_scale = 0.0
 continuous_cd = 1
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_ls7ot")
-gfx = NodePath("GFX/GFXScale/GraphicsSmoother/ProjectileColorer")
+script = ExtResource("1_lw6b6")
+gfx = NodePath("GFX")
 rigidbody = NodePath(".")
 hit_fx = ExtResource("2_sntox")
 
@@ -171,7 +171,6 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-visible = false
 shape = SubResource("CircleShape2D_lpn1b")
 debug_color = Color(0.974344, 0, 0.427458, 0.42)
 

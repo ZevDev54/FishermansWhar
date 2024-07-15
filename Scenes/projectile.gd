@@ -82,7 +82,8 @@ func _on_area_2d_area_entered(area:Area2D):
 	# print("contacted area: ",area);
 	if(hurtbox):
 		deal_damage(hurtbox.damageable);
-		# print("damage!");
+		# print("what the hellll")
+		print("projectile damage!");
 
 
 func _on_body_entered(body):

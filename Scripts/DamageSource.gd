@@ -6,5 +6,5 @@ class_name DamageSource;
 
 
 
-func deal_damage(damageable):
+func deal_damage(damageable : Damageable):
     pass;
