@@ -11,6 +11,7 @@ var state_machine;
 var dead;
 var anticipating_dash : bool;
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state_machine = animtree.get("parameters/playback")

@@ -1,13 +1,14 @@
-[gd_scene load_steps=30 format=3 uid="uid://0ehk8qer6v1o"]
+[gd_scene format=3 uid="uid://0ehk8qer6v1o"]
 
-[ext_resource type="Script" path="res://Scenes/TrackingProjectile.gd" id="1_0v26v"]
+[ext_resource type="Script" uid="uid://omihpf85ph16" path="res://Scenes/TrackingProjectile.gd" id="1_0v26v"]
 [ext_resource type="Texture2D" uid="uid://cg41s5ymwfqst" path="res://Sprites/Bullets/BulletColor.png" id="2_facvu"]
 [ext_resource type="PackedScene" uid="uid://br7nspcnwu6y4" path="res://Scenes/explosion.tscn" id="2_gjxvm"]
-[ext_resource type="Script" path="res://Scenes/SmoothGraphics.gd" id="3_ig256"]
+[ext_resource type="Script" uid="uid://8r1tdnd8bck" path="res://Scenes/SmoothGraphics.gd" id="3_ig256"]
 [ext_resource type="Texture2D" uid="uid://buymndvyoj20x" path="res://Sprites/Bullets/TrackingBullet/BulletInside.png" id="4_7oh42"]
-[ext_resource type="Shader" path="res://Scenes/ColorBlend.gdshader" id="5_c4lfc"]
+[ext_resource type="Shader" uid="uid://c8x2trjmce70f" path="res://Scenes/ColorBlend.gdshader" id="5_c4lfc"]
 [ext_resource type="Texture2D" uid="uid://p52txae10tj2" path="res://Sprites/Bullets/TrackingBullet/BulletOutline.png" id="6_odkca"]
 [ext_resource type="Texture2D" uid="uid://dep76h83p1adu" path="res://Sprites/Bullets/TrackingBullet/TrailCloud2.png" id="7_djo87"]
+[ext_resource type="AudioStream" uid="uid://dfbr71fajp3cx" path="res://audio/sfx/arapaima/tone(1).wav" id="9_ujrul"]
 
 [sub_resource type="Curve" id="Curve_tll4w"]
 _data = [Vector2(0, 0.0674716), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -137,9 +138,9 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yfgbt"]
 _data = {
-"RESET": SubResource("Animation_p3sos"),
-"SwayingBullet": SubResource("Animation_6ub1m"),
-"bullet_flashing": SubResource("Animation_wkgql")
+&"RESET": SubResource("Animation_p3sos"),
+&"SwayingBullet": SubResource("Animation_6ub1m"),
+&"bullet_flashing": SubResource("Animation_wkgql")
 }
 
 [sub_resource type="Curve" id="Curve_o87un"]
@@ -195,80 +196,81 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_lpn1b"]
 radius = 8.0
 
-[node name="ArapaimaProjectile" type="RigidBody2D" node_paths=PackedStringArray("gfx", "rigidbody")]
+[node name="ArapaimaProjectile" type="RigidBody2D" unique_id=2119684309 node_paths=PackedStringArray("gfx", "rigidbody")]
 collision_layer = 4
 collision_mask = 8
 gravity_scale = 0.0
 continuous_cd = 1
-max_contacts_reported = 1
 contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_0v26v")
 gfx = NodePath("GFX/GFXScale/Node/FlatRotation")
 rigidbody = NodePath(".")
 hit_fx = ExtResource("2_gjxvm")
 
-[node name="GFX" type="Node2D" parent="."]
+[node name="GFX" type="Node2D" parent="." unique_id=675252196]
 
-[node name="GFXScale" type="Node2D" parent="GFX"]
+[node name="GFXScale" type="Node2D" parent="GFX" unique_id=135246304]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale" unique_id=1505726011]
 visible = false
 position = Vector2(3.05176e-05, -9.53674e-07)
 amount = 32
-process_material = SubResource("ParticleProcessMaterial_bke68")
 texture = ExtResource("2_facvu")
 lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_bke68")
 
-[node name="Node" type="Node" parent="GFX/GFXScale" node_paths=PackedStringArray("body", "graphics")]
+[node name="Node" type="Node" parent="GFX/GFXScale" unique_id=1964891790 node_paths=PackedStringArray("body", "graphics")]
 script = ExtResource("3_ig256")
 lerp_speed = 60.0
 body = NodePath("../../..")
 graphics = NodePath("FlatRotation")
 max_move_amount = 60.0
 
-[node name="FlatRotation" type="Node2D" parent="GFX/GFXScale/Node"]
+[node name="FlatRotation" type="Node2D" parent="GFX/GFXScale/Node" unique_id=1807264319]
 rotation = 0.0316053
 
-[node name="Rotationhandle" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation"]
+[node name="Rotationhandle" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation" unique_id=67936621]
 
-[node name="ProjectileColorer" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle"]
+[node name="ProjectileColorer" type="Node2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle" unique_id=624704750]
 z_index = 6
 scale = Vector2(0.2, 0.2)
 
-[node name="fill" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer"]
+[node name="fill" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer" unique_id=1193789683]
 position = Vector2(0, 1.25)
 scale = Vector2(1, 1.07143)
 texture = ExtResource("4_7oh42")
 
-[node name="outline" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer"]
+[node name="outline" type="Sprite2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer" unique_id=248317579]
 material = SubResource("ShaderMaterial_hye3s")
 texture = ExtResource("6_odkca")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer"]
-libraries = {
-"": SubResource("AnimationLibrary_yfgbt")
-}
-autoplay = "bullet_flashing"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle/ProjectileColorer" unique_id=1674500596]
+libraries/ = SubResource("AnimationLibrary_yfgbt")
+autoplay = &"bullet_flashing"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="GFX/GFXScale/Node/FlatRotation/Rotationhandle" unique_id=1816988593]
 position = Vector2(-8, 0)
-scale = Vector2(1, 1)
 amount = 64
-process_material = SubResource("ParticleProcessMaterial_jdent")
 texture = ExtResource("7_djo87")
+process_material = SubResource("ParticleProcessMaterial_jdent")
 
-[node name="BulletCollider" type="CollisionShape2D" parent="."]
+[node name="BulletCollider" type="CollisionShape2D" parent="." unique_id=677615537]
 visible = false
 shape = SubResource("CircleShape2D_6c2n4")
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." unique_id=925224894]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1500469513]
 visible = false
 shape = SubResource("CircleShape2D_lpn1b")
 debug_color = Color(0.974344, 0, 0.427458, 0.42)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1717996893]
+stream = ExtResource("9_ujrul")
+autoplay = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_area_2d_area_entered"]

@@ -11,10 +11,17 @@ var zoom = 1.0;
 @export var cam_zoom_speed = 1.0;
 @export var cam_pan_speed = 1.0;
 
-
+var cameraFrozen = false;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	if Input.is_action_just_pressed("freezeCamera"):
+		cameraFrozen = !cameraFrozen;
+	
+	if cameraFrozen:
+		return;
+
 	actual_cam.global_position = actual_cam.global_position.lerp(get_target_point(), cam_zoom_speed * delta);
 	# actual_cam.position = actual_cam.global_position.lerp(Vector2(300, 250), cam_zoom_speed * delta);
 
@@ -23,6 +30,8 @@ func _process(delta):
 
 	
 	actual_cam.zoom = Vector2(zoom * default_zoom, zoom * default_zoom);
+
+
 
 
 

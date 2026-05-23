@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://br7nspcnwu6y4"]
+[gd_scene format=3 uid="uid://br7nspcnwu6y4"]
 
 [ext_resource type="Texture2D" uid="uid://dep76h83p1adu" path="res://Sprites/Bullets/TrackingBullet/TrailCloud2.png" id="1_ijtfr"]
-[ext_resource type="Script" path="res://Scenes/ExplosionDamager.gd" id="1_ud27q"]
+[ext_resource type="Script" uid="uid://dq8jixaelvcyn" path="res://Scenes/ExplosionDamager.gd" id="1_ud27q"]
+[ext_resource type="AudioStream" uid="uid://qk8apq0152mm" path="res://audio/sfx/arapaima/explosion.wav" id="3_4okmj"]
 
 [sub_resource type="Curve" id="Curve_gdsm2"]
 _data = [Vector2(0.633065, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -18,7 +19,7 @@ colors = PackedColorArray(1, 0.898667, 0.81, 1, 1, 0.431373, 0, 1, 1, 0.701961, 
 gradient = SubResource("Gradient_d40sh")
 
 [sub_resource type="Curve" id="Curve_c1vsi"]
-max_value = 10.0
+_limits = [0.0, 10.0, 0.0, 1.0]
 _data = [Vector2(0, 0.488458), 0.0, 0.0, 0, 0, Vector2(0.0189702, 4.47534), 0.0, 0.0, 0, 0, Vector2(0.165312, 2.49738), 0.0, 0.0, 0, 0, Vector2(1, 1.40609), 0.0, 0.0, 0, 0]
 point_count = 4
 
@@ -57,27 +58,32 @@ turbulence_influence_over_life = SubResource("CurveTexture_mhuhq")
 [sub_resource type="CircleShape2D" id="CircleShape2D_c67nw"]
 radius = 25.0
 
-[node name="Explosion" type="Node2D" node_paths=PackedStringArray("damage_area", "particles")]
+[node name="Explosion" type="Node2D" unique_id=2058412534 node_paths=PackedStringArray("damage_area", "particles")]
 script = ExtResource("1_ud27q")
 damage_area = NodePath("Area2D")
 particles = NodePath("GPUParticles2D")
 damage_pulse_rate = 0.1
 damage = 20
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=566039449]
 emitting = false
 amount = 64
-process_material = SubResource("ParticleProcessMaterial_n06g8")
 texture = ExtResource("1_ijtfr")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_n06g8")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=374278144]
 scale = Vector2(1.52, 1.48)
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1949443294]
 shape = SubResource("CircleShape2D_c67nw")
 debug_color = Color(0.941548, 1.03962e-05, 0.610104, 0.42)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1059767507]
+stream = ExtResource("3_4okmj")
+volume_db = 5.54
+autoplay = true

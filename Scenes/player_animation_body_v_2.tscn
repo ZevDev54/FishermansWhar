@@ -1,7 +1,7 @@
-[gd_scene load_steps=53 format=3 uid="uid://fux17lnyrrv2"]
+[gd_scene format=3 uid="uid://fux17lnyrrv2"]
 
-[ext_resource type="Script" path="res://Scenes/player_animation_controller.gd" id="1_p7nm4"]
-[ext_resource type="Shader" path="res://Scenes/hitflash.gdshader" id="1_pafbb"]
+[ext_resource type="Script" uid="uid://d1tf1a8bruvcx" path="res://Scenes/player_animation_controller.gd" id="1_p7nm4"]
+[ext_resource type="Shader" uid="uid://d2gh5qxw5gvsb" path="res://Scenes/hitflash.gdshader" id="1_pafbb"]
 [ext_resource type="Texture2D" uid="uid://yghmd5k0ce8w" path="res://Sprites/Fisherman/v3/UniformFill.png" id="1_xqfl4"]
 [ext_resource type="Texture2D" uid="uid://cqaa6d754kppy" path="res://Sprites/Fisherman/v3/Body.png" id="2_v33fx"]
 [ext_resource type="Texture2D" uid="uid://bylwp6mw4235h" path="res://Sprites/Fisherman/v3/Face.png" id="3_g7ktw"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://c3p1hqslfv0ut" path="res://audio/sfx/Footsteps/Dock/Step3Dock.wav" id="12_nkefr"]
 [ext_resource type="AudioStream" uid="uid://bcfih6d66f5wb" path="res://audio/sfx/Footsteps/Dock/Step4Dock.wav" id="13_te65s"]
 [ext_resource type="AudioStream" uid="uid://cvh7jyy551s61" path="res://audio/sfx/Footsteps/Dock/Step5Dock.wav" id="14_0bugq"]
+[ext_resource type="Script" uid="uid://pcthktbc1cfm" path="res://Scenes/animation_audio_trigger.gd" id="19_jmm5h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a4alx"]
 resource_local_to_scene = true
@@ -247,18 +248,6 @@ tracks/12/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("DashAudio:playing")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_odepj"]
 resource_name = "player_dash"
@@ -348,17 +337,19 @@ tracks/6/keys = {
 "update": 1,
 "values": [true, false]
 }
-tracks/7/type = "value"
+tracks/7/type = "method"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("DashAudio:playing")
+tracks/7/path = NodePath("DashAudio")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [{
+"args": [],
+"method": &"proxy_play"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_cchu6"]
@@ -697,32 +688,34 @@ tracks/11/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/12/type = "value"
+tracks/12/type = "method"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("FootstepSFX:playing")
+tracks/12/path = NodePath("FootstepSFX")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0.24),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [{
+"args": [],
+"method": &"proxy_play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wo0de"]
 _data = {
-"RESET": SubResource("Animation_b47rx"),
-"player_dash": SubResource("Animation_odepj"),
-"player_dash_anticipate": SubResource("Animation_cchu6"),
-"player_dead": SubResource("Animation_jie6o"),
-"player_idle": SubResource("Animation_dgsu6"),
-"player_knocked": SubResource("Animation_plobf"),
-"player_run": SubResource("Animation_vourn")
+&"RESET": SubResource("Animation_b47rx"),
+&"player_dash": SubResource("Animation_odepj"),
+&"player_dash_anticipate": SubResource("Animation_cchu6"),
+&"player_dead": SubResource("Animation_jie6o"),
+&"player_idle": SubResource("Animation_dgsu6"),
+&"player_knocked": SubResource("Animation_plobf"),
+&"player_run": SubResource("Animation_vourn")
 }
 
 [sub_resource type="Curve" id="Curve_gvqmy"]
-max_value = 0.2
+_limits = [0.0, 0.2, 0.0, 1.0]
 _data = [Vector2(0, 0.10538), 0.0, -0.105442, 0, 0, Vector2(0.69084, 0), -0.159777, 0.0, 0, 0]
 point_count = 2
 
@@ -747,113 +740,107 @@ alpha_curve = SubResource("CurveTexture_34w65")
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cgey3"]
 streams_count = 5
 stream_0/stream = ExtResource("10_0buu5")
-stream_0/weight = 1.0
 stream_1/stream = ExtResource("11_8gn57")
-stream_1/weight = 1.0
 stream_2/stream = ExtResource("12_nkefr")
-stream_2/weight = 1.0
 stream_3/stream = ExtResource("13_te65s")
-stream_3/weight = 1.0
 stream_4/stream = ExtResource("14_0bugq")
-stream_4/weight = 1.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nadoq"]
 random_pitch = 1.1
 streams_count = 1
 stream_0/stream = ExtResource("12_girv4")
-stream_0/weight = 1.0
 
-[node name="PlayerAnimationBodyV2" type="Node2D" node_paths=PackedStringArray("hands", "player_colorable_sprite")]
+[node name="PlayerAnimationBodyV2" type="Node2D" unique_id=718888674 node_paths=PackedStringArray("hands", "player_colorable_sprite")]
 material = SubResource("ShaderMaterial_a4alx")
 script = ExtResource("1_p7nm4")
 hands = NodePath("GFX/body_foot_anchor/offset/hands")
 player_colorable_sprite = NodePath("GFX/body_foot_anchor/offset/main/UniformFill")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1799079706]
 tree_root = SubResource("AnimationNodeStateMachine_f2i2q")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_wo0de")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1427504530]
+libraries/ = SubResource("AnimationLibrary_wo0de")
 
-[node name="PlayerDropShadow" type="Sprite2D" parent="."]
+[node name="PlayerDropShadow" type="Sprite2D" parent="." unique_id=1474076505]
 position = Vector2(8, -2)
 texture = ExtResource("9_qdy4x")
 
-[node name="GFX" type="Node2D" parent="."]
+[node name="GFX" type="Node2D" parent="." unique_id=2049442124]
 use_parent_material = true
 
-[node name="body_foot_anchor" type="Node2D" parent="GFX"]
+[node name="body_foot_anchor" type="Node2D" parent="GFX" unique_id=1787279168]
 use_parent_material = true
 
-[node name="offset" type="Node2D" parent="GFX/body_foot_anchor"]
+[node name="offset" type="Node2D" parent="GFX/body_foot_anchor" unique_id=1347670034]
 use_parent_material = true
 position = Vector2(0, -103)
 
-[node name="main" type="Node2D" parent="GFX/body_foot_anchor/offset"]
+[node name="main" type="Node2D" parent="GFX/body_foot_anchor/offset" unique_id=56764097]
 use_parent_material = true
 
-[node name="UniformFill" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main"]
+[node name="UniformFill" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main" unique_id=1314731886]
 position = Vector2(12, 0)
 texture = ExtResource("1_xqfl4")
 
-[node name="torso_and_head" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main"]
+[node name="torso_and_head" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main" unique_id=419188393]
 use_parent_material = true
 position = Vector2(0, -1)
 texture = ExtResource("2_v33fx")
 
-[node name="Face" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main"]
+[node name="Face" type="Sprite2D" parent="GFX/body_foot_anchor/offset/main" unique_id=2120496846]
 use_parent_material = true
 position = Vector2(2, 1)
 texture = ExtResource("3_g7ktw")
 
-[node name="DashTrail" type="GPUParticles2D" parent="GFX/body_foot_anchor/offset/main"]
+[node name="DashTrail" type="GPUParticles2D" parent="GFX/body_foot_anchor/offset/main" unique_id=1999831845]
 z_index = -1
 position = Vector2(6, -1)
 emitting = false
 amount = 36
-process_material = SubResource("ParticleProcessMaterial_yho0p")
 texture = ExtResource("11_g18yx")
 lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_yho0p")
 
-[node name="hands" type="Node2D" parent="GFX/body_foot_anchor/offset"]
+[node name="hands" type="Node2D" parent="GFX/body_foot_anchor/offset" unique_id=2033169865]
 use_parent_material = true
 
-[node name="Rhand" type="Sprite2D" parent="GFX/body_foot_anchor/offset/hands"]
+[node name="Rhand" type="Sprite2D" parent="GFX/body_foot_anchor/offset/hands" unique_id=431689201]
 use_parent_material = true
 position = Vector2(63, 55)
 texture = ExtResource("4_jidxf")
 
-[node name="Lhand" type="Sprite2D" parent="GFX/body_foot_anchor/offset/hands"]
+[node name="Lhand" type="Sprite2D" parent="GFX/body_foot_anchor/offset/hands" unique_id=42455185]
 use_parent_material = true
 position = Vector2(-49, 57)
 texture = ExtResource("5_gemtx")
 
-[node name="feet" type="Node2D" parent="GFX/body_foot_anchor/offset"]
+[node name="feet" type="Node2D" parent="GFX/body_foot_anchor/offset" unique_id=1095134877]
 use_parent_material = true
 
-[node name="Lfoot" type="Sprite2D" parent="GFX/body_foot_anchor/offset/feet"]
+[node name="Lfoot" type="Sprite2D" parent="GFX/body_foot_anchor/offset/feet" unique_id=1291127403]
 use_parent_material = true
 position = Vector2(-12, 89)
 texture = ExtResource("6_u3nxr")
 
-[node name="Rfoot" type="Sprite2D" parent="GFX/body_foot_anchor/offset/feet"]
+[node name="Rfoot" type="Sprite2D" parent="GFX/body_foot_anchor/offset/feet" unique_id=2023290346]
 use_parent_material = true
 position = Vector2(27, 88)
 texture = ExtResource("7_tfohi")
 
-[node name="FootstepSFX" type="AudioStreamPlayer" parent="."]
+[node name="FootstepSFX" type="AudioStreamPlayer2D" parent="." unique_id=1640562485]
 stream = SubResource("AudioStreamRandomizer_cgey3")
-volume_db = -1.971
+volume_db = 8.033
 pitch_scale = 0.5
 max_polyphony = 3
 bus = &"sfx"
+script = ExtResource("19_jmm5h")
 
-[node name="DashAudio" type="AudioStreamPlayer2D" parent="."]
+[node name="DashAudio" type="AudioStreamPlayer2D" parent="." unique_id=1667528956]
 position = Vector2(0, -1)
 rotation = 0.00283676
 scale = Vector2(1.0065, 1.0187)
 stream = SubResource("AudioStreamRandomizer_nadoq")
 volume_db = 1.0
+script = ExtResource("19_jmm5h")

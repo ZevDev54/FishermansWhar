@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://dy1v8qv6rfib2"]
+[gd_scene format=3 uid="uid://dy1v8qv6rfib2"]
 
-[ext_resource type="PackedScene" uid="uid://cxu7wqccchb4t" path="res://Scenes/guns/arapaima.tscn" id="1_f7i63"]
 [ext_resource type="Texture2D" uid="uid://dfjcs5ocibk1c" path="res://Sprites/levels/NewDocks/Water.png" id="5_uhwbv"]
-[ext_resource type="Shader" path="res://Scenes/ShiftingWaves.gdshader" id="7_s58v6"]
+[ext_resource type="Shader" uid="uid://7ltmx4gm8c7h" path="res://Scenes/ShiftingWaves.gdshader" id="7_s58v6"]
 [ext_resource type="Texture2D" uid="uid://dp8jn7on44tdd" path="res://Sprites/levels/NewDocks/DarkDockTilingDetailed.png" id="8_5whq7"]
 [ext_resource type="Texture2D" uid="uid://db14ygt765hf8" path="res://Sprites/levels/NewDocks/DockTilingShadowed.png" id="9_tdwa3"]
 [ext_resource type="Texture2D" uid="uid://cdt4k3h5jlr7b" path="res://Sprites/levels/docks/FishingBoat.png" id="11_iaaea"]
@@ -21,29 +20,26 @@ size = Vector2(28, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsxau"]
 size = Vector2(1115, 20)
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" unique_id=1567776074]
 
-[node name="FishContainer" type="Node2D" parent="."]
+[node name="FishContainer" type="Node2D" parent="." unique_id=1067178097]
 
-[node name="Arapaima" parent="FishContainer" instance=ExtResource("1_f7i63")]
-position = Vector2(333, 190)
+[node name="Level" type="Node2D" parent="." unique_id=914132047]
 
-[node name="Level" type="Node2D" parent="."]
-
-[node name="Water" type="Sprite2D" parent="Level"]
+[node name="Water" type="Sprite2D" parent="Level" unique_id=1542538942]
 visible = false
 texture_repeat = 2
 position = Vector2(435.5, 255.5)
 scale = Vector2(4.25847, 2.51271)
 texture = ExtResource("5_uhwbv")
 
-[node name="FishingBoat" type="Sprite2D" parent="Level"]
+[node name="FishingBoat" type="Sprite2D" parent="Level" unique_id=861976024]
 z_index = -4
 position = Vector2(710, -164)
 scale = Vector2(0.275937, 0.275937)
 texture = ExtResource("11_iaaea")
 
-[node name="Water2" type="TextureRect" parent="Level"]
+[node name="Water2" type="TextureRect" parent="Level" unique_id=763645320]
 z_index = -10
 material = SubResource("ShaderMaterial_aber6")
 offset_left = -948.0
@@ -54,7 +50,7 @@ scale = Vector2(0.129357, 0.129357)
 texture = ExtResource("5_uhwbv")
 stretch_mode = 1
 
-[node name="Dock2" type="NinePatchRect" parent="Level"]
+[node name="Dock2" type="NinePatchRect" parent="Level" unique_id=2060599366]
 visible = false
 z_index = -5
 offset_left = 39.0
@@ -70,7 +66,7 @@ patch_margin_bottom = 6
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Dock3" type="NinePatchRect" parent="Level"]
+[node name="Dock3" type="NinePatchRect" parent="Level" unique_id=974051417]
 z_index = -5
 offset_left = 7.0
 offset_top = -36.0
@@ -86,106 +82,106 @@ patch_margin_bottom = 148
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Crate" parent="Level" instance=ExtResource("14_62lr8")]
+[node name="Crate" parent="Level" unique_id=4375688 instance=ExtResource("14_62lr8")]
 z_index = 1
 position = Vector2(916, 191)
 
-[node name="Crate2" parent="Level" instance=ExtResource("14_62lr8")]
+[node name="Crate2" parent="Level" unique_id=1261620923 instance=ExtResource("14_62lr8")]
 z_index = 1
 position = Vector2(194, 144)
 
-[node name="Crate3" parent="Level" instance=ExtResource("14_62lr8")]
+[node name="Crate3" parent="Level" unique_id=32011829 instance=ExtResource("14_62lr8")]
 z_index = 1
 position = Vector2(754, 455)
 
-[node name="Boat" type="Node2D" parent="Level"]
+[node name="Boat" type="Node2D" parent="Level" unique_id=887274480]
 z_index = -4
 position = Vector2(182, 770)
 scale = Vector2(1.2327, 1.2327)
 
-[node name="SmallBoatHighlights" type="Sprite2D" parent="Level/Boat"]
-modulate = Color(0.290196, 0.227451, 1, 1)
+[node name="SmallBoatHighlights" type="Sprite2D" parent="Level/Boat" unique_id=1013171695]
+modulate = Color(0.66, 0.2508, 0.25761992, 1)
 position = Vector2(-7, 1)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("13_xejb4")
 
-[node name="SmallBoat" type="Sprite2D" parent="Level/Boat"]
+[node name="SmallBoat" type="Sprite2D" parent="Level/Boat" unique_id=632012186]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("14_k6ngi")
 
-[node name="Posts" type="Node2D" parent="Level"]
+[node name="Posts" type="Node2D" parent="Level" unique_id=55682110]
 scale = Vector2(0.333, 0.333)
 
-[node name="Post" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post" parent="Level/Posts" unique_id=766772018 instance=ExtResource("13_6hxse")]
 position = Vector2(6.00601, 0)
 
-[node name="Post2" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post2" parent="Level/Posts" unique_id=1414424062 instance=ExtResource("13_6hxse")]
 position = Vector2(576.577, 6.00601)
 
-[node name="Post3" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post3" parent="Level/Posts" unique_id=2114444591 instance=ExtResource("13_6hxse")]
 position = Vector2(1354.35, -6.00601)
 
-[node name="Post4" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post4" parent="Level/Posts" unique_id=818857353 instance=ExtResource("13_6hxse")]
 position = Vector2(2111.11, -12.012)
 
-[node name="Post5" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post5" parent="Level/Posts" unique_id=1781862355 instance=ExtResource("13_6hxse")]
 position = Vector2(3000, 3.003)
 
-[node name="Post6" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post6" parent="Level/Posts" unique_id=547100211 instance=ExtResource("13_6hxse")]
 position = Vector2(3012.01, -474.474)
 
-[node name="Post7" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post7" parent="Level/Posts" unique_id=1292848561 instance=ExtResource("13_6hxse")]
 position = Vector2(3015.01, -951.952)
 
-[node name="Post8" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post8" parent="Level/Posts" unique_id=636047370 instance=ExtResource("13_6hxse")]
 position = Vector2(3030.03, -1456.46)
 
-[node name="Post9" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post9" parent="Level/Posts" unique_id=301192771 instance=ExtResource("13_6hxse")]
 position = Vector2(3012.01, -1867.87)
 
-[node name="Post10" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post10" parent="Level/Posts" unique_id=1121061625 instance=ExtResource("13_6hxse")]
 position = Vector2(2345.35, -1864.86)
 
-[node name="Post11" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post11" parent="Level/Posts" unique_id=648154694 instance=ExtResource("13_6hxse")]
 position = Vector2(1573.57, -1870.87)
 
-[node name="Post12" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post12" parent="Level/Posts" unique_id=1273693610 instance=ExtResource("13_6hxse")]
 position = Vector2(777.778, -1870.87)
 
-[node name="Post13" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post13" parent="Level/Posts" unique_id=1653663638 instance=ExtResource("13_6hxse")]
 position = Vector2(36.0361, -1897.9)
 
-[node name="Post14" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post14" parent="Level/Posts" unique_id=1309213558 instance=ExtResource("13_6hxse")]
 position = Vector2(12.012, -1375.38)
 
-[node name="Post15" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post15" parent="Level/Posts" unique_id=157720084 instance=ExtResource("13_6hxse")]
 position = Vector2(9.53674e-07, -888.889)
 
-[node name="Post16" parent="Level/Posts" instance=ExtResource("13_6hxse")]
+[node name="Post16" parent="Level/Posts" unique_id=343187507 instance=ExtResource("13_6hxse")]
 position = Vector2(3.003, -453.453)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=974185238]
 collision_layer = 128
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1356767060]
 position = Vector2(27, 331)
 shape = SubResource("RectangleShape2D_top5m")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1140370565]
 position = Vector2(1121, 331)
 shape = SubResource("RectangleShape2D_top5m")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1046695008]
 position = Vector2(576.5, 672)
 shape = SubResource("RectangleShape2D_vsxau")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=1145697393]
 position = Vector2(577, -7)
 shape = SubResource("RectangleShape2D_vsxau")
 
-[node name="FishingRod" parent="." instance=ExtResource("14_p12ux")]
+[node name="FishingRod" parent="." unique_id=1510368353 instance=ExtResource("14_p12ux")]
 position = Vector2(1060, 562)
 
-[node name="FishingRod2" parent="." instance=ExtResource("14_p12ux")]
+[node name="FishingRod2" parent="." unique_id=1923514614 instance=ExtResource("14_p12ux")]
 position = Vector2(1072, 210)
