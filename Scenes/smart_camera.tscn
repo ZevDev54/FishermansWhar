@@ -7,7 +7,7 @@ script = ExtResource("1_pfgi5")
 distance_to_zoom_ratio = 542.725
 min_zoom = 400.0
 max_zoom = 700.0
-default_zoom = 2.68
+default_zoom = 2.14
 cam_zoom_speed = 6.825
 cam_pan_speed = 0.0
 
