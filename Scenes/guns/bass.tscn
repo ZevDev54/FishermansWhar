@@ -151,19 +151,17 @@ random_pitch = 1.02
 random_volume_offset_db = 0.5
 streams_count = 1
 stream_0/stream = ExtResource("6_oxjii")
-stream_0/weight = 1.0
 
 [node name="Bass" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
 z_index = 6
 collision_layer = 2
-collision_mask = 137
+collision_mask = 138
 gravity_scale = 0.0
 freeze = true
 linear_damp = 0.5
 script = ExtResource("1_cy8xv")
 shoot_rate = 0.6
 animation = NodePath("AnimationPlayer")
-shells_per_shot = null
 degrees_variance = 0.8
 min_speed = 800
 rigidbody = NodePath(".")
@@ -172,7 +170,8 @@ shoot_point = NodePath("ShootPosition")
 projectile = ExtResource("2_3rgog")
 projectile_speed = 1000.0
 projectile_damage = 8
-projectile_lifetime = 0.5
+projectile_lifetime = 0.2
+rumble_info = Vector2(0.25, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

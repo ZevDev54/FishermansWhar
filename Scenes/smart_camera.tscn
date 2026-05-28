@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://llsoqoi5kfof"]
+[gd_scene format=3 uid="uid://llsoqoi5kfof"]
 
-[ext_resource type="Script" path="res://Scenes/SmartCamera.gd" id="1_pfgi5"]
+[ext_resource type="Script" uid="uid://bh31ll3j2koli" path="res://Scenes/SmartCamera.gd" id="1_pfgi5"]
 
-[node name="SmartCamera" type="Node"]
+[node name="SmartCamera" type="Node" unique_id=621980683]
 script = ExtResource("1_pfgi5")
-distance_to_zoom_ratio = 816.955
-min_zoom = 551.055
-max_zoom = 655.78
-default_zoom = 0.9
-cam_zoom_speed = 2.0
-cam_pan_speed = 3.0
+distance_to_zoom_ratio = 542.725
+min_zoom = 400.0
+max_zoom = 700.0
+default_zoom = 2.14
+cam_zoom_speed = 6.825
+cam_pan_speed = 0.0
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." unique_id=61342129]
 zoom = Vector2(0.825, 0.825)

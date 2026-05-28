@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://clqrjeublql8t"]
 
-[ext_resource type="Script" path="res://Scenes/sardine_smg.gd" id="1_qka42"]
+[ext_resource type="Script" path="res://Scenes/guns/sardine_smg.gd" id="1_qka42"]
 [ext_resource type="PackedScene" uid="uid://cf33bvkfuax1f" path="res://Scenes/sardine_projectile.tscn" id="2_d423k"]
 [ext_resource type="Script" path="res://Scenes/guns/WeaponGfx.gd" id="3_su6o2"]
 [ext_resource type="Texture2D" uid="uid://dlsdyyvycpjkr" path="res://Sprites/FishHandless/SardineCanNoHands.png" id="4_hk7nl"]
@@ -156,10 +156,11 @@ stream_0/weight = 1.0
 [node name="SardineSMG" type="RigidBody2D" node_paths=PackedStringArray("animation", "rigidbody", "gfx", "shoot_point")]
 z_index = 6
 collision_layer = 2
-collision_mask = 137
+collision_mask = 138
 gravity_scale = 0.0
 freeze = true
-linear_damp = 0.5
+linear_damp_mode = 1
+linear_damp = 10.0
 script = ExtResource("1_qka42")
 shoot_rate = 0.05
 animation = NodePath("AnimationPlayer")
@@ -171,6 +172,7 @@ projectile = ExtResource("2_d423k")
 projectile_speed = 750.0
 projectile_damage = 8
 projectile_lifetime = 0.35
+rumble_info = Vector2(0.05, 0.3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(17, 0)

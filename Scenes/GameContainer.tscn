@@ -1,22 +1,24 @@
-[gd_scene load_steps=23 format=3 uid="uid://j4a4x4nt27m2"]
+[gd_scene format=3 uid="uid://j4a4x4nt27m2"]
 
 [ext_resource type="PackedScene" uid="uid://2wffpt3c3ygt" path="res://Scenes/game_manager.tscn" id="1_l04mu"]
 [ext_resource type="PackedScene" uid="uid://dy1v8qv6rfib2" path="res://Scenes/world.tscn" id="1_v3bfn"]
-[ext_resource type="Script" path="res://Scenes/player_joining.gd" id="2_ekmqj"]
+[ext_resource type="Script" uid="uid://dw6m3orlp4oug" path="res://Scenes/player_joining.gd" id="2_ekmqj"]
 [ext_resource type="PackedScene" uid="uid://df2qlsuxgg8m7" path="res://Scenes/player.tscn" id="3_al4fi"]
-[ext_resource type="Script" path="res://demo/player_manager.gd" id="4_80ujy"]
-[ext_resource type="Script" path="res://Scenes/RoundManager.gd" id="5_1h57y"]
-[ext_resource type="Script" path="res://Scenes/PlayerTracker.gd" id="6_c3l50"]
-[ext_resource type="Script" path="res://Scripts/RoundScoreDisplay.gd" id="6_fvqie"]
-[ext_resource type="Script" path="res://Scripts/ScoreManager.gd" id="7_kgq12"]
-[ext_resource type="Script" path="res://Scenes/GunManager.gd" id="8_3xf31"]
-[ext_resource type="Script" path="res://Scripts/ProjectileManager.gd" id="8_j7y3a"]
+[ext_resource type="Script" uid="uid://bg00ydasdhlcs" path="res://demo/player_manager.gd" id="4_80ujy"]
+[ext_resource type="Script" uid="uid://mo66r3pylxe0" path="res://Scenes/RoundManager.gd" id="5_1h57y"]
+[ext_resource type="Script" uid="uid://dibu6eyt30rh6" path="res://Scenes/PlayerTracker.gd" id="6_c3l50"]
+[ext_resource type="Script" uid="uid://1y1rifisfp2v" path="res://Scripts/RoundScoreDisplay.gd" id="6_fvqie"]
+[ext_resource type="Script" uid="uid://3vkcunpxjfai" path="res://Scripts/ScoreManager.gd" id="7_kgq12"]
+[ext_resource type="Script" uid="uid://dkwxr5pp17uam" path="res://Scenes/GunManager.gd" id="8_3xf31"]
+[ext_resource type="Script" uid="uid://dcidvinwxwmip" path="res://Scripts/ProjectileManager.gd" id="8_j7y3a"]
 [ext_resource type="PackedScene" uid="uid://llsoqoi5kfof" path="res://Scenes/smart_camera.tscn" id="9_2m3y3"]
-[ext_resource type="Script" path="res://Scenes/fps_counter.gd" id="11_efxkm"]
+[ext_resource type="Script" uid="uid://ca5piyn4h8ucp" path="res://Scenes/fps_counter.gd" id="11_efxkm"]
 
-[sub_resource type="Environment" id="Environment_6nbnb"]
+[sub_resource type="Environment" id="Environment_fae8b"]
+background_mode = 3
 glow_enabled = true
-glow_bloom = 1.0
+adjustment_enabled = true
+adjustment_saturation = 1.05
 
 [sub_resource type="SystemFont" id="SystemFont_hs18x"]
 
@@ -145,9 +147,9 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_blrk0"]
 _data = {
-"RESET": SubResource("Animation_plo50"),
-"round_over_intro": SubResource("Animation_oj606"),
-"round_over_outro": SubResource("Animation_d78nl")
+&"RESET": SubResource("Animation_plo50"),
+&"round_over_intro": SubResource("Animation_oj606"),
+&"round_over_outro": SubResource("Animation_d78nl")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_5guri"]
@@ -160,7 +162,7 @@ font_size = 32
 shadow_size = 3
 shadow_color = Color(0, 0, 0, 0.188235)
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1579133440]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,56 +170,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=2097129527]
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1495191415]
 handle_input_locally = false
 audio_listener_enable_2d = true
-size = Vector2i(1920, 1080)
+size = Vector2i(2560, 1440)
 render_target_update_mode = 4
 
-[node name="GameManager" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_l04mu")]
+[node name="GameManager" parent="SubViewportContainer/SubViewport" unique_id=1529408504 instance=ExtResource("1_l04mu")]
 
-[node name="PlayerJoining" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+[node name="PlayerJoining" type="Node" parent="SubViewportContainer/SubViewport/GameManager" unique_id=218389218 node_paths=PackedStringArray("player_parent")]
 script = ExtResource("2_ekmqj")
 player_scene = ExtResource("3_al4fi")
+player_parent = NodePath("PlayerManager/PlayerParent")
 
-[node name="PlayerManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager/PlayerJoining"]
+[node name="PlayerManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager/PlayerJoining" unique_id=2088226586]
 script = ExtResource("4_80ujy")
 
-[node name="RoundManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("round_score_display")]
+[node name="PlayerParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager/PlayerJoining/PlayerManager" unique_id=1293518344]
+z_index = 1
+
+[node name="RoundManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager" unique_id=177569191 node_paths=PackedStringArray("round_score_display")]
 script = ExtResource("5_1h57y")
 round_score_display = NodePath("../../../../GUI/RoundOverCanvas")
 
-[node name="PlayerTracker" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+[node name="PlayerTracker" type="Node" parent="SubViewportContainer/SubViewport/GameManager" unique_id=2125746464]
 script = ExtResource("6_c3l50")
 player_cols = Array[Color]([Color(0.878431, 0.784314, 0.447059, 1), Color(0.690196, 0.227451, 0.282353, 1), Color(0.360784, 0.545098, 0.576471, 1), Color(0.243137, 0.411765, 0.345098, 1)])
 
-[node name="ScoreManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager"]
+[node name="ScoreManager" type="Node" parent="SubViewportContainer/SubViewport/GameManager" unique_id=1486314120]
 script = ExtResource("7_kgq12")
 
-[node name="GunsParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("gun_parent")]
+[node name="GunsParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager" unique_id=1318364938 node_paths=PackedStringArray("gun_parent")]
 script = ExtResource("8_3xf31")
 gun_parent = NodePath(".")
 
-[node name="BulletsParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager" node_paths=PackedStringArray("projectile_parent")]
+[node name="BulletsParent" type="Node2D" parent="SubViewportContainer/SubViewport/GameManager" unique_id=300447324 node_paths=PackedStringArray("projectile_parent")]
 script = ExtResource("8_j7y3a")
 projectile_parent = NodePath(".")
 
-[node name="SmartCamera" parent="SubViewportContainer/SubViewport/GameManager" instance=ExtResource("9_2m3y3")]
+[node name="SmartCamera" parent="SubViewportContainer/SubViewport/GameManager" unique_id=888939251 instance=ExtResource("9_2m3y3")]
 default_zoom = 1.0
 cam_zoom_speed = 1.0
 cam_pan_speed = 5.0
 
-[node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_v3bfn")]
+[node name="World" parent="SubViewportContainer/SubViewport" unique_id=110302041 instance=ExtResource("1_v3bfn")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
-environment = SubResource("Environment_6nbnb")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=1861907519]
+environment = SubResource("Environment_fae8b")
 
-[node name="GUI" type="Control" parent="."]
+[node name="GUI" type="Control" parent="." unique_id=588182001]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -225,7 +231,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FPS" type="Label" parent="GUI"]
+[node name="FPS" type="Label" parent="GUI" unique_id=41078987]
+visible = false
 layout_mode = 1
 offset_right = 49.0
 offset_bottom = 23.0
@@ -233,7 +240,8 @@ text = "144"
 label_settings = SubResource("LabelSettings_ukd1w")
 script = ExtResource("11_efxkm")
 
-[node name="RoundOverCanvas" type="Control" parent="GUI" node_paths=PackedStringArray("scores_intro_animation", "label_list", "round_num")]
+[node name="RoundOverCanvas" type="Control" parent="GUI" unique_id=2015231845 node_paths=PackedStringArray("scores_intro_animation", "label_list", "round_num")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -245,13 +253,11 @@ scores_intro_animation = NodePath("AnimationPlayer")
 label_list = [NodePath("RoundDetails/VBoxContainer/p1"), NodePath("RoundDetails/VBoxContainer/p2"), NodePath("RoundDetails/VBoxContainer/p3"), NodePath("RoundDetails/VBoxContainer/p4")]
 round_num = NodePath("RoundDetails/RoundNum")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/RoundOverCanvas"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/RoundOverCanvas" unique_id=682115268]
 root_node = NodePath("../Fade")
-libraries = {
-"": SubResource("AnimationLibrary_blrk0")
-}
+libraries/ = SubResource("AnimationLibrary_blrk0")
 
-[node name="Fade" type="ColorRect" parent="GUI/RoundOverCanvas"]
+[node name="Fade" type="ColorRect" parent="GUI/RoundOverCanvas" unique_id=1727034730]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -260,7 +266,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0705882, 0.0705882, 0.0705882, 0)
 
-[node name="RoundDetails" type="Control" parent="GUI/RoundOverCanvas"]
+[node name="RoundDetails" type="Control" parent="GUI/RoundOverCanvas" unique_id=1366931478]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -275,7 +281,7 @@ offset_bottom = 223.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RoundNum" type="Label" parent="GUI/RoundOverCanvas/RoundDetails"]
+[node name="RoundNum" type="Label" parent="GUI/RoundOverCanvas/RoundDetails" unique_id=1381416690]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -287,7 +293,7 @@ grow_horizontal = 2
 text = "Round ##"
 label_settings = SubResource("LabelSettings_5guri")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/RoundOverCanvas/RoundDetails"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/RoundOverCanvas/RoundDetails" unique_id=1086899885]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -301,25 +307,25 @@ offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="p1" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+[node name="p1" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer" unique_id=572119076]
 layout_mode = 2
 text = "p1"
 label_settings = SubResource("LabelSettings_bk4tr")
 horizontal_alignment = 1
 
-[node name="p2" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+[node name="p2" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer" unique_id=701967784]
 layout_mode = 2
 text = "p2"
 label_settings = SubResource("LabelSettings_bk4tr")
 horizontal_alignment = 1
 
-[node name="p3" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+[node name="p3" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer" unique_id=273331499]
 layout_mode = 2
 text = "p3"
 label_settings = SubResource("LabelSettings_bk4tr")
 horizontal_alignment = 1
 
-[node name="p4" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer"]
+[node name="p4" type="Label" parent="GUI/RoundOverCanvas/RoundDetails/VBoxContainer" unique_id=360441496]
 layout_mode = 2
 text = "p4"
 label_settings = SubResource("LabelSettings_bk4tr")

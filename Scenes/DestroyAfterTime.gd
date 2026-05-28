@@ -1,11 +1,14 @@
-extends Node2D
+extends Node
+
+@export var destroy_target : Node
+@export var destroy_time := 3.0;
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	destroy_time -= delta;
+	if destroy_time <= 0:
+		if(destroy_target):
+			destroy_target.queue_free()
+		else:
+			print("no destroy target, destroying self..")
+			queue_free()

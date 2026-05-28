@@ -14,12 +14,16 @@ var special_vel := Vector2.ZERO;
 var special_vel_drag = 0.98;
 
 var movement_overridden := false;
-var move_multiplier := 0.0; # multiplies all movement, acts as an interface for other nodes to cripple/speed up player.
+var move_multiplier := 1.0; # multiplies all movement, acts as an interface for other nodes to cripple/speed up player.
+
+var is_running : bool = false;
+
 
 @onready var weapon = $Weapon;
 
 func _ready():
 	player = owner as Player
+	move_multiplier = 1.0;
 
 
 
@@ -30,6 +34,20 @@ func _physics_process(delta):
 	var move_vec = player.controls.get_move_input_vec();
 	player.animation.set_running(move_vec.length() > 0);
 
+	# if move_vec.length() > 0: 
+	# 	if !is_running:
+	# 		player.animation.set_running(true);
+	# 		is_running = true;
+	# 		print("shit");
+	# else:
+	# 	if is_running:
+	# 		player.animation.set_running(false);
+	# 		is_running = false;
+	# 		print("fart");
+
+		
+
+	player.animation.set_running(move_vec.length() > 0);
 	# print(move_multiplier)
 
 	var raw_movement : Vector2 = move_vec.normalized() * accel * move_multiplier * delta;
